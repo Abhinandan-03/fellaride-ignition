@@ -1,23 +1,24 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useApp } from '../../store/AppContext';
 
 export default function FindRide() {
-  useEffect(() => {
-    const refreshBtn = document.getElementById('search-refresh-btn');
-    if (refreshBtn) {
-      const handleRefresh = () => {
-        const icon = refreshBtn.querySelector('.material-symbols-outlined');
-        if (icon) {
-          icon.classList.add('animate-spin');
-          setTimeout(() => icon.classList.remove('animate-spin'), 600);
-        }
-      };
-      refreshBtn.addEventListener('click', handleRefresh);
-      return () => refreshBtn.removeEventListener('click', handleRefresh);
-    }
-  }, []);
+  const navigate = useNavigate();
+  const { joinRide } = useApp();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => setIsRefreshing(false), 600);
+  };
+
+  const handleJoinRide = (rideId = 'ride-1') => {
+    joinRide(rideId);
+    navigate('/app/ride-confirmed');
+  };
+
   return (
-    <>
-      <aside className="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between select-none"><div className="flex flex-col flex-1 overflow-y-auto"><div className="px-space-md py-space-md flex items-center justify-between bg-surface-container-lowest"><div className="flex items-center gap-space-sm"><img alt="FellaRide Logo" className="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEaJIEfVPj3eOn2dEWzrNAHc3gN0cliRPY7yxmFGihQznibvL6M690a7XcRCso4fUAtIfcShqfgpa2o8s433IxDlUjA7Svq_Joqe76Pv0BGfKubf0RNIGs9FtRGzGmvFoCeEaea8BWXwafDO1Wp4iqQ01w0ZUtCpVfbKssR2OOLwODpxOsrZPVxXUi_Sh-IGQZzDVKc3s8jdGl-V5A0gAzIT9ja3wnMohZDmMooqpO9WF07Ucpevyw" /><div className="flex flex-col"><span className="font-headline-sm text-headline-sm text-primary tracking-tight">FellaRide</span><span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">v2.4</span></div></div><span className="px-space-xs py-0.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full tracking-wider uppercase">COMMUNITY OS</span></div><nav className="flex-1 px-space-sm py-space-xs flex flex-col gap-space-xs" data-active-classes="bg-primary text-on-primary font-bold"><div className="px-space-sm pt-space-sm pb-space-xs font-label-sm text-label-sm uppercase tracking-wider text-outline">OVERVIEW</div><a aria-current="page" className="flex items-center justify-between px-space-sm py-space-sm rounded-lg transition-all bg-primary text-on-primary font-bold" data-path="command-center" href="#"><span className="flex items-center gap-space-sm font-label-lg text-label-lg"><span className="material-symbols-outlined text-base">dashboard</span>Command Center</span><span className="w-1.5 h-1.5 rounded-full bg-secondary"></span></a><div className="px-space-sm pt-space-md pb-space-xs font-label-sm text-label-sm uppercase tracking-wider text-outline">DISCOVER</div><a className="flex items-center px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-lg text-label-lg" data-path="community-radar" href="#"><span className="material-symbols-outlined mr-space-sm text-base">radar</span>Community Radar</a><a className="flex items-center px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-lg text-label-lg" data-path="communities" href="#"><span className="material-symbols-outlined mr-space-sm text-base">hub</span>Communities</a><div className="px-space-sm pt-space-md pb-space-xs font-label-sm text-label-sm uppercase tracking-wider text-outline">ACTIVATE</div><a className="flex items-center px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-lg text-label-lg" data-path="connectors" href="#"><span className="material-symbols-outlined mr-space-sm text-base">share</span>Connectors</a><a className="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ghost-demand" href="#"><span className="flex items-center gap-space-sm font-label-lg text-label-lg"><span className="material-symbols-outlined text-base">sensors</span>Ghost Demand</span><span className="px-space-xs py-0.5 bg-secondary text-on-secondary font-label-sm text-label-sm rounded-full animate-pulse">LIVE</span></a><a className="flex items-center px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-lg text-label-lg" data-path="activation" href="#"><span className="material-symbols-outlined mr-space-sm text-base">bolt</span>Activation</a><div className="px-space-sm pt-space-md pb-space-xs font-label-sm text-label-sm uppercase tracking-wider text-outline">GROW</div><a className="flex items-center justify-between px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="butterfly-effect" href="#"><span className="flex items-center gap-space-sm font-label-lg text-label-lg"><span className="material-symbols-outlined text-base">flare</span>Butterfly Effect</span><span className="material-symbols-outlined text-base text-secondary">auto_awesome</span></a><a className="flex items-center px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-lg text-label-lg" data-path="community-health" href="#"><span className="material-symbols-outlined mr-space-sm text-base">vital_signs</span>Community Health</a><div className="px-space-sm pt-space-md pb-space-xs font-label-sm text-label-sm uppercase tracking-wider text-outline">RIDER</div><a className="flex items-center px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-lg text-label-lg" data-path="find-a-ride" href="#"><span className="material-symbols-outlined mr-space-sm text-base">travel_explore</span>Find a Ride</a><a className="flex items-center px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-label-lg text-label-lg" data-path="offer-a-ride" href="#"><span className="material-symbols-outlined mr-space-sm text-base">directions_car</span>Offer a Ride</a></nav></div><div className="p-space-sm bg-surface-container-low flex flex-col gap-space-xs"><div className="flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-lowest"><div className="flex items-center gap-space-sm"><span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span><span className="font-telemetry-mono text-telemetry-mono text-on-surface font-semibold">Demo: Northside</span></div><button className="text-on-surface-variant hover:text-on-surface"><span className="material-symbols-outlined text-base">sync_alt</span></button></div><a className="flex items-center gap-space-sm p-space-sm rounded-lg hover:bg-surface-container transition-colors" data-path="operator-profile" href="#"><div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span className="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div className="flex flex-col min-w-0 flex-1"><span className="font-label-md text-label-md text-on-surface truncate">Sarah Chen</span><span className="font-body-sm text-body-sm text-on-surface-variant truncate">Growth Lead</span></div><span className="material-symbols-outlined text-on-surface-variant text-base">tune</span></a></div></aside><div className="pl-72"><header className="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg gap-space-md"><div className="flex items-center gap-space-md"><img alt="FellaRide Logo" className="h-8 w-auto object-contain hidden lg:block" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEaJIEfVPj3eOn2dEWzrNAHc3gN0cliRPY7yxmFGihQznibvL6M690a7XcRCso4fUAtIfcShqfgpa2o8s433IxDlUjA7Svq_Joqe76Pv0BGfKubf0RNIGs9FtRGzGmvFoCeEaea8BWXwafDO1Wp4iqQ01w0ZUtCpVfbKssR2OOLwODpxOsrZPVxXUi_Sh-IGQZzDVKc3s8jdGl-V5A0gAzIT9ja3wnMohZDmMooqpO9WF07Ucpevyw" /><button className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" data-path="communities"><span className="material-symbols-outlined text-base text-secondary">location_on</span><span className="font-semibold">Community:</span><span className="text-on-surface-variant">Northside</span><span className="material-symbols-outlined text-base ml-space-xs">expand_more</span></button><div className="relative flex items-center"><span className="material-symbols-outlined absolute left-3 text-outline text-base">search</span><input className="w-64 h-9 pl-9 pr-4 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Search members or routes..." type="text" /></div></div><div className="hidden xl:flex items-center gap-space-sm px-space-md py-1.5 rounded-full bg-surface-container-low"><span className="material-symbols-outlined text-base text-secondary">sensors</span><span className="font-telemetry-mono text-telemetry-mono text-on-surface"><strong className="font-semibold">Status:</strong> Phase 5/9: ACTIVATE <span className="text-outline-variant">•</span> 1 Connector → 32 Users</span></div><div className="flex items-center gap-space-sm"><button className="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md hover:bg-secondary/90 transition-all" data-path="ghost-demand"><span className="material-symbols-outlined text-base">radar</span>+ Scan Demand</button><button className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all"><span className="material-symbols-outlined text-base">download</span>Export</button><button className="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors"><span className="material-symbols-outlined text-xl">notifications</span><span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-error text-on-error font-label-sm text-label-sm font-bold">3</span></button><div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span className="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main className="w-full pt-16 bg-background min-h-screen px-space-lg py-space-lg"><div className="flex flex-col w-full">
+    <div className="flex flex-col w-full">
 <div className="flex flex-col gap-space-lg max-w-7xl mx-auto w-full pb-space-xl">
 {/*  Top Metadata & Header Section  */}
 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
@@ -124,10 +125,14 @@ export default function FindRide() {
 <span className="material-symbols-outlined text-sm text-secondary">tune</span>
 <span>Route 44 corridor · Minimal detour</span>
 </div>
-<button className="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-semibold shadow-sm hover:opacity-95 active:scale-[0.98] transition-all" id="search-refresh-btn">
-<span className="material-symbols-outlined text-base">refresh</span>
-              Find Rides
-            </button>
+<button
+  className="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-semibold shadow-sm hover:opacity-95 active:scale-[0.98] transition-all"
+  id="search-refresh-btn"
+  onClick={handleRefresh}
+>
+  <span className={`material-symbols-outlined text-base ${isRefreshing ? 'animate-spin' : ''}`}>refresh</span>
+  Find Rides
+</button>
 </div>
 </div>
 {/*  Match Banner  */}
@@ -278,7 +283,10 @@ export default function FindRide() {
 <span className="material-symbols-outlined text-secondary text-base">eco</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Saves 4.2 kg CO₂</span>
 </div>
-<button className="px-space-lg py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-bold shadow-md hover:bg-secondary/90 active:scale-[0.98] transition-all flex items-center gap-2" data-path="ride-confirmed">
+<button
+  className="px-space-lg py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-bold shadow-md hover:bg-secondary/90 active:scale-[0.98] transition-all flex items-center gap-2"
+  onClick={() => handleJoinRide('ride-1')}
+>
 <span>Join Ride</span>
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </button>
@@ -315,9 +323,12 @@ export default function FindRide() {
 <span className="font-headline-sm text-headline-sm text-on-surface font-bold">₹80</span>
 <span className="font-label-sm text-label-sm text-on-surface-variant">2 seats open</span>
 </div>
-<button className="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" data-path="ride-confirmed">
-                Join Ride
-              </button>
+<button
+  className="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors"
+  onClick={() => handleJoinRide('ride-2')}
+>
+  Join Ride
+</button>
 </div>
 </div>
 {/*  Match 3: Priya Shah (Urgency badge)  */}
@@ -351,9 +362,12 @@ export default function FindRide() {
 </div>
 <span className="font-label-sm text-label-sm text-outline">Hyundai Creta</span>
 </div>
-<button className="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" data-path="ride-confirmed">
-                Join Ride
-              </button>
+<button
+  className="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors"
+  onClick={() => handleJoinRide('ride-3')}
+>
+  Join Ride
+</button>
 </div>
 </div>
 </div>
@@ -363,7 +377,7 @@ export default function FindRide() {
 <span className="material-symbols-outlined text-secondary text-base">sensors</span>
 <span>4 more neighbors seeking rides to Central District between 6–7 PM.</span>
 </div>
-<a className="text-secondary font-label-sm text-label-sm font-bold hover:underline shrink-0" data-path="ghost-demand" href="#">View Demand</a>
+<Link to="/app/ghost-demand" className="text-secondary font-label-sm text-label-sm font-bold hover:underline shrink-0">View Demand</Link>
 </div>
 </div>
 {/*  RIGHT COLUMN (~38% Desktop: 5 cols equivalent in 12-col)  */}
@@ -507,7 +521,11 @@ export default function FindRide() {
 </div>
 {/*  Action Buttons  */}
 <div className="flex flex-col gap-2 pt-1">
-<button className="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-bold shadow-md hover:bg-secondary/90 active:scale-[0.98] transition-all flex items-center justify-center gap-2" data-path="ride-confirmed" id="confirm-ride-btn">
+<button
+  className="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-bold shadow-md hover:bg-secondary/90 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+  id="confirm-ride-btn"
+  onClick={() => handleJoinRide('ride-1')}
+>
 <span>Join Ride</span>
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </button>
@@ -522,11 +540,8 @@ export default function FindRide() {
         </div>
       </div>
     </div>
-  </div>
-</main>
-</div>
-</>
-);
+    </div>
+  );
 }
 
 

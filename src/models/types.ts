@@ -77,6 +77,8 @@ export interface Ride {
   totalSeats: number;
   status: 'available' | 'confirmed' | 'completed';
   passengerIds: string[];
+  pricePerSeat?: number;
+  corridorId?: string;
 }
 
 export interface CurrentUser extends Person {
