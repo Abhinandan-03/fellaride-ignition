@@ -22,7 +22,7 @@
 - **Ghost Demand**: Anticipates seat shortages and transit bottlenecks before they occur.
 - **Community Activation**: Step-by-step launchpad transforming a single connection into a self-sustaining network.
 - **Butterfly Effect**: Interactive growth ripple visualization illustrating the organic cascade: `1 → 3 → 8 → 17 → 32`.
-- **Community Health**: Real-time vitality index tracking participation, supply ratios, and repeat usage.
+- **Community Health**: Composite vitality index tracking participation, supply ratios, and repeat usage.
 - **Find a Ride & Offer a Ride**: Direct fuel-sharing between verified peers with 0% platform commission.
 
 ---
@@ -32,8 +32,8 @@
 - **Framework**: React 19 + TypeScript + Vite
 - **Styling**: Tailwind CSS with custom Stitch design tokens
 - **Routing**: React Router DOM (v7)
-- **Icons**: Google Material Symbols Outlined
-- **State**: React Context API + Local Storage persistence
+- **Icons**: Lucide React + Material Symbols
+- **State**: React Context API (deterministic in-memory state model)
 
 ---
 

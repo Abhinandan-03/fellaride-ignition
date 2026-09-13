@@ -63,13 +63,13 @@ export default function TopBar() {
     if (path.includes('community-health')) {
       return (
         <span className="font-mono text-mono text-on-surface">
-          <strong className="font-semibold">Community Health:</strong> 82/100 Score
+          <strong className="font-semibold">Community Health:</strong> {community.state.health.score}/100 Score
         </span>
       );
     }
     return (
       <span className="font-mono text-mono text-on-surface">
-        <strong className="font-semibold">Northside Community:</strong> 23 Active Members
+        <strong className="font-semibold">Northside Community:</strong> {community.state.activeMembers} Active Members
       </span>
     );
   };

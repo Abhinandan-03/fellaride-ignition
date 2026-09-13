@@ -17,7 +17,7 @@ export default function Activation() {
                 <p className="font-body-lg text-body-lg text-on-surface-variant mt-0.5">Start with one connection.</p>
               </div>
               <div className="flex items-center gap-space-sm shrink-0">
-                <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" data-path="connectors">
+                <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" onClick={() => navigate('/app/connectors')}>
                   <span className="material-symbols-outlined text-base">arrow_back</span>
                   Back
                 </button>
@@ -157,7 +157,13 @@ export default function Activation() {
                               <span className="font-body-sm text-body-sm text-on-surface-variant">24 initial spots reserved</span>
                             </div>
                           </div>
-                          <button className="px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-all whitespace-nowrap shadow-sm" data-path="butterfly-effect">
+                          <button
+                            className="px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-all whitespace-nowrap shadow-sm"
+                            onClick={() => {
+                              activateCommunity();
+                              navigate('/app/butterfly-effect');
+                            }}
+                          >
                             Join & Activate
                           </button>
                         </div>

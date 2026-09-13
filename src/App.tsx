@@ -57,6 +57,7 @@ const AppRouter = () => {
             <Route index element={<CommandCenter />} />
             <Route path="radar" element={<Radar />} />
             <Route path="communities" element={<CommunityView />} />
+            <Route path="community" element={<Navigate to="/app/communities" replace />} />
             <Route path="connectors" element={<Connectors />} />
             <Route path="ghost-demand" element={<GhostDemand />} />
             <Route path="activation" element={<Activation />} />

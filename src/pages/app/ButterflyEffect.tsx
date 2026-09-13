@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useApp } from '../../store/AppContext';
 
 export default function ButterflyEffect() {
+  const { growthStage, replayGrowth } = useApp();
+
   useEffect(() => {
     const waveData = [
       {
@@ -9,36 +12,36 @@ export default function ButterflyEffect() {
         label: "Wave 0 · 1 Connector (0h)",
         ratio: "1 → 1",
         members: 1,
-        drivers: 0,
+        drivers: 1,
         passengers: 0,
-        rides: 0,
+        rides: 1,
       },
       {
         wave: 1,
         label: "Wave 1 · 3 Invites (4h)",
-        ratio: "1 → 4",
-        members: 4,
+        ratio: "1 → 3",
+        members: 3,
         drivers: 1,
         passengers: 2,
-        rides: 1,
+        rides: 2,
       },
       {
         wave: 2,
         label: "Wave 2 · 8 Members (11h)",
-        ratio: "1 → 11",
-        members: 11,
+        ratio: "1 → 8",
+        members: 8,
         drivers: 3,
-        passengers: 6,
-        rides: 5,
+        passengers: 5,
+        rides: 4,
       },
       {
         wave: 3,
         label: "Wave 3 · 17 Members (20h)",
-        ratio: "1 → 20",
-        members: 20,
-        drivers: 6,
-        passengers: 11,
-        rides: 9,
+        ratio: "1 → 17",
+        members: 17,
+        drivers: 5,
+        passengers: 12,
+        rides: 8,
       },
       {
         wave: 4,
@@ -135,6 +138,7 @@ export default function ButterflyEffect() {
       const handler = () => {
         clearInterval(replayInterval);
         const wave = parseInt(btn.getAttribute('data-wave') || '4');
+        replayGrowth(wave);
         applyWave(wave);
       };
       btn.addEventListener('click', handler);
@@ -144,12 +148,14 @@ export default function ButterflyEffect() {
     const handleReplay = () => {
       clearInterval(replayInterval);
       let step = 0;
+      replayGrowth(step);
       applyWave(step);
       replayInterval = setInterval(() => {
         step++;
         if (step > 4) {
           clearInterval(replayInterval);
         } else {
+          replayGrowth(step);
           applyWave(step);
         }
       }, 850);
@@ -195,7 +201,7 @@ export default function ButterflyEffect() {
       nodeListeners.push({ node, enter, leave });
     });
 
-    applyWave(4);
+    applyWave(growthStage !== undefined ? growthStage : 4);
 
     return () => {
       clearInterval(replayInterval);
@@ -206,7 +212,7 @@ export default function ButterflyEffect() {
         node.removeEventListener('mouseleave', leave);
       });
     };
-  }, []);
+  }, [growthStage, replayGrowth]);
   return (
     <div className="flex flex-col w-full space-y-space-lg">
 {/*  TOP HEADER & CONTROLS  */}

@@ -1,10 +1,24 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useApp } from '../../store/AppContext';
 
 export default function RideConfirmed() {
   const navigate = useNavigate();
+  const { confirmedRide, rides } = useApp();
   const [showCalToast, setShowCalToast] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+
+  const activeRide = confirmedRide || rides.find((r) => r.id === 'ride-1') || rides[0];
+  const driverName = activeRide?.driverName || 'Alex Morgan';
+  const initials = driverName.split(' ').map((n: string) => n[0]).join('').slice(0, 2);
+  const departureTime = activeRide?.departureTime || '6:00 PM';
+  const origin = activeRide?.origin || 'Northside Community';
+  const destination = activeRide?.destination || 'Central District';
+  const vehicle = activeRide?.vehicle || 'Toyota RAV4';
+  const vehiclePlate = activeRide?.vehiclePlate || 'Navy · NS-44';
+  const price = activeRide?.price || 80;
+  const matchScore = activeRide?.matchScore || 96;
+  const isAlex = activeRide?.id === 'ride-1' || driverName.includes('Alex');
 
   const handleCalendar = () => {
     setShowCalToast(true);
@@ -33,7 +47,7 @@ export default function RideConfirmed() {
         Ride Confirmed
       </h1>
 <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-        You're in. Matched with <strong className="text-on-surface font-semibold">Alex Morgan</strong> · Northside Community.
+        You're in. Matched with <strong className="text-on-surface font-semibold">{driverName}</strong> · Northside Community.
       </p>
 </div>
 <div className="flex items-center gap-space-sm self-start lg:self-center">
@@ -62,7 +76,7 @@ export default function RideConfirmed() {
 <div className={`${showCalToast ? 'flex' : 'hidden'} transition-all duration-300 ease-out mb-space-md p-space-sm px-space-md rounded-xl bg-surface-container-lowest shadow-md items-center justify-between`} id="calToast">
 <div className="flex items-center gap-space-sm">
 <span className="material-symbols-outlined text-secondary text-base">check_circle</span>
-<span className="font-label-md text-label-md text-on-surface">Added: Northside → Central District · Today 6:00 PM</span>
+<span className="font-label-md text-label-md text-on-surface">Added: {origin} → {destination} · Today {departureTime}</span>
 </div>
 <span className="font-mono text-mono text-outline">Saved</span>
 </div>
@@ -90,16 +104,16 @@ export default function RideConfirmed() {
 <span className="font-mono text-mono text-outline uppercase tracking-wider">Route</span>
 <div className="flex items-baseline gap-space-sm flex-wrap">
 <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
-                Northside Community
+                {origin}
               </h2>
 <span className="material-symbols-outlined text-secondary text-xl">arrow_forward</span>
 <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
-                Central District
+                {destination}
               </h2>
 </div>
 <div className="flex items-center gap-space-sm mt-1">
 <span className="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-md text-label-md">
-                Today · 6:00 PM
+                Today · {departureTime}
               </span>
 <span className="font-mono text-mono text-secondary font-semibold">
                 32 mins · 14.2 km
@@ -111,7 +125,7 @@ export default function RideConfirmed() {
 <div className="flex items-center gap-space-md">
 <div className="relative shrink-0">
 <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-on-primary font-headline-sm text-headline-sm shadow-sm">
-                  AM
+                  {initials}
                 </div>
 <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center" title="Identity & Address Verified">
 <span className="material-symbols-outlined text-[13px]">verified</span>
@@ -119,9 +133,9 @@ export default function RideConfirmed() {
 </div>
 <div className="flex flex-col min-w-0">
 <div className="flex items-center gap-space-xs flex-wrap">
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Alex Morgan</span>
-<span className="px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm">Driver</span>
-<span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Connector</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">{driverName}</span>
+<span className="px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm">{activeRide?.driverRole || 'Driver'}</span>
+{isAlex && <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Connector</span>}
 </div>
 <span className="font-body-sm text-body-sm text-on-surface-variant truncate mt-0.5">
                   Northside Community
@@ -134,8 +148,8 @@ export default function RideConfirmed() {
 </div>
 <div className="flex flex-col md:items-end bg-surface-container-lowest md:bg-transparent p-space-sm md:p-0 rounded-lg w-full md:w-auto">
 <span className="font-label-sm text-label-sm text-outline uppercase">Vehicle</span>
-<span className="font-label-md text-label-md text-on-surface font-semibold">Toyota RAV4</span>
-<span className="font-mono text-mono text-on-surface-variant">Navy · NS-44</span>
+<span className="font-label-md text-label-md text-on-surface font-semibold">{vehicle}</span>
+<span className="font-mono text-mono text-on-surface-variant">{vehiclePlate}</span>
 </div>
 </div>
 {/*  Route Timeline  */}
@@ -143,7 +157,7 @@ export default function RideConfirmed() {
 <div className="flex items-center justify-between">
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Route Overlap</span>
 <span className="font-mono text-mono text-secondary font-semibold bg-surface-container px-2 py-0.5 rounded">
-                96% Route Overlap
+                {matchScore}% Route Overlap
               </span>
 </div>
 {/*  Route Graph Visualization  */}
@@ -159,20 +173,20 @@ export default function RideConfirmed() {
 <div className="flex items-center justify-between">
 <div>
 <div className="flex items-center gap-2">
-<span className="font-label-lg text-label-lg text-on-surface font-semibold">Northside Community</span>
+<span className="font-label-lg text-label-lg text-on-surface font-semibold">{origin}</span>
 <span className="px-1.5 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant">Pickup</span>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Main Entrance Loop</p>
 </div>
 <div className="text-right">
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">6:00 PM</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{departureTime}</span>
 <span className="block font-mono text-mono text-outline">DEPART</span>
 </div>
 </div>
 <div className="flex items-center justify-between">
 <div>
 <div className="flex items-center gap-2">
-<span className="font-label-lg text-label-lg text-on-surface font-semibold">Central District</span>
+<span className="font-label-lg text-label-lg text-on-surface font-semibold">{destination}</span>
 <span className="px-1.5 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant">Dropoff</span>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Transit Plaza Bay</p>
@@ -193,7 +207,7 @@ export default function RideConfirmed() {
 <span className="material-symbols-outlined text-secondary text-base">airline_seat_recline_normal</span>
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Seat 1 · Window</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Confirmed passenger: Kiran</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">Confirmed passenger: You</span>
 </div>
 <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
 <div className="flex items-center justify-between">
@@ -201,11 +215,11 @@ export default function RideConfirmed() {
 <span className="font-mono text-mono text-secondary font-bold">₹0 FEE</span>
 </div>
 <div className="flex items-baseline gap-2">
-<span className="font-headline-md text-headline-md text-on-surface font-bold">₹80</span>
+<span className="font-headline-md text-headline-md text-on-surface font-bold">₹{price}</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">direct to driver</span>
 </div>
 <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">
-                UPI to Alex upon boarding · zero markup
+                UPI to {driverName.split(' ')[0]} upon boarding · zero markup
               </span>
 </div>
 </div>

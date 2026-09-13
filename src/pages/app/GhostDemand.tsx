@@ -12,7 +12,7 @@ export default function GhostDemand() {
                   <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Ghost Demand</h1>
                   <span className="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold tracking-wide uppercase">
                     <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
-                    Live Engine
+                    Simulated Engine
                   </span>
                 </div>
                 <p className="font-body-md text-body-md text-on-surface-variant">

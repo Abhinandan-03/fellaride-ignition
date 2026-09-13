@@ -1,4 +1,23 @@
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useApp } from '../../store/AppContext';
+
 export default function CommunityView() {
+  const navigate = useNavigate();
+  const { community, isActivated, rides, joinRide } = useApp();
+  const [copied, setCopied] = useState(false);
+
+  const handleJoin = (rideId: string) => {
+    joinRide(rideId);
+    navigate('/app/ride-confirmed');
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard?.writeText('https://fellaride.io/join/northside?token=am96-ns408');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="flex flex-col w-full gap-space-lg">
 {/*  Top Navigation & Meta Bar  */}
@@ -19,20 +38,20 @@ export default function CommunityView() {
 <div className="flex flex-wrap items-center gap-space-sm">
 <div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md">
 <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-<span>Active</span>
+<span>{isActivated ? 'Active' : 'Cold-Start'}</span>
 </div>
 <div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface font-label-md text-label-md">
 <span className="material-symbols-outlined text-sm text-secondary">groups</span>
-<span>23 members</span>
+<span>{community.state.activeMembers} members</span>
 </div>
 <button className="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
 <span className="material-symbols-outlined text-base text-secondary">person_add</span>
 <span>Invite</span>
 </button>
-<a className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg text-secondary font-label-md text-label-md hover:bg-secondary-container/20 transition-colors" data-path="community-health" href="#">
+<Link className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg text-secondary font-label-md text-label-md hover:bg-secondary-container/20 transition-colors" to="/app/community-health">
 <span>Health</span>
 <span className="material-symbols-outlined text-base">arrow_forward</span>
-</a>
+</Link>
 </div>
 </div>
 {/*  Hero / Community Identity Banner  */}
@@ -69,20 +88,20 @@ export default function CommunityView() {
 <div className="relative w-16 h-16 flex items-center justify-center">
 <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
 <path className="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3"></path>
-<path className="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray="82, 100" strokeLinecap="round" strokeWidth="3"></path>
+<path className="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${community.state.health.score}, 100`} strokeLinecap="round" strokeWidth="3"></path>
 </svg>
 <div className="absolute flex flex-col items-center justify-center text-center">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold leading-none">82</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-bold leading-none">{community.state.health.score}</span>
 <span className="font-label-sm text-[8px] text-outline uppercase tracking-wider">/100</span>
 </div>
 </div>
 <div className="flex flex-col">
 <div className="flex items-center gap-space-xs">
-<span className="font-label-md text-label-md text-on-surface font-bold">82/100</span>
-<span className="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-[10px]">Healthy & Growing</span>
+<span className="font-label-md text-label-md text-on-surface font-bold">{community.state.health.score}/100</span>
+<span className="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-[10px]">{isActivated ? 'Healthy & Growing' : 'Cold-Start Phase'}</span>
 </div>
-<span className="font-mono text-mono text-secondary font-semibold mt-0.5">18 → 82 Growth</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Participation 88% · Supply 84%</span>
+<span className="font-mono text-mono text-secondary font-semibold mt-0.5">{isActivated ? `18 → ${community.state.health.score} Growth` : `Baseline ${community.state.health.score}`}</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">Participation {community.state.health.activeParticipation}% · Supply {community.state.health.driverSupply}%</span>
 </div>
 </div>
 </div>
@@ -93,7 +112,7 @@ export default function CommunityView() {
 <span className="material-symbols-outlined text-base">directions_car</span>
 </div>
 <div className="flex flex-col">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">8 Drivers</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.drivers} Drivers</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Verified vehicles</span>
 </div>
 </div>
@@ -102,7 +121,7 @@ export default function CommunityView() {
 <span className="material-symbols-outlined text-base text-secondary">person</span>
 </div>
 <div className="flex flex-col">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">15 Passengers</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.passengers} Passengers</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Active commuters</span>
 </div>
 </div>
@@ -111,7 +130,7 @@ export default function CommunityView() {
 <span className="material-symbols-outlined text-base text-secondary">alt_route</span>
 </div>
 <div className="flex flex-col">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">14 Rides</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.rides} Rides</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Weekly rides</span>
 </div>
 </div>
@@ -120,7 +139,7 @@ export default function CommunityView() {
 <span className="material-symbols-outlined text-base">replay</span>
 </div>
 <div className="flex flex-col">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">78% Retention</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.health.repeatUsage}% Retention</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Repeat usage</span>
 </div>
 </div>
@@ -143,7 +162,7 @@ export default function CommunityView() {
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Northside → Central District around 6 PM.</p>
 </div>
-<button className="w-full flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg hover:bg-secondary/90 transition-all shadow-sm" data-path="find-a-ride">
+<button className="w-full flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg hover:bg-secondary/90 transition-all shadow-sm" onClick={() => navigate('/app/find-ride')}>
 <span className="material-symbols-outlined text-base">travel_explore</span>
 <span>Find a Ride</span>
 </button>
@@ -159,7 +178,7 @@ export default function CommunityView() {
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Share empty seats on Route 44. ₹0 fee.</p>
 </div>
-<button className="w-full flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary/90 transition-all shadow-sm" data-path="offer-a-ride">
+<button className="w-full flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary/90 transition-all shadow-sm" onClick={() => navigate('/app/offer-ride')}>
 <span className="material-symbols-outlined text-base">add_circle</span>
 <span>Offer a Ride</span>
 </button>
@@ -174,157 +193,94 @@ export default function CommunityView() {
 </div>
 {/*  Filter Tabs  */}
 <div className="flex items-center bg-surface-container-low p-1 rounded-lg">
-<button className="px-space-sm py-1 rounded font-label-sm text-label-sm bg-surface-container-lowest text-on-surface shadow-xs font-semibold">All (3)</button>
-<button className="px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface">Today (2)</button>
-<button className="px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface">Tomorrow (1)</button>
+<button className="px-space-sm py-1 rounded font-label-sm text-label-sm bg-surface-container-lowest text-on-surface shadow-xs font-semibold">All ({rides.length})</button>
+<button className="px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface">Today ({rides.filter(r => !r.id.includes('priya') && !r.departureTime?.includes('Tomorrow')).length})</button>
+<button className="px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface">Tomorrow ({rides.filter(r => r.id.includes('priya') || r.departureTime?.includes('Tomorrow')).length})</button>
 </div>
 </div>
 {/*  Rides Feed  */}
 <div className="flex flex-col gap-space-md">
-{/*  RIDE CARD 1: Sam Carter  */}
-<div className="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-space-sm transition-all hover:bg-surface-container">
-<div className="flex flex-wrap items-center justify-between gap-space-xs">
-<div className="flex items-center gap-space-xs">
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Northside</span>
-<span className="material-symbols-outlined text-sm text-outline">arrow_forward</span>
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Central District</span>
-<span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Today · 5:30 PM</span>
-</div>
-<span className="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
-<span className="material-symbols-outlined text-xs">schedule</span> In 45m
+{rides.map((ride) => {
+  const isAlex = ride.id === 'ride-1' || ride.driverName?.includes('Alex');
+  const isPriya = ride.id === 'ride-3' || ride.driverName?.includes('Priya');
+  const initials = (ride.driverName || 'Driver').split(' ').map((n: string) => n[0]).join('').slice(0, 2);
+  const isFull = ride.availableSeats <= 0;
+
+  return (
+    <div key={ride.id} className={`relative overflow-hidden rounded-lg bg-surface-container-low p-space-md flex flex-col gap-space-sm shadow-xs transition-all hover:bg-surface-container ${isAlex ? 'border-l-4 border-secondary pl-3' : ''}`}>
+      <div className="flex flex-wrap items-center justify-between gap-space-xs">
+        <div className="flex items-center gap-space-xs">
+          <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{ride.origin?.split(' ')[0] || 'Northside'}</span>
+          <span className="material-symbols-outlined text-sm text-outline">arrow_forward</span>
+          <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{ride.destination}</span>
+          <span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">
+            {isPriya ? 'Tomorrow · ' : 'Today · '}{ride.departureTime}
+          </span>
+        </div>
+        {isAlex ? (
+          <span className="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
+            <span className="material-symbols-outlined text-xs">verified</span> {ride.matchScore || 96}% Match
+          </span>
+        ) : isPriya ? (
+          <span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm">
+            Morning Commute
+          </span>
+        ) : (
+          <span className="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
+            <span className="material-symbols-outlined text-xs">schedule</span> In 45m
+          </span>
+        )}
+      </div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs">
+        <div className="flex items-center gap-space-sm">
+          <div className={`w-9 h-9 rounded-full ${isAlex ? 'bg-secondary text-on-secondary' : 'bg-primary text-on-primary'} flex items-center justify-center font-bold text-xs shadow-xs`}>
+            {initials}
+          </div>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-1.5">
+              <span className="font-label-lg text-label-lg text-on-surface font-bold">{ride.driverName}</span>
+              {isAlex && (
+                <span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-secondary-container text-on-secondary-container font-semibold">Connector</span>
+              )}
+              <span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface font-semibold">{ride.driverRole || 'Driver'}</span>
+            </div>
+            <div className="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
+              <span className="material-symbols-outlined text-xs text-secondary fill-current">star</span>
+              <span className="font-semibold text-on-surface">{isAlex ? '5.0' : isPriya ? '4.8' : '4.9'}</span>
+              <span>· {ride.vehicle || 'Toyota RAV4'}</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-space-md">
+          <div className="flex flex-col items-end">
+            <div className="flex items-center gap-1">
+              <span className={`font-mono text-mono font-bold ${isFull ? 'text-outline' : ride.availableSeats === 1 ? 'text-error' : 'text-secondary'}`}>
+                {isFull ? '0 seats open' : `${ride.availableSeats} ${ride.availableSeats === 1 ? 'seat left' : 'seats open'}`}
               </span>
-</div>
-<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs">
-<div className="flex items-center gap-space-sm">
-<div className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xs">SC</div>
-<div className="flex flex-col">
-<div className="flex items-center gap-1.5">
-<span className="font-label-lg text-label-lg text-on-surface">Sam Carter</span>
-<span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface font-semibold">Driver</span>
-<span className="font-label-sm text-label-sm text-outline">· 3 rides</span>
-</div>
-<div className="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-xs text-secondary fill-current">star</span>
-<span className="font-semibold text-on-surface">4.9</span>
-<span>· Honda Civic</span>
-</div>
-</div>
-</div>
-<div className="flex items-center gap-space-md">
-<div className="flex flex-col items-end">
-<div className="flex items-center gap-1">
-<span className="font-mono text-mono font-bold text-secondary" id="seats-sam">3 seats open</span>
-<div className="flex gap-0.5">
-<span className="w-2 h-2 rounded-full bg-secondary"></span>
-<span className="w-2 h-2 rounded-full bg-secondary"></span>
-<span className="w-2 h-2 rounded-full bg-secondary"></span>
-<span className="w-2 h-2 rounded-full bg-outline-variant"></span>
-</div>
-</div>
-<span className="font-mono text-mono text-outline">₹80</span>
-</div>
-<button className="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-secondary hover:text-on-secondary shadow-xs transition-all flex items-center gap-1" data-path="ride-confirmed" id="btn-sam">
-<span>Join Ride</span>
-</button>
-</div>
-</div>
-</div>
-{/*  RIDE CARD 2: Alex Morgan  */}
-<div className="relative overflow-hidden rounded-lg bg-surface-container-low p-space-md flex flex-col gap-space-sm shadow-xs transition-all hover:bg-surface-container">
-<div className="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>
-<div className="flex flex-wrap items-center justify-between gap-space-xs pl-2">
-<div className="flex items-center gap-space-xs">
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Northside</span>
-<span className="material-symbols-outlined text-sm text-outline">arrow_forward</span>
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Central District</span>
-<span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-semibold">Today · 6:00 PM</span>
-</div>
-<span className="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
-<span className="material-symbols-outlined text-xs">verified</span> 96% Match
-              </span>
-</div>
-<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs pl-2">
-<div className="flex items-center gap-space-sm">
-<div className="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs shadow-xs">AM</div>
-<div className="flex flex-col">
-<div className="flex items-center gap-1.5">
-<span className="font-label-lg text-label-lg text-on-surface font-bold">Alex Morgan</span>
-<span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-secondary-container text-on-secondary-container font-semibold">Connector</span>
-<span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-surface-container text-on-surface font-semibold">Driver</span>
-</div>
-<div className="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-xs text-secondary fill-current">star</span>
-<span className="font-semibold text-on-surface">5.0</span>
-<span>· Toyota RAV4</span>
-</div>
-</div>
-</div>
-<div className="flex items-center gap-space-md">
-<div className="flex flex-col items-end">
-<div className="flex items-center gap-1">
-<span className="font-mono text-mono font-bold text-secondary" id="seats-alex">2 seats open</span>
-<div className="flex gap-0.5">
-<span className="w-2 h-2 rounded-full bg-secondary"></span>
-<span className="w-2 h-2 rounded-full bg-secondary"></span>
-<span className="w-2 h-2 rounded-full bg-outline-variant"></span>
-<span className="w-2 h-2 rounded-full bg-outline-variant"></span>
-</div>
-</div>
-<span className="font-mono text-mono text-outline">₹80</span>
-</div>
-<button className="px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md hover:bg-secondary/90 shadow-sm transition-all flex items-center gap-1" data-path="ride-confirmed" id="btn-alex">
-<span className="material-symbols-outlined text-sm">airline_seat_recline_normal</span>
-<span>Join Ride</span>
-</button>
-</div>
-</div>
-</div>
-{/*  RIDE CARD 3: Priya Shah  */}
-<div className="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-space-sm transition-all hover:bg-surface-container">
-<div className="flex flex-wrap items-center justify-between gap-space-xs">
-<div className="flex items-center gap-space-xs">
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Northside</span>
-<span className="material-symbols-outlined text-sm text-outline">arrow_forward</span>
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Central District</span>
-<span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Tomorrow · 8:15 AM</span>
-</div>
-<span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm">Morning Commute</span>
-</div>
-<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs">
-<div className="flex items-center gap-space-sm">
-<div className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xs">PS</div>
-<div className="flex flex-col">
-<div className="flex items-center gap-1.5">
-<span className="font-label-lg text-label-lg text-on-surface">Priya Shah</span>
-<span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface font-semibold">Driver</span>
-<span className="font-label-sm text-label-sm text-outline">· 5 rides</span>
-</div>
-<div className="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-xs text-secondary fill-current">star</span>
-<span className="font-semibold text-on-surface">4.8</span>
-<span>· Hyundai Creta</span>
-</div>
-</div>
-</div>
-<div className="flex items-center gap-space-md">
-<div className="flex flex-col items-end">
-<div className="flex items-center gap-1">
-<span className="font-mono text-mono font-bold text-error" id="seats-priya">1 seat left</span>
-<div className="flex gap-0.5">
-<span className="w-2 h-2 rounded-full bg-secondary"></span>
-<span className="w-2 h-2 rounded-full bg-outline-variant"></span>
-<span className="w-2 h-2 rounded-full bg-outline-variant"></span>
-<span className="w-2 h-2 rounded-full bg-outline-variant"></span>
-</div>
-</div>
-<span className="font-mono text-mono text-outline">₹70</span>
-</div>
-<button className="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-secondary hover:text-on-secondary shadow-xs transition-all flex items-center gap-1" data-path="ride-confirmed" id="btn-priya">
-<span>Join Ride</span>
-</button>
-</div>
-</div>
-</div>
+              <div className="flex gap-0.5">
+                {Array.from({ length: ride.totalSeats || 4 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`w-2 h-2 rounded-full ${i < ride.availableSeats ? 'bg-secondary' : 'bg-outline-variant'}`}
+                  />
+                ))}
+              </div>
+            </div>
+            <span className="font-mono text-mono text-outline">₹{ride.price || 80}</span>
+          </div>
+          <button
+            className={`px-space-md py-1.5 rounded-lg ${isFull ? 'bg-surface-container text-outline cursor-not-allowed' : isAlex ? 'bg-secondary text-on-secondary hover:bg-secondary/90 shadow-sm' : 'bg-surface-container-lowest text-on-surface hover:bg-secondary hover:text-on-secondary shadow-xs'} font-label-md text-label-md transition-all flex items-center gap-1`}
+            disabled={isFull}
+            onClick={() => handleJoin(ride.id)}
+          >
+            {isAlex && <span className="material-symbols-outlined text-sm">airline_seat_recline_normal</span>}
+            <span>{isFull ? 'Full' : 'Join Ride'}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+})}
 </div>
 {/*  Integrity Guarantee Notice  */}
 <div className="flex items-center gap-space-sm p-space-sm bg-surface-container-low rounded-lg text-on-surface-variant font-body-sm text-body-sm">
@@ -342,7 +298,7 @@ export default function CommunityView() {
 <span className="material-symbols-outlined text-secondary text-lg">flare</span>
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Community Growth</h3>
 </div>
-<span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Active</span>
+<span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">{isActivated ? 'Active' : 'Cold-Start'}</span>
 </div>
 {/*  Progression Stepper  */}
 <div className="relative flex items-center justify-between pt-space-sm pb-space-xs">
@@ -356,22 +312,22 @@ export default function CommunityView() {
 <span className="font-label-sm text-[10px] text-on-surface-variant uppercase">Connector</span>
 </div>
 <div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-mono text-xs font-bold">8</div>
+<div className="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-mono text-xs font-bold">{community.state.drivers || 8}</div>
 <span className="font-label-sm text-[10px] text-on-surface-variant uppercase">Drivers</span>
 </div>
 <div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-mono text-xs font-bold ring-4 ring-secondary-container shadow-sm animate-bounce">23</div>
-<span className="font-label-sm text-[10px] text-secondary font-bold uppercase">Members</span>
+<div className={`w-8 h-8 rounded-full ${isActivated ? 'bg-secondary text-on-secondary ring-4 ring-secondary-container shadow-sm animate-bounce' : 'bg-surface-container text-outline'} flex items-center justify-center font-mono text-xs font-bold`}>{community.state.activeMembers}</div>
+<span className={`font-label-sm text-[10px] ${isActivated ? 'text-secondary font-bold' : 'text-outline'} uppercase`}>Members</span>
 </div>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">
-          Started with 1 connector (Alex Morgan). 23 active members this week.
+          {isActivated ? `Started with 1 connector (Alex Morgan). ${community.state.activeMembers} active members this week.` : 'Community in cold-start phase. Mobilize connectors to start network.'}
         </p>
 </div>
 {/*  2. Community Members Section  */}
 <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Members (23)</h3>
+<h3 className="font-headline-sm text-headline-sm text-on-surface">Members ({community.state.activeMembers})</h3>
 <span className="material-symbols-outlined text-outline text-base hover:text-on-surface cursor-pointer">search</span>
 </div>
 <div className="flex flex-col gap-space-xs max-h-72 overflow-y-auto pr-1">
@@ -523,16 +479,16 @@ export default function CommunityView() {
 <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
 <span className="font-mono text-mono text-on-surface font-semibold">Route 44 · Northside ⇄ Central District</span>
 <span className="hidden sm:inline text-outline-variant">•</span>
-<span className="hidden sm:inline font-body-sm text-body-sm text-on-surface-variant">3 rides available</span>
+<span className="hidden sm:inline font-body-sm text-body-sm text-on-surface-variant">{rides.length} rides available</span>
 </div>
 <div className="flex items-center gap-space-xs">
 <button className="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
         Invite
       </button>
-<button className="px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors" data-path="offer-a-ride">
+<button className="px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors" onClick={() => navigate('/app/offer-ride')}>
         Offer a Ride
       </button>
-<button className="px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md hover:bg-secondary/90 transition-colors" data-path="find-a-ride">
+<button className="px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md hover:bg-secondary/90 transition-colors" onClick={() => navigate('/app/find-ride')}>
         Find a Ride
       </button>
 </div>
@@ -552,7 +508,7 @@ export default function CommunityView() {
 <p className="font-body-sm text-body-sm text-on-surface-variant">Share this link with verified neighbors.</p>
 <div className="flex items-center gap-space-xs bg-surface-container-low p-2 rounded-lg">
 <input className="bg-transparent text-on-surface font-mono text-body-sm w-full outline-none" id="invite-url" readOnly type="text" value="https://fellaride.io/join/northside?token=am96-ns408" />
-<button className="px-3 py-1 bg-secondary text-on-secondary rounded text-xs font-semibold shrink-0" id="btn-copy">Copy</button>
+<button className="px-3 py-1 bg-secondary text-on-secondary rounded text-xs font-semibold shrink-0" id="btn-copy" onClick={handleCopy}>{copied ? 'Copied' : 'Copy'}</button>
 </div>
 <div className="flex justify-end gap-space-sm pt-space-xs">
 <button className="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md">Done</button>

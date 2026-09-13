@@ -1,4 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../store/AppContext';
+
 export default function CommandCenter() {
+  const navigate = useNavigate();
+  const { isActivated, community } = useApp();
+
   return (
     <div className="flex flex-col w-full gap-space-lg">
             {/* TOP HEADER & CONTROLS */}
@@ -24,7 +30,7 @@ export default function CommandCenter() {
                   <span className="material-symbols-outlined text-[18px] text-on-surface-variant">description</span>
                   Export
                 </button>
-                <button className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-surface-container-highest hover:text-on-surface transition-all" data-path="ghost-demand">
+                <button className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-surface-container-highest hover:text-on-surface transition-all" onClick={() => navigate('/app/ghost-demand')}>
                   <span className="material-symbols-outlined text-[18px] text-secondary-fixed">radar</span>
                   Scan Demand
                 </button>
@@ -230,7 +236,7 @@ export default function CommandCenter() {
                   <div className="text-body-sm text-on-surface-variant mt-1 border-t border-surface-container pt-1">
                     <strong className="text-on-surface font-semibold">Why Northside?</strong> High commute overlap + strong connector potential.
                   </div>
-                  <button className="mt-1 self-start px-3 py-1 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-surface-container-highest hover:text-on-surface transition-all shadow-sm" data-path="communities">
+                  <button className="mt-1 self-start px-3 py-1 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-surface-container-highest hover:text-on-surface transition-all shadow-sm" onClick={() => navigate('/app/communities')}>
                     View Community
                   </button>
                 </div>
@@ -243,7 +249,7 @@ export default function CommandCenter() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-4 h-1 bg-surface-tint rounded"></span>
-                    <span>Live Corridor</span>
+                    <span>Active Corridor</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-on-tertiary-container"></span>
@@ -301,7 +307,7 @@ export default function CommandCenter() {
                           <div className="flex items-center gap-2">
                             <h3 className="font-headline-sm text-headline-sm text-on-surface">Northside Community</h3>
                             <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                              91/100 Potential
+                              {isActivated ? `Active · ${community.state.health.score}/100` : '91/100 Potential'}
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
@@ -310,7 +316,7 @@ export default function CommandCenter() {
                           </div>
                         </div>
                       </div>
-                      <button className="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shrink-0" data-path="communities">
+                      <button className="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shrink-0" onClick={() => navigate('/app/communities')}>
                         Analyze <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                       </button>
                     </div>
@@ -341,7 +347,9 @@ export default function CommandCenter() {
                           Connector: <strong className="text-on-surface">Alex Morgan</strong> (Score: 96)
                         </span>
                       </div>
-                      <span className="font-mono text-[11px] text-secondary font-medium">Ready to activate</span>
+                      <span className="font-mono text-[11px] text-secondary font-medium">
+                        {isActivated ? 'Active Community' : 'Ready to activate'}
+                      </span>
                     </div>
                   </div>
 
@@ -576,10 +584,10 @@ export default function CommandCenter() {
 
                   {/* Actions */}
                   <div className="flex items-center gap-space-sm pt-2">
-                    <button className="flex-1 py-2.5 px-4 rounded-xl bg-primary text-on-primary font-label-md text-label-md text-center shadow-sm hover:bg-surface-container-highest hover:text-on-surface transition-all" data-path="ghost-demand">
+                    <button className="flex-1 py-2.5 px-4 rounded-xl bg-primary text-on-primary font-label-md text-label-md text-center shadow-sm hover:bg-surface-container-highest hover:text-on-surface transition-all" onClick={() => navigate('/app/ghost-demand')}>
                       View Opportunity
                     </button>
-                    <button className="flex-1 py-2.5 px-4 rounded-xl bg-secondary text-on-secondary font-label-md text-label-md text-center shadow-sm hover:bg-secondary/90 transition-all flex items-center justify-center gap-1.5" data-path="activation">
+                    <button className="flex-1 py-2.5 px-4 rounded-xl bg-secondary text-on-secondary font-label-md text-label-md text-center shadow-sm hover:bg-secondary/90 transition-all flex items-center justify-center gap-1.5" onClick={() => navigate('/app/activation')}>
                       <span className="material-symbols-outlined text-[18px]">bolt</span>
                       Mobilize Connectors
                     </button>
@@ -609,7 +617,7 @@ export default function CommandCenter() {
                       <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
                         Ready to start carpool loop for 24 riders in Northside.
                       </p>
-                      <button className="mt-2 text-secondary font-label-sm text-label-sm font-semibold flex items-center gap-1 hover:underline" data-path="activation">
+                      <button className="mt-2 text-secondary font-label-sm text-label-sm font-semibold flex items-center gap-1 hover:underline" onClick={() => navigate('/app/activation')}>
                         Send Invite →
                       </button>
                     </div>

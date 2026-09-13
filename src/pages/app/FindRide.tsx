@@ -4,8 +4,11 @@ import { useApp } from '../../store/AppContext';
 
 export default function FindRide() {
   const navigate = useNavigate();
-  const { joinRide } = useApp();
+  const { rides, joinRide, community, isActivated } = useApp();
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const featuredRide = rides.find((r) => r.id === 'ride-1') || rides[0];
+  const otherRides = rides.filter((r) => r.id !== featuredRide?.id);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -27,20 +30,20 @@ export default function FindRide() {
 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Find a Ride</h1>
 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm uppercase tracking-wider font-semibold">
 <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-            Northside Active
+            {isActivated ? 'Northside Active' : 'Northside Cold-Start'}
           </span>
 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low font-mono text-mono text-on-surface-variant">
 <span className="text-on-surface font-semibold">Northside Community</span>
 <span className="text-outline-variant">•</span>
-<span>8 Drivers</span>
+<span>{community.state.drivers} Drivers</span>
 <span className="text-outline-variant">•</span>
-<span>15 Passengers</span>
+<span>{community.state.passengers} Passengers</span>
 <span className="text-outline-variant">•</span>
-<span className="text-secondary font-semibold">14 Rides</span>
+<span className="text-secondary font-semibold">{community.state.rides} Rides</span>
 </span>
 </div>
 <p className="font-body-md text-body-md text-on-surface-variant">
-          Northside → Central District · Around 6 PM · 3 matches
+          Northside → Central District · Around 6 PM · {rides.length} matches
         </p>
 </div>
 {/*  Quick corridor indicators  */}
@@ -73,7 +76,7 @@ export default function FindRide() {
 <h2 className="font-headline-sm text-headline-sm text-on-surface">Route & Schedule</h2>
 </div>
 <span className="font-label-sm text-label-sm text-secondary bg-secondary-container/40 px-2 py-0.5 rounded-full font-semibold">
-              3 Matches
+              {rides.length} Matches
             </span>
 </div>
 <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
@@ -140,12 +143,12 @@ export default function FindRide() {
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
 <span className="flex h-2.5 w-2.5 rounded-full bg-secondary"></span>
-<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">3 matches</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{rides.length} matches</span>
 </div>
 <span className="font-mono text-mono text-outline">Updated 2m ago</span>
 </div>
 <p className="font-body-md text-body-md text-on-surface-variant">
-            3 verified Northside neighbors heading along Route 44 around 6:00 PM.
+            {rides.length} verified Northside neighbors heading along Route 44 around 6:00 PM.
           </p>
 <div className="flex items-center gap-space-xs flex-wrap pt-1">
 <span className="px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-secondary font-semibold">
@@ -237,28 +240,24 @@ export default function FindRide() {
 <div className="flex flex-col gap-1 p-space-sm bg-surface-container rounded-lg">
 <div className="flex items-center justify-between">
 <span className="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Seats</span>
-<span className="font-label-sm text-label-sm text-secondary font-bold">2 Open Seats</span>
+<span className="font-label-sm text-label-sm text-secondary font-bold">{featuredRide?.availableSeats ?? 0} Open Seats</span>
 </div>
 <div className="flex items-center gap-2 mt-1">
 <div className="flex items-center gap-1.5">
-{/*  Seat 1 Filled  */}
-<div className="w-6 h-6 rounded-md bg-secondary flex items-center justify-center text-on-secondary" title="Seat 1: Driver Alex">
-<span className="material-symbols-outlined text-xs">airline_seat_recline_normal</span>
+{Array.from({ length: featuredRide?.totalSeats || 4 }).map((_, i) => {
+  const isOpen = i < (featuredRide?.availableSeats ?? 0);
+  return isOpen ? (
+    <div key={i} className="w-6 h-6 rounded-md bg-surface-container-lowest border-2 border-dashed border-secondary flex items-center justify-center text-secondary" title={`Seat ${i + 1}: Open for You`}>
+      <span className="material-symbols-outlined text-xs">add</span>
+    </div>
+  ) : (
+    <div key={i} className="w-6 h-6 rounded-md bg-secondary flex items-center justify-center text-on-secondary" title={`Seat ${i + 1}: Occupied`}>
+      <span className="material-symbols-outlined text-xs">airline_seat_recline_normal</span>
+    </div>
+  );
+})}
 </div>
-{/*  Seat 2 Filled  */}
-<div className="w-6 h-6 rounded-md bg-secondary flex items-center justify-center text-on-secondary" title="Seat 2: Confirmed Peer">
-<span className="material-symbols-outlined text-xs">airline_seat_recline_normal</span>
-</div>
-{/*  Seat 3 Open  */}
-<div className="w-6 h-6 rounded-md bg-surface-container-lowest border-2 border-dashed border-secondary flex items-center justify-center text-secondary" title="Seat 3: Open for You">
-<span className="material-symbols-outlined text-xs">add</span>
-</div>
-{/*  Seat 4 Open  */}
-<div className="w-6 h-6 rounded-md bg-surface-container-lowest border-2 border-dashed border-secondary flex items-center justify-center text-secondary" title="Seat 4: Open">
-<span className="material-symbols-outlined text-xs">event_seat</span>
-</div>
-</div>
-<span className="font-body-sm text-body-sm text-on-surface-variant ml-2">Toyota RAV4 • Dark Navy</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant ml-2">{featuredRide?.vehicle || 'Toyota RAV4 • Dark Navy'}</span>
 </div>
 </div>
 {/*  Route Compatibility Progress  */}
@@ -284,10 +283,11 @@ export default function FindRide() {
 <span className="font-body-sm text-body-sm text-on-surface-variant">Saves 4.2 kg CO₂</span>
 </div>
 <button
-  className="px-space-lg py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-bold shadow-md hover:bg-secondary/90 active:scale-[0.98] transition-all flex items-center gap-2"
-  onClick={() => handleJoinRide('ride-1')}
+  className={`px-space-lg py-2.5 rounded-lg ${(!featuredRide || featuredRide.availableSeats <= 0) ? 'bg-surface-container text-outline cursor-not-allowed' : 'bg-secondary text-on-secondary shadow-md hover:bg-secondary/90 active:scale-[0.98]'} font-label-lg text-label-lg font-bold transition-all flex items-center gap-2`}
+  disabled={!featuredRide || featuredRide.availableSeats <= 0}
+  onClick={() => featuredRide && handleJoinRide(featuredRide.id)}
 >
-<span>Join Ride</span>
+<span>{(!featuredRide || featuredRide.availableSeats <= 0) ? 'Full' : 'Join Ride'}</span>
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </button>
 </div>
@@ -295,81 +295,65 @@ export default function FindRide() {
 {/*  OTHER MATCHING RIDES  */}
 <div className="flex flex-col gap-space-sm">
 <span className="font-label-sm text-label-sm uppercase text-outline tracking-wider font-semibold">
-            Other Matches
+            Other Matches ({otherRides.length})
           </span>
-{/*  Match 2: Sam Carter  */}
-<div className="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md hover:shadow-md transition-shadow">
-<div className="flex items-center gap-space-md">
-<div className="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-on-surface font-headline-sm text-headline-sm font-semibold">
-                SC
-              </div>
-<div className="flex flex-col">
-<div className="flex items-center gap-2">
-<span className="font-label-lg text-label-lg text-on-surface font-bold">Sam Carter</span>
-<span className="px-2 py-0.2 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm">Driver</span>
-<span className="font-mono text-label-sm text-outline">3 rides</span>
-</div>
-<div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
-<span className="font-semibold text-on-surface">5:30 PM</span>
-<span>•</span>
-<span>Northside → Central District</span>
-<span>•</span>
-<span className="text-secondary font-medium">91% match</span>
-</div>
-</div>
-</div>
-<div className="flex items-center justify-between sm:justify-end gap-space-md">
-<div className="flex flex-col items-start sm:items-end">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">₹80</span>
-<span className="font-label-sm text-label-sm text-on-surface-variant">2 seats open</span>
-</div>
-<button
-  className="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors"
-  onClick={() => handleJoinRide('ride-2')}
->
-  Join Ride
-</button>
-</div>
-</div>
-{/*  Match 3: Priya Shah (Urgency badge)  */}
-<div className="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md hover:shadow-md transition-shadow">
-<div className="flex items-center gap-space-md">
-<div className="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-on-surface font-headline-sm text-headline-sm font-semibold">
-                PS
-              </div>
-<div className="flex flex-col">
-<div className="flex items-center gap-2">
-<span className="font-label-lg text-label-lg text-on-surface font-bold">Priya Shah</span>
-<span className="px-2 py-0.2 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Driver</span>
-<span className="font-mono text-label-sm text-outline">5 rides</span>
-</div>
-<div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
-<span className="font-semibold text-on-surface">6:15 PM</span>
-<span>•</span>
-<span>Northside → Central District</span>
-<span>•</span>
-<span className="text-secondary font-medium">88% match</span>
-</div>
-</div>
-</div>
-<div className="flex items-center justify-between sm:justify-end gap-space-md">
-<div className="flex flex-col items-start sm:items-end">
-<div className="flex items-center gap-1.5">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">₹80</span>
-<span className="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold animate-pulse">
-                    1 seat left
-                  </span>
-</div>
-<span className="font-label-sm text-label-sm text-outline">Hyundai Creta</span>
-</div>
-<button
-  className="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors"
-  onClick={() => handleJoinRide('ride-3')}
->
-  Join Ride
-</button>
-</div>
-</div>
+{otherRides.map((ride) => {
+  const initials = (ride.driverName || 'Driver').split(' ').map((n: string) => n[0]).join('').slice(0, 2);
+  const isUrgent = ride.availableSeats === 1;
+  const isFull = ride.availableSeats <= 0;
+
+  return (
+    <div key={ride.id} className="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-md hover:shadow-md transition-shadow">
+      <div className="flex items-center gap-space-md">
+        <div className="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-on-surface font-headline-sm text-headline-sm font-semibold">
+          {initials}
+        </div>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
+            <span className="font-label-lg text-label-lg text-on-surface font-bold">{ride.driverName}</span>
+            <span className="px-2 py-0.2 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm">{ride.driverRole || 'Driver'}</span>
+            <span className="font-mono text-label-sm text-outline">verified</span>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+            <span className="font-semibold text-on-surface">{ride.departureTime}</span>
+            <span>•</span>
+            <span>{ride.origin} → {ride.destination}</span>
+            <span>•</span>
+            <span className="text-secondary font-medium">{ride.matchScore || 88}% match</span>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-between sm:justify-end gap-space-md">
+        <div className="flex flex-col items-start sm:items-end">
+          <div className="flex items-center gap-1.5">
+            <span className="font-headline-sm text-headline-sm text-on-surface font-bold">₹{ride.price || 80}</span>
+            {isUrgent ? (
+              <span className="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold animate-pulse">
+                1 seat left
+              </span>
+            ) : isFull ? (
+              <span className="px-2 py-0.5 rounded-full bg-surface-container text-outline font-label-sm text-label-sm">
+                Full
+              </span>
+            ) : (
+              <span className="font-label-sm text-label-sm text-on-surface-variant">
+                {ride.availableSeats} seats open
+              </span>
+            )}
+          </div>
+          <span className="font-label-sm text-label-sm text-outline">{ride.vehicle || 'Verified Vehicle'}</span>
+        </div>
+        <button
+          className={`px-space-md py-2 rounded-lg ${isFull ? 'bg-surface-container text-outline cursor-not-allowed' : 'bg-surface-container text-on-surface font-semibold hover:bg-surface-container-high'} font-label-md text-label-md transition-colors`}
+          disabled={isFull}
+          onClick={() => handleJoinRide(ride.id)}
+        >
+          {isFull ? 'Full' : 'Join Ride'}
+        </button>
+      </div>
+    </div>
+  );
+})}
 </div>
 {/*  Community Corridor Live Pulse Note  */}
 <div className="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
@@ -495,38 +479,39 @@ export default function FindRide() {
 </div>
 <div className="flex flex-col gap-2">
 <div className="flex items-center justify-between">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold" id="selected-driver-name">Alex Morgan</span>
-<span className="font-headline-sm text-headline-sm text-secondary font-bold" id="selected-cost">₹80</span>
+<span className="font-headline-sm text-headline-sm text-on-surface font-bold" id="selected-driver-name">{featuredRide?.driverName || 'Alex Morgan'}</span>
+<span className="font-headline-sm text-headline-sm text-secondary font-bold" id="selected-cost">₹{featuredRide?.price || 80}</span>
 </div>
-<span className="font-body-sm text-body-sm text-on-surface-variant" id="selected-vehicle">Toyota RAV4 · Dark Navy</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant" id="selected-vehicle">{featuredRide?.vehicle || 'Toyota RAV4 · Dark Navy'}</span>
 </div>
 <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-2 font-body-sm text-body-sm">
 <div className="flex items-start justify-between">
 <span className="text-outline">Pickup:</span>
-<span className="font-semibold text-on-surface text-right" id="selected-pickup">Northside Community</span>
+<span className="font-semibold text-on-surface text-right" id="selected-pickup">{featuredRide?.origin || 'Northside Community'}</span>
 </div>
 <div className="flex items-start justify-between">
 <span className="text-outline">Dropoff:</span>
-<span className="font-semibold text-on-surface text-right" id="selected-dropoff">Central District</span>
+<span className="font-semibold text-on-surface text-right" id="selected-dropoff">{featuredRide?.destination || 'Central District'}</span>
 </div>
 <div className="flex items-start justify-between">
 <span className="text-outline">Schedule:</span>
-<span className="font-semibold text-secondary text-right" id="selected-time">Today · 6:00 PM</span>
+<span className="font-semibold text-secondary text-right" id="selected-time">Today · {featuredRide?.departureTime || '6:00 PM'}</span>
 </div>
 </div>
 {/*  Confirmed Alert State (Hidden by default, toggled upon confirm)  */}
 <div className="hidden p-space-sm rounded-lg bg-secondary/15 text-secondary flex items-center gap-2 font-label-md text-label-md" id="confirmed-state-msg">
 <span className="material-symbols-outlined text-base">check_circle</span>
-<span>Ride confirmed with Alex Morgan.</span>
+<span>Ride confirmed with {featuredRide?.driverName || 'Alex Morgan'}.</span>
 </div>
 {/*  Action Buttons  */}
 <div className="flex flex-col gap-2 pt-1">
 <button
-  className="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-bold shadow-md hover:bg-secondary/90 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+  className={`w-full py-2.5 rounded-lg ${(!featuredRide || featuredRide.availableSeats <= 0) ? 'bg-surface-container text-outline cursor-not-allowed' : 'bg-secondary text-on-secondary shadow-md hover:bg-secondary/90 active:scale-[0.98]'} font-label-lg text-label-lg font-bold transition-all flex items-center justify-center gap-2`}
   id="confirm-ride-btn"
-  onClick={() => handleJoinRide('ride-1')}
+  disabled={!featuredRide || featuredRide.availableSeats <= 0}
+  onClick={() => featuredRide && handleJoinRide(featuredRide.id)}
 >
-<span>Join Ride</span>
+<span>{(!featuredRide || featuredRide.availableSeats <= 0) ? 'Full' : 'Join Ride'}</span>
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </button>
 {/*  Viral Growth Trigger  */}

@@ -1,7 +1,157 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CANONICAL_CONNECTOR } from '../../store/mockData';
+
+const CANDIDATES = [
+  {
+    id: 'alex',
+    name: 'Alex Morgan',
+    initials: 'AM',
+    community: 'Northside Community',
+    route: 'Northside Heights → Central Tech Hub',
+    score: CANONICAL_CONNECTOR.intelligence.score,
+    reach: CANONICAL_CONNECTOR.intelligence.reach,
+    driverPct: CANONICAL_CONNECTOR.intelligence.roleLikelihood.driver,
+    earlyAdopterPct: CANONICAL_CONNECTOR.intelligence.roleLikelihood.earlyAdopter,
+    passengerPct: CANONICAL_CONNECTOR.intelligence.roleLikelihood.passenger,
+    connectorPct: CANONICAL_CONNECTOR.intelligence.roleLikelihood.connector,
+    tag: 'Athletic Club Anchor',
+    rank: 1,
+    priorityLabel: 'Priority #1',
+    whyText: 'Athletic club organizer with direct daily route to Central Hub.',
+    whyHighlight: 'Highly connected within Northside.',
+    bullets: [
+      'Organizes weekly athletic group',
+      'Daily commute aligned with 19 riders',
+      '4 available carpool seats'
+    ],
+    breakdown: {
+      communityInfluence: CANONICAL_CONNECTOR.intelligence.scoreBreakdown.communityInfluence,
+      networkReach: CANONICAL_CONNECTOR.intelligence.scoreBreakdown.networkReach,
+      coordination: CANONICAL_CONNECTOR.intelligence.scoreBreakdown.coordinationActivity,
+      commuteRelevance: CANONICAL_CONNECTOR.intelligence.scoreBreakdown.commuteRelevance,
+    }
+  },
+  {
+    id: 'priya',
+    name: 'Priya Shah',
+    initials: 'PS',
+    community: 'Eastview Community',
+    route: 'Eastview Civic Hub → Metro Medical',
+    score: 94,
+    reach: 21,
+    driverPct: 89,
+    earlyAdopterPct: 92,
+    passengerPct: 15,
+    connectorPct: 94,
+    tag: 'Hospital Anchor',
+    rank: 2,
+    whyText: 'Hospital staff coordinator with consistent morning schedule.',
+    whyHighlight: 'Connects 21 healthcare commuters.',
+    bullets: [
+      'Coordinates hospital shift transitions',
+      'Morning departure at 7:15 AM',
+      'High trust score across Eastview'
+    ],
+    breakdown: {
+      communityInfluence: 92,
+      networkReach: 90,
+      coordination: 95,
+      commuteRelevance: 89,
+    }
+  },
+  {
+    id: 'sam',
+    name: 'Sam Chen',
+    initials: 'SC',
+    community: 'Northside Community',
+    route: 'Northside Loop → Central District',
+    score: 89,
+    reach: 16,
+    driverPct: 94,
+    earlyAdopterPct: 84,
+    passengerPct: 10,
+    connectorPct: 89,
+    tag: 'Driver Anchor',
+    rank: 3,
+    whyText: 'High-frequency corridor driver with 3 empty seats daily.',
+    whyHighlight: 'Immediate daily driver capacity.',
+    bullets: [
+      'Daily driver with 94% consistency',
+      'Route coincides with 14 commuters',
+      'High vehicle rating (4.9)'
+    ],
+    breakdown: {
+      communityInfluence: 87,
+      networkReach: 85,
+      coordination: 91,
+      commuteRelevance: 93,
+    }
+  },
+  {
+    id: 'david',
+    name: 'David Park',
+    initials: 'DP',
+    community: 'Eastview Community',
+    route: 'Eastview → Innovation Corridor',
+    score: 82,
+    reach: 11,
+    driverPct: 82,
+    earlyAdopterPct: 79,
+    passengerPct: 18,
+    connectorPct: 82,
+    tag: 'Tech Group',
+    rank: 4,
+    whyText: 'Civic group admin with 8 aligned team members.',
+    whyHighlight: 'Coordinates engineering team commute.',
+    bullets: [
+      'Manages 8 tech coworkers on same route',
+      'Flex-time morning departure',
+      'EV owner with charging access'
+    ],
+    breakdown: {
+      communityInfluence: 80,
+      networkReach: 78,
+      coordination: 84,
+      commuteRelevance: 86,
+    }
+  },
+  {
+    id: 'meera',
+    name: 'Meera Thomas',
+    initials: 'MT',
+    community: 'West End Community',
+    route: 'West End Square → University Station',
+    score: 75,
+    reach: 9,
+    driverPct: 76,
+    earlyAdopterPct: 80,
+    passengerPct: 22,
+    connectorPct: 75,
+    tag: 'Emerging',
+    rank: 5,
+    whyText: 'University commuter with regular morning departure.',
+    whyHighlight: 'Early adopter on university route.',
+    bullets: [
+      'Consistent 8:30 AM university run',
+      'Active campus corridor member',
+      '3 open passenger spots'
+    ],
+    breakdown: {
+      communityInfluence: 74,
+      networkReach: 72,
+      coordination: 77,
+      commuteRelevance: 77,
+    }
+  }
+];
 
 export default function Connectors() {
   const navigate = useNavigate();
+  const [selectedId, setSelectedId] = useState('alex');
+  const [contacted, setContacted] = useState<string | null>(null);
+
+  const selectedCandidate = CANDIDATES.find(c => c.id === selectedId) || CANDIDATES[0];
 
   return (
     <div className="flex flex-col w-full gap-space-lg">
@@ -131,7 +281,10 @@ export default function Connectors() {
                 {/* Candidates List */}
                 <div className="flex flex-col gap-space-sm">
                   {/* Candidate 1: Alex Morgan */}
-                  <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-md transition-all cursor-pointer relative overflow-hidden bg-gradient-to-r from-secondary-container/10 via-surface-container-lowest to-surface-container-lowest">
+                  <div
+                    className={`p-space-md rounded-xl bg-surface-container-lowest shadow-md transition-all cursor-pointer relative overflow-hidden ${selectedId === 'alex' ? 'ring-2 ring-secondary bg-gradient-to-r from-secondary-container/10 via-surface-container-lowest to-surface-container-lowest' : 'hover:shadow-md'}`}
+                    onClick={() => setSelectedId('alex')}
+                  >
                     <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>
                     <div className="flex flex-col gap-space-sm pl-2">
                       <div className="flex items-start justify-between gap-space-sm">
@@ -173,7 +326,7 @@ export default function Connectors() {
                       </p>
                       <div className="flex items-center justify-between pt-1 font-mono text-mono text-on-surface-variant">
                         <span>Why Alex? <strong className="text-on-surface font-semibold">Highly connected within Northside.</strong></span>
-                        <button className="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-semibold hover:underline" onClick={() => navigate('/app/activation')}>
+                        <button className="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-semibold hover:underline" onClick={(e) => { e.stopPropagation(); navigate('/app/activation'); }}>
                           Activate Alex <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </button>
                       </div>
@@ -181,8 +334,12 @@ export default function Connectors() {
                   </div>
 
                   {/* Candidate 2: Priya Shah */}
-                  <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer">
-                    <div className="flex flex-col gap-space-sm">
+                  <div
+                    className={`p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer relative overflow-hidden ${selectedId === 'priya' ? 'ring-2 ring-secondary bg-gradient-to-r from-secondary-container/10 via-surface-container-lowest to-surface-container-lowest' : ''}`}
+                    onClick={() => setSelectedId('priya')}
+                  >
+                    {selectedId === 'priya' && <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>}
+                    <div className="flex flex-col gap-space-sm pl-2">
                       <div className="flex items-start justify-between gap-space-sm">
                         <div className="flex items-center gap-space-sm">
                           <div className="relative">
@@ -230,8 +387,12 @@ export default function Connectors() {
                   </div>
 
                   {/* Candidate 3: Sam Chen */}
-                  <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer">
-                    <div className="flex flex-col gap-space-sm">
+                  <div
+                    className={`p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer relative overflow-hidden ${selectedId === 'sam' ? 'ring-2 ring-secondary bg-gradient-to-r from-secondary-container/10 via-surface-container-lowest to-surface-container-lowest' : ''}`}
+                    onClick={() => setSelectedId('sam')}
+                  >
+                    {selectedId === 'sam' && <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>}
+                    <div className="flex flex-col gap-space-sm pl-2">
                       <div className="flex items-start justify-between gap-space-sm">
                         <div className="flex items-center gap-space-sm">
                           <div className="relative">
@@ -278,8 +439,12 @@ export default function Connectors() {
                   </div>
 
                   {/* Candidate 4: David Park */}
-                  <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer">
-                    <div className="flex flex-col gap-space-sm">
+                  <div
+                    className={`p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer relative overflow-hidden ${selectedId === 'david' ? 'ring-2 ring-secondary bg-gradient-to-r from-secondary-container/10 via-surface-container-lowest to-surface-container-lowest' : ''}`}
+                    onClick={() => setSelectedId('david')}
+                  >
+                    {selectedId === 'david' && <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>}
+                    <div className="flex flex-col gap-space-sm pl-2">
                       <div className="flex items-start justify-between gap-space-sm">
                         <div className="flex items-center gap-space-sm">
                           <div className="relative">
@@ -320,8 +485,12 @@ export default function Connectors() {
                   </div>
 
                   {/* Candidate 5: Meera Thomas */}
-                  <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer">
-                    <div className="flex flex-col gap-space-sm">
+                  <div
+                    className={`p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer relative overflow-hidden ${selectedId === 'meera' ? 'ring-2 ring-secondary bg-gradient-to-r from-secondary-container/10 via-surface-container-lowest to-surface-container-lowest' : ''}`}
+                    onClick={() => setSelectedId('meera')}
+                  >
+                    {selectedId === 'meera' && <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>}
+                    <div className="flex flex-col gap-space-sm pl-2">
                       <div className="flex items-start justify-between gap-space-sm">
                         <div className="flex items-center gap-space-sm">
                           <div className="relative">
@@ -374,51 +543,45 @@ export default function Connectors() {
                         Connector Profile
                       </span>
                       <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold uppercase">
-                        Top Candidate
+                        {selectedCandidate.priorityLabel || 'Top Candidate'}
                       </span>
                     </div>
                     <div className="flex items-start justify-between gap-space-md">
                       <div className="flex items-center gap-space-sm">
                         <div className="w-14 h-14 rounded-xl bg-primary text-on-primary flex items-center justify-center font-headline-lg text-headline-lg font-bold shadow-sm">
-                          AM
+                          {selectedCandidate.initials}
                         </div>
                         <div className="flex flex-col">
-                          <h2 className="font-headline-md text-headline-md text-on-surface font-bold">Alex Morgan</h2>
-                          <span className="font-body-md text-body-md text-on-surface-variant">Northside Community · Athletic Club</span>
+                          <h2 className="font-headline-md text-headline-md text-on-surface font-bold">{selectedCandidate.name}</h2>
+                          <span className="font-body-md text-body-md text-on-surface-variant">{selectedCandidate.community} · {selectedCandidate.tag}</span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-display-hero text-display-hero text-secondary font-bold leading-none">96</div>
+                        <div className="font-display-hero text-display-hero text-secondary font-bold leading-none">{selectedCandidate.score}</div>
                         <span className="font-mono text-mono text-outline">/100 Score</span>
                       </div>
                     </div>
                     <p className="font-mono text-mono text-on-surface-variant">
-                      Top <strong className="text-secondary font-semibold">0.5% in Northside</strong>. Immediate network viability.
+                      Top <strong className="text-secondary font-semibold">0.5% in {selectedCandidate.community.split(' ')[0]}</strong>. Immediate network viability.
                     </p>
                   </div>
 
-                  {/* Why Alex? */}
+                  {/* Why Selected? */}
                   <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm">
                     <div className="flex items-center gap-space-xs">
                       <span className="material-symbols-outlined text-secondary text-base">psychology</span>
-                      <span className="font-headline-sm text-headline-sm text-on-surface">Why Alex?</span>
+                      <span className="font-headline-sm text-headline-sm text-on-surface">Why {selectedCandidate.name.split(' ')[0]}?</span>
                     </div>
                     <p className="font-body-sm text-body-sm text-on-surface font-medium">
-                      Highly connected within Northside.
+                      {selectedCandidate.whyHighlight}
                     </p>
                     <ul className="flex flex-col gap-1.5 font-body-sm text-body-sm text-on-surface-variant">
-                      <li className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
-                        <span>Organizes weekly athletic group</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
-                        <span>Daily commute aligned with 19 riders</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
-                        <span>4 available carpool seats</span>
-                      </li>
+                      {selectedCandidate.bullets.map((b, idx) => (
+                        <li key={idx} className="flex items-center gap-2">
+                          <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                          <span>{b}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
 
@@ -430,11 +593,11 @@ export default function Connectors() {
                         <span className="font-headline-sm text-headline-sm text-on-surface">Network Reach</span>
                       </div>
                       <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
-                        1 → 24 Reach
+                        1 → {selectedCandidate.reach} Reach
                       </span>
                     </div>
                     <p className="font-body-sm text-body-sm text-on-surface-variant">
-                      Alex connects to 24 members across Northside.
+                      {selectedCandidate.name.split(' ')[0]} connects to {selectedCandidate.reach} members across Northside.
                     </p>
                     <div className="w-full h-64 rounded-xl bg-surface-container-low relative overflow-hidden flex items-center justify-center p-space-sm shadow-inner">
                       <svg className="w-full h-full" fill="none" viewBox="0 0 440 250" xmlns="http://www.w3.org/2000/svg">
@@ -478,8 +641,8 @@ export default function Connectors() {
                         </g>
                         <circle cx="220" cy="125" fill="#006c49" fillOpacity="0.15" r="32" stroke="#006c49" strokeWidth="2"></circle>
                         <circle cx="220" cy="125" fill="#0b1c30" r="24"></circle>
-                        <text dominantBaseline="middle" fill="#ffffff" fontFamily="Plus Jakarta Sans" fontSize="12" fontWeight="700" textAnchor="middle" x="220" y="123">ALEX M.</text>
-                        <text fill="#6cf8bb" fontFamily="Inter" fontSize="8" fontWeight="700" textAnchor="middle" x="220" y="137">24 NODES</text>
+                        <text dominantBaseline="middle" fill="#ffffff" fontFamily="Plus Jakarta Sans" fontSize="12" fontWeight="700" textAnchor="middle" x="220" y="123">{selectedCandidate.initials}</text>
+                        <text fill="#6cf8bb" fontFamily="Inter" fontSize="8" fontWeight="700" textAnchor="middle" x="220" y="137">{selectedCandidate.reach} NODES</text>
                       </svg>
                     </div>
                   </div>
@@ -488,27 +651,67 @@ export default function Connectors() {
                   <div className="grid grid-cols-2 gap-2">
                     <div className="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant">Reach</span>
-                      <span className="font-mono text-mono font-bold text-secondary">24</span>
+                      <span className="font-mono text-mono font-bold text-secondary">{selectedCandidate.reach}</span>
                     </div>
                     <div className="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant">Driver</span>
-                      <span className="font-mono text-mono font-bold text-on-surface">91%</span>
+                      <span className="font-mono text-mono font-bold text-on-surface">{selectedCandidate.driverPct}%</span>
                     </div>
                     <div className="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant">Early Adopter</span>
-                      <span className="font-mono text-mono font-bold text-on-surface">88%</span>
+                      <span className="font-mono text-mono font-bold text-on-surface">{selectedCandidate.earlyAdopterPct}%</span>
                     </div>
                     <div className="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant">Passenger</span>
-                      <span className="font-mono text-mono font-bold text-outline">12%</span>
+                      <span className="font-mono text-mono font-bold text-outline">{selectedCandidate.passengerPct}%</span>
+                    </div>
+                  </div>
+
+                  {/* Canonical Score Breakdown */}
+                  <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant tracking-wider">Score Breakdown</span>
+                      <span className="font-mono text-label-sm text-secondary font-semibold">Connector {selectedCandidate.connectorPct}%</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 font-mono text-mono">
+                      <div className="flex items-center justify-between bg-surface-container px-2 py-1 rounded">
+                        <span className="text-on-surface-variant text-[11px]">Influence</span>
+                        <span className="font-bold text-on-surface">{selectedCandidate.breakdown.communityInfluence}</span>
+                      </div>
+                      <div className="flex items-center justify-between bg-surface-container px-2 py-1 rounded">
+                        <span className="text-on-surface-variant text-[11px]">Reach</span>
+                        <span className="font-bold text-on-surface">{selectedCandidate.breakdown.networkReach}</span>
+                      </div>
+                      <div className="flex items-center justify-between bg-surface-container px-2 py-1 rounded">
+                        <span className="text-on-surface-variant text-[11px]">Coordination</span>
+                        <span className="font-bold text-on-surface">{selectedCandidate.breakdown.coordination}</span>
+                      </div>
+                      <div className="flex items-center justify-between bg-surface-container px-2 py-1 rounded">
+                        <span className="text-on-surface-variant text-[11px]">Commute</span>
+                        <span className="font-bold text-on-surface">{selectedCandidate.breakdown.commuteRelevance}</span>
+                      </div>
                     </div>
                   </div>
 
                   {/* Action CTAs */}
                   <div className="flex flex-col gap-space-xs pt-1">
+                    {contacted === selectedCandidate.name ? (
+                      <div className="w-full py-2.5 px-space-md rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold text-center flex items-center justify-center gap-2">
+                        <span className="material-symbols-outlined text-base text-secondary">check_circle</span>
+                        <span>Invite dispatched to {selectedCandidate.name}</span>
+                      </div>
+                    ) : (
+                      <button
+                        className="w-full py-2.5 px-space-md rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs hover:bg-surface-container transition-all"
+                        onClick={() => setContacted(selectedCandidate.name)}
+                      >
+                        <span className="material-symbols-outlined text-base text-secondary">send</span>
+                        <span>Mobilize {selectedCandidate.name.split(' ')[0]}</span>
+                      </button>
+                    )}
                     <button className="w-full py-3 px-space-md rounded-lg bg-secondary text-on-secondary font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-xs shadow-md hover:bg-secondary/90 active:scale-[0.99] transition-all" onClick={() => navigate('/app/activation')}>
                       <span className="material-symbols-outlined text-xl">bolt</span>
-                      <span>Activate Alex</span>
+                      <span>Activate {selectedCandidate.name.split(' ')[0]}</span>
                     </button>
                     <button className="w-full py-2.5 px-space-md rounded-lg bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs hover:bg-surface-container-high transition-all" onClick={() => navigate('/app/communities')}>
                       <span className="material-symbols-outlined text-base">domain</span>

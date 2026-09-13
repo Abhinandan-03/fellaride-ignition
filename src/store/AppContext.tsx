@@ -8,7 +8,8 @@ interface AppState {
   rides: Ride[];
   demand: DemandOpportunity;
   isActivated: boolean;
-  growthStage: number; // 0: unactivated, 1: 1, 2: 3, 3: 8, 4: 17, 5: 32
+  growthStage: number; // 0: 1 person, 1: 3, 2: 8, 3: 17, 4: 32
+  confirmedRide: Ride | null;
 }
 
 interface AppContextType extends AppState {
@@ -31,6 +32,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [demand] = useState<DemandOpportunity>(CANONICAL_DEMAND);
   const [isActivated, setIsActivated] = useState(false);
   const [growthStage, setGrowthStage] = useState(0);
+  const [confirmedRide, setConfirmedRide] = useState<Ride | null>(null);
 
   const login = () => {
     setCurrentUser(CANONICAL_USER);
@@ -38,11 +40,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setCurrentUser(null);
-    // Reset state on logout
+    // Reset state on logout for repeatable demo replay
     setCommunity(CANONICAL_COMMUNITY);
     setIsActivated(false);
     setGrowthStage(0);
     setRides(INITIAL_RIDES);
+    setConfirmedRide(null);
   };
 
   const activateCommunity = () => {
@@ -52,12 +55,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       isActivated: true,
       state: POST_ACTIVATION_STATE
     }));
-    setGrowthStage(4); // fully grown in this demo jump (stage 32)
+    setGrowthStage(4); // canonical 32-node activated state
   };
 
   const replayGrowth = (stage?: number) => {
     if (stage !== undefined) {
-      setGrowthStage(stage);
+      setGrowthStage(Math.max(0, Math.min(4, stage)));
     } else {
       setGrowthStage(prev => (prev >= 4 ? 0 : prev + 1));
     }
@@ -65,52 +68,72 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const offerRide = (rideData: Omit<Ride, 'id' | 'status' | 'passengerIds' | 'driverId'>) => {
     if (!currentUser) return;
-    
+
+    // Check if user is already registered as a driver in existing rides
+    const alreadyDriver = rides.some(r => r.driverId === currentUser.id);
+
     const newRide: Ride = {
       ...rideData,
       id: `ride-${Date.now()}`,
       driverId: currentUser.id,
+      driverName: currentUser.name,
+      driverRole: currentUser.role,
+      vehicle: rideData.vehicle || 'Personal Commuter Vehicle',
+      vehiclePlate: rideData.vehiclePlate || 'Route 44 Verified',
       status: 'available',
-      passengerIds: []
+      passengerIds: [],
+      matchScore: rideData.matchScore || 94
     };
-    
-    setRides(prev => [...prev, newRide]);
-    
-    // Update community stats
-    if (isActivated) {
-      setCommunity(prev => ({
-        ...prev,
-        state: {
-          ...prev.state,
-          drivers: prev.state.drivers + 1,
-          rides: prev.state.rides + 1,
-        }
-      }));
-    }
+
+    setRides(prev => [newRide, ...prev]);
+
+    // Update community stats logically: only increment driver count if newly acting as driver
+    setCommunity(prev => ({
+      ...prev,
+      state: {
+        ...prev.state,
+        drivers: alreadyDriver ? prev.state.drivers : prev.state.drivers + 1,
+        rides: prev.state.rides + 1
+      }
+    }));
   };
 
   const joinRide = (rideId: string) => {
     if (!currentUser) return;
-    
-    setRides(prev => prev.map(ride => {
-      if (ride.id === rideId && ride.availableSeats > 0) {
-        return {
-          ...ride,
-          availableSeats: ride.availableSeats - 1,
-          passengerIds: [...ride.passengerIds, currentUser.id]
-        };
+
+    const rideToJoin = rides.find(r => r.id === rideId);
+    if (!rideToJoin || rideToJoin.availableSeats <= 0) {
+      if (rideToJoin) {
+        setConfirmedRide(rideToJoin);
       }
-      return ride;
-    }));
+      return;
+    }
+
+    // Avoid duplicate join if user already joined
+    if (rideToJoin.passengerIds.includes(currentUser.id)) {
+      setConfirmedRide(rideToJoin);
+      return;
+    }
+
+    const updated: Ride = {
+      ...rideToJoin,
+      availableSeats: Math.max(0, rideToJoin.availableSeats - 1),
+      passengerIds: [...rideToJoin.passengerIds, currentUser.id]
+    };
+
+    setRides(prev => prev.map(ride => ride.id === rideId ? updated : ride));
+    setConfirmedRide(updated);
   };
 
   const confirmRide = (rideId: string) => {
     setRides(prev => prev.map(ride => {
       if (ride.id === rideId) {
-        return {
+        const updated: Ride = {
           ...ride,
           status: 'confirmed'
         };
+        setConfirmedRide(updated);
+        return updated;
       }
       return ride;
     }));
@@ -123,7 +146,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         ...prev.state,
         health: {
           ...prev.state.health,
-          score: Math.min(100, prev.state.health.score + 5)
+          score: Math.min(100, Math.max(0, prev.state.health.score + 5)),
+          trend: 'up'
         }
       }
     }));
@@ -137,6 +161,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       demand,
       isActivated,
       growthStage,
+      confirmedRide,
       login,
       logout,
       activateCommunity,

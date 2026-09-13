@@ -4,7 +4,7 @@ import { useApp } from '../../store/AppContext';
 
 export default function OfferRide() {
   const navigate = useNavigate();
-  const { offerRide } = useApp();
+  const { offerRide, community } = useApp();
 
   const [routeType, setRouteType] = useState<'routine' | 'one-time'>('routine');
   const [depTime, setDepTime] = useState('6:00 PM');
@@ -16,15 +16,20 @@ export default function OfferRide() {
   const [showToast, setShowToast] = useState(false);
 
   const handlePublish = () => {
+    const validatedDepTime = depTime.trim() || '6:00 PM';
+    const validatedSeats = Math.max(1, Math.min(8, seats || 3));
+    const validatedPrice = Math.max(0, price || 80);
+
     setIsPublishing(true);
     offerRide({
       communityId: 'comm-northside',
       origin: 'Northside Community',
       destination: 'Central District',
-      departureTime: depTime,
-      availableSeats: seats,
-      totalSeats: seats,
-      pricePerSeat: price,
+      departureTime: validatedDepTime,
+      availableSeats: validatedSeats,
+      totalSeats: validatedSeats,
+      pricePerSeat: validatedPrice,
+      price: validatedPrice,
       corridorId: 'corridor-rt44'
     });
 
@@ -55,7 +60,7 @@ export default function OfferRide() {
 <div className="flex items-center gap-space-md">
 <div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-mono text-mono">
 <span className="material-symbols-outlined text-secondary text-base">hub</span>
-<span>Supply: <strong className="font-semibold text-on-surface">8 Drivers · 15 Rides</strong></span>
+<span>Supply: <strong className="font-semibold text-on-surface">{community.state.drivers} Drivers · {community.state.rides} Rides</strong></span>
 </div>
 <button className="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" onClick={() => navigate('/app/communities')}>
 <span className="material-symbols-outlined text-base">arrow_back</span>
@@ -420,7 +425,7 @@ export default function OfferRide() {
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Ride Preview</h3>
 </div>
 <span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold uppercase">
-            Live
+            Preview
           </span>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">

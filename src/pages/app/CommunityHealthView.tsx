@@ -1,12 +1,25 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useApp } from '../../store/AppContext';
 
 export default function CommunityHealthView() {
+  const { community, isActivated, improveCommunityHealth } = useApp();
   const [sortBy, setSortBy] = useState<'health' | 'rides' | 'repeat'>('health');
   const [syncScheduled, setSyncScheduled] = useState(false);
 
+  const healthScore = community.state.health.score;
+  const statusText = healthScore >= 71 ? 'Healthy & Growing' : healthScore >= 51 ? 'Growing' : healthScore >= 31 ? 'Emerging' : 'Cold-Start Phase';
+
   const peerClusters = [
-    { name: 'Northside', score: 82, drivers: 8, rides: 14, repeat: 78, status: 'HEALTHY', isCurrent: true },
+    {
+      name: 'Northside',
+      score: healthScore,
+      drivers: community.state.drivers,
+      rides: community.state.rides,
+      repeat: community.state.health.repeatUsage,
+      status: healthScore >= 71 ? 'HEALTHY' : 'COLD-START',
+      isCurrent: true
+    },
     { name: 'Eastview', score: 68, drivers: 6, rides: 9, repeat: 64, status: 'GROWING', isCurrent: false },
     { name: 'Lakeside', score: 54, drivers: 4, rides: 6, repeat: 51, status: 'EMERGING', isCurrent: false },
     { name: 'West End', score: 41, drivers: 3, rides: 4, repeat: 38, status: 'NEEDS CONNECTOR', isCurrent: false },
@@ -39,7 +52,7 @@ export default function CommunityHealthView() {
 <div className="flex items-center gap-2 bg-surface-container px-space-md py-2 rounded-lg shadow-sm">
 <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
 <span className="font-label-md text-label-md text-on-surface font-semibold">Northside Community</span>
-<span className="font-mono text-mono text-secondary bg-secondary-container/40 px-1.5 py-0.5 rounded font-bold">82/100</span>
+<span className="font-mono text-mono text-secondary bg-secondary-container/40 px-1.5 py-0.5 rounded font-bold">{healthScore}/100</span>
 </div>
 {/*  Butterfly Effect CTA  */}
 <Link to="/app/butterfly-effect" className="flex items-center gap-1.5 px-space-md py-2 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded-lg transition-all shadow-sm">
@@ -49,7 +62,7 @@ export default function CommunityHealthView() {
 {/*  Status Badge  */}
 <span className="px-space-md py-2 bg-secondary text-on-secondary font-label-md text-label-md rounded-lg shadow-sm flex items-center gap-1.5">
 <span className="material-symbols-outlined text-base">verified</span>
-<span>Healthy & Growing</span>
+<span>{statusText}</span>
 </span>
 </div>
 </div>
@@ -63,36 +76,36 @@ export default function CommunityHealthView() {
 <div className="xl:col-span-7 flex flex-col space-y-space-md">
 <div className="flex flex-wrap items-center gap-space-sm">
 <span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono text-mono">Northside Pilot</span>
-<span className="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold tracking-wide uppercase">Healthy & Growing</span>
+<span className="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold tracking-wide uppercase">{statusText}</span>
 <span className="font-mono text-mono text-on-surface-variant">Updated 2m ago</span>
 </div>
 <h2 className="font-headline-lg text-headline-lg text-on-surface">
           Northside Community
 </h2>
 <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-          Northside has crossed the self-sustaining threshold. Repeat rides and neighbor referrals now sustain daily liquidity without subsidies.
+          {isActivated ? 'Northside has crossed the self-sustaining threshold. Repeat rides and neighbor referrals now sustain daily liquidity without subsidies.' : 'Northside is in cold-start baseline phase. Mobilizing connectors will drive initial density.'}
         </p>
 {/*  Health State Band Visual  */}
 <div className="pt-space-xs">
 <div className="flex justify-between items-center mb-1.5">
 <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Health Tiers</span>
-<span className="font-mono text-mono text-secondary font-bold">Current: 82/100 · Healthy & Growing</span>
+<span className="font-mono text-mono text-secondary font-bold">Current: {healthScore}/100 · {statusText}</span>
 </div>
 <div className="grid grid-cols-5 gap-1.5 h-2.5 rounded-full overflow-hidden bg-surface-container">
-<div className="bg-surface-variant h-full" title="0–30 Dormant"></div>
-<div className="bg-surface-variant h-full" title="31–50 Emerging"></div>
-<div className="bg-surface-variant h-full" title="51–70 Growing"></div>
-<div className="bg-secondary h-full relative" title="71–85 Healthy">
+<div className={`${healthScore <= 30 ? 'bg-secondary' : 'bg-surface-variant'} h-full`} title="0–30 Dormant"></div>
+<div className={`${healthScore > 30 && healthScore <= 50 ? 'bg-secondary' : 'bg-surface-variant'} h-full`} title="31–50 Emerging"></div>
+<div className={`${healthScore > 50 && healthScore <= 70 ? 'bg-secondary' : 'bg-surface-variant'} h-full`} title="51–70 Growing"></div>
+<div className={`${healthScore > 70 && healthScore <= 85 ? 'bg-secondary' : 'bg-surface-variant'} h-full relative`} title="71–85 Healthy">
 <span className="absolute -top-1 right-0 w-2 h-4 bg-on-secondary rounded-full shadow-sm"></span>
 </div>
-<div className="bg-surface-variant h-full" title="86–100 Self-Sustaining"></div>
+<div className={`${healthScore > 85 ? 'bg-secondary' : 'bg-surface-variant'} h-full`} title="86–100 Self-Sustaining"></div>
 </div>
 <div className="grid grid-cols-5 gap-1.5 pt-1.5 text-center font-mono text-[10px] text-on-surface-variant">
-<span>0–30 Dormant</span>
-<span>31–50 Emerging</span>
-<span>51–70 Growing</span>
-<span className="text-secondary font-bold">71–85 Healthy [82]</span>
-<span>86–100 Autonomous</span>
+  <span className={healthScore <= 30 ? "text-secondary font-bold" : ""}>0–30 Dormant</span>
+  <span className={healthScore > 30 && healthScore <= 50 ? "text-secondary font-bold" : ""}>31–50 Emerging</span>
+  <span className={healthScore > 50 && healthScore <= 70 ? "text-secondary font-bold" : ""}>51–70 Growing</span>
+  <span className={healthScore > 70 && healthScore <= 85 ? "text-secondary font-bold" : ""}>71–85 Healthy</span>
+  <span className={healthScore > 85 ? "text-secondary font-bold" : ""}>86–100 Autonomous</span>
 </div>
 </div>
 </div>
@@ -103,8 +116,8 @@ export default function CommunityHealthView() {
 <svg className="w-56 h-56 -rotate-90 transform" viewBox="0 0 160 160">
 {/*  Track  */}
 <circle className="text-surface-container" cx="80" cy="80" fill="none" r="68" stroke="currentColor" strokeLinecap="round" strokeWidth="12"></circle>
-{/*  Active Progress (82%) -> circumference ~ 427.25, 82% is 350.3  */}
-<circle className="text-secondary" cx="80" cy="80" fill="none" r="68" stroke="currentColor" strokeDasharray="427.25" strokeDashoffset="76.9" strokeLinecap="round" strokeWidth="12" style={{ transition: 'stroke-dashoffset 1s ease-in-out' }}></circle>
+{/*  Active Progress  */}
+<circle className="text-secondary" cx="80" cy="80" fill="none" r="68" stroke="currentColor" strokeDasharray="427.25" strokeDashoffset={427.25 * (1 - Math.min(healthScore, 100) / 100)} strokeLinecap="round" strokeWidth="12" style={{ transition: 'stroke-dashoffset 1s ease-in-out' }}></circle>
 {/*  Inner Secondary Glow  */}
 <circle className="text-secondary-fixed/30" cx="80" cy="80" fill="none" r="54" stroke="currentColor" strokeDasharray="4 4" strokeWidth="2"></circle>
 </svg>
@@ -112,15 +125,15 @@ export default function CommunityHealthView() {
 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
 <span className="font-mono text-label-sm text-outline uppercase tracking-wider">Health</span>
 <div className="flex items-baseline gap-1">
-<span className="font-display-hero text-display-hero text-on-surface font-bold">82</span>
+<span className="font-display-hero text-display-hero text-on-surface font-bold">{healthScore}</span>
 <span className="font-headline-md text-headline-md text-on-surface-variant">/100</span>
 </div>
-<span className="font-label-sm text-label-sm text-secondary font-semibold mt-0.5">Healthy & Growing</span>
+<span className="font-label-sm text-label-sm text-secondary font-semibold mt-0.5">{statusText}</span>
 </div>
 </div>
 <div className="mt-space-sm text-center">
-<p className="font-mono text-mono text-secondary font-bold text-base">18 → 82</p>
-<p className="font-body-sm text-body-sm text-on-surface-variant">Self-sustaining threshold crossed</p>
+<p className="font-mono text-mono text-secondary font-bold text-base">{isActivated ? `18 → ${healthScore}` : `Baseline ${healthScore}`}</p>
+<p className="font-body-sm text-body-sm text-on-surface-variant">{healthScore >= 70 ? 'Self-sustaining threshold crossed' : 'Building initial liquidity'}</p>
 </div>
 </div>
 </div>
@@ -570,7 +583,7 @@ export default function CommunityHealthView() {
 </div>
 </div>
 <div className="pt-space-sm flex flex-wrap items-center gap-space-sm">
-<button className="px-space-md py-2.5 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded-lg shadow transition-all flex items-center gap-2" data-path="connectors">
+<button className="px-space-md py-2.5 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded-lg shadow transition-all flex items-center gap-2" onClick={() => improveCommunityHealth()}>
 <span>Improve Health</span>
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </button>
@@ -622,7 +635,7 @@ export default function CommunityHealthView() {
         <td className="p-space-sm font-mono text-mono text-right">{cluster.rides}</td>
         <td className="p-space-sm font-mono text-mono text-right font-semibold">{cluster.repeat}%</td>
         <td className="p-space-sm">
-          <span className="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-[10px] font-bold">HEALTHY</span>
+          <span className="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-[10px] font-bold">{cluster.status}</span>
         </td>
       </tr>
     );

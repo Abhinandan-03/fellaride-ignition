@@ -34,6 +34,8 @@ export interface CommunityHealth {
   repeatUsage: number; // percentage
   trend: 'up' | 'down' | 'stable';
   previousScore: number;
+  participation?: number;
+  supply?: number;
 }
 
 export interface CommunityState {
@@ -77,8 +79,14 @@ export interface Ride {
   totalSeats: number;
   status: 'available' | 'confirmed' | 'completed';
   passengerIds: string[];
+  price?: number;
   pricePerSeat?: number;
   corridorId?: string;
+  driverName?: string;
+  driverRole?: string;
+  vehicle?: string;
+  vehiclePlate?: string;
+  matchScore?: number;
 }
 
 export interface CurrentUser extends Person {
