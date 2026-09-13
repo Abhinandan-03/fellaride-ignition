@@ -4,7 +4,7 @@ export default function CommunityView() {
 {/*  Top Navigation & Meta Bar  */}
 <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
 <div className="flex flex-col gap-space-xs">
-<div className="flex items-center gap-space-xs font-telemetry-mono text-telemetry-mono text-outline uppercase tracking-wider">
+<div className="flex items-center gap-space-xs font-mono text-mono text-outline uppercase tracking-wider">
 <span>Communities</span>
 <span className="text-outline-variant">/</span>
 <span className="text-secondary font-semibold">Northside</span>
@@ -81,7 +81,7 @@ export default function CommunityView() {
 <span className="font-label-md text-label-md text-on-surface font-bold">82/100</span>
 <span className="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-[10px]">Healthy & Growing</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold mt-0.5">18 → 82 Growth</span>
+<span className="font-mono text-mono text-secondary font-semibold mt-0.5">18 → 82 Growth</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Participation 88% · Supply 84%</span>
 </div>
 </div>
@@ -213,7 +213,7 @@ export default function CommunityView() {
 <div className="flex items-center gap-space-md">
 <div className="flex flex-col items-end">
 <div className="flex items-center gap-1">
-<span className="font-telemetry-mono text-telemetry-mono font-bold text-secondary" id="seats-sam">3 seats open</span>
+<span className="font-mono text-mono font-bold text-secondary" id="seats-sam">3 seats open</span>
 <div className="flex gap-0.5">
 <span className="w-2 h-2 rounded-full bg-secondary"></span>
 <span className="w-2 h-2 rounded-full bg-secondary"></span>
@@ -221,7 +221,7 @@ export default function CommunityView() {
 <span className="w-2 h-2 rounded-full bg-outline-variant"></span>
 </div>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">₹80</span>
+<span className="font-mono text-mono text-outline">₹80</span>
 </div>
 <button className="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-secondary hover:text-on-secondary shadow-xs transition-all flex items-center gap-1" data-path="ride-confirmed" id="btn-sam">
 <span>Join Ride</span>
@@ -262,7 +262,7 @@ export default function CommunityView() {
 <div className="flex items-center gap-space-md">
 <div className="flex flex-col items-end">
 <div className="flex items-center gap-1">
-<span className="font-telemetry-mono text-telemetry-mono font-bold text-secondary" id="seats-alex">2 seats open</span>
+<span className="font-mono text-mono font-bold text-secondary" id="seats-alex">2 seats open</span>
 <div className="flex gap-0.5">
 <span className="w-2 h-2 rounded-full bg-secondary"></span>
 <span className="w-2 h-2 rounded-full bg-secondary"></span>
@@ -270,7 +270,7 @@ export default function CommunityView() {
 <span className="w-2 h-2 rounded-full bg-outline-variant"></span>
 </div>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">₹80</span>
+<span className="font-mono text-mono text-outline">₹80</span>
 </div>
 <button className="px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md hover:bg-secondary/90 shadow-sm transition-all flex items-center gap-1" data-path="ride-confirmed" id="btn-alex">
 <span className="material-symbols-outlined text-sm">airline_seat_recline_normal</span>
@@ -309,7 +309,7 @@ export default function CommunityView() {
 <div className="flex items-center gap-space-md">
 <div className="flex flex-col items-end">
 <div className="flex items-center gap-1">
-<span className="font-telemetry-mono text-telemetry-mono font-bold text-error" id="seats-priya">1 seat left</span>
+<span className="font-mono text-mono font-bold text-error" id="seats-priya">1 seat left</span>
 <div className="flex gap-0.5">
 <span className="w-2 h-2 rounded-full bg-secondary"></span>
 <span className="w-2 h-2 rounded-full bg-outline-variant"></span>
@@ -317,7 +317,7 @@ export default function CommunityView() {
 <span className="w-2 h-2 rounded-full bg-outline-variant"></span>
 </div>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">₹70</span>
+<span className="font-mono text-mono text-outline">₹70</span>
 </div>
 <button className="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-secondary hover:text-on-secondary shadow-xs transition-all flex items-center gap-1" data-path="ride-confirmed" id="btn-priya">
 <span>Join Ride</span>
@@ -348,19 +348,19 @@ export default function CommunityView() {
 <div className="relative flex items-center justify-between pt-space-sm pb-space-xs">
 <div className="absolute left-4 right-4 top-1/2 -translate-y-1/2 h-0.5 bg-surface-container"></div>
 <div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-surface-container text-outline flex items-center justify-center font-telemetry-mono text-xs font-semibold">0</div>
+<div className="w-8 h-8 rounded-full bg-surface-container text-outline flex items-center justify-center font-mono text-xs font-semibold">0</div>
 <span className="font-label-sm text-[10px] text-outline uppercase">Start</span>
 </div>
 <div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-telemetry-mono text-xs font-bold">1</div>
+<div className="w-8 h-8 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-mono text-xs font-bold">1</div>
 <span className="font-label-sm text-[10px] text-on-surface-variant uppercase">Connector</span>
 </div>
 <div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-telemetry-mono text-xs font-bold">8</div>
+<div className="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-mono text-xs font-bold">8</div>
 <span className="font-label-sm text-[10px] text-on-surface-variant uppercase">Drivers</span>
 </div>
 <div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-telemetry-mono text-xs font-bold ring-4 ring-secondary-container shadow-sm animate-bounce">23</div>
+<div className="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-mono text-xs font-bold ring-4 ring-secondary-container shadow-sm animate-bounce">23</div>
 <span className="font-label-sm text-[10px] text-secondary font-bold uppercase">Members</span>
 </div>
 </div>
@@ -450,7 +450,7 @@ export default function CommunityView() {
 <span className="material-symbols-outlined text-secondary text-base">sensors</span>
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h3>
 </div>
-<span className="font-telemetry-mono text-[11px] text-outline">Live</span>
+<span className="font-mono text-[11px] text-outline">Recent</span>
 </div>
 <div className="flex flex-col gap-space-sm">
 <div className="flex items-start gap-space-sm">
@@ -459,7 +459,7 @@ export default function CommunityView() {
 </div>
 <div className="flex flex-col">
 <p className="font-body-sm text-body-sm text-on-surface"><strong>Alex</strong> activated Northside network</p>
-<span className="font-telemetry-mono text-[11px] text-outline">2m ago</span>
+<span className="font-mono text-[11px] text-outline">2m ago</span>
 </div>
 </div>
 <div className="flex items-start gap-space-sm">
@@ -468,7 +468,7 @@ export default function CommunityView() {
 </div>
 <div className="flex flex-col">
 <p className="font-body-sm text-body-sm text-on-surface"><strong>Sam</strong> offered a ride (3 seats)</p>
-<span className="font-telemetry-mono text-[11px] text-outline">8m ago</span>
+<span className="font-mono text-[11px] text-outline">8m ago</span>
 </div>
 </div>
 <div className="flex items-start gap-space-sm">
@@ -477,7 +477,7 @@ export default function CommunityView() {
 </div>
 <div className="flex flex-col">
 <p className="font-body-sm text-body-sm text-on-surface"><strong>Priya</strong> reserved Seat 1</p>
-<span className="font-telemetry-mono text-[11px] text-outline">12m ago</span>
+<span className="font-mono text-[11px] text-outline">12m ago</span>
 </div>
 </div>
 <div className="flex items-start gap-space-sm">
@@ -486,7 +486,7 @@ export default function CommunityView() {
 </div>
 <div className="flex flex-col">
 <p className="font-body-sm text-body-sm text-on-surface"><strong>Kiran</strong> invited 2 neighbors</p>
-<span className="font-telemetry-mono text-[11px] text-outline">18m ago</span>
+<span className="font-mono text-[11px] text-outline">18m ago</span>
 </div>
 </div>
 </div>
@@ -521,7 +521,7 @@ export default function CommunityView() {
 <div className="sticky bottom-4 z-30 flex items-center justify-between bg-surface-container-lowest/95 backdrop-blur-md p-space-md rounded-xl shadow-lg mt-space-md">
 <div className="flex items-center gap-space-sm">
 <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface font-semibold">Route 44 · Northside ⇄ Central District</span>
+<span className="font-mono text-mono text-on-surface font-semibold">Route 44 · Northside ⇄ Central District</span>
 <span className="hidden sm:inline text-outline-variant">•</span>
 <span className="hidden sm:inline font-body-sm text-body-sm text-on-surface-variant">3 rides available</span>
 </div>
@@ -551,7 +551,7 @@ export default function CommunityView() {
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Share this link with verified neighbors.</p>
 <div className="flex items-center gap-space-xs bg-surface-container-low p-2 rounded-lg">
-<input className="bg-transparent text-on-surface font-telemetry-mono text-body-sm w-full outline-none" id="invite-url" readOnly type="text" value="https://fellaride.io/join/northside?token=am96-ns408" />
+<input className="bg-transparent text-on-surface font-mono text-body-sm w-full outline-none" id="invite-url" readOnly type="text" value="https://fellaride.io/join/northside?token=am96-ns408" />
 <button className="px-3 py-1 bg-secondary text-on-secondary rounded text-xs font-semibold shrink-0" id="btn-copy">Copy</button>
 </div>
 <div className="flex justify-end gap-space-sm pt-space-xs">

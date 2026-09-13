@@ -6,7 +6,7 @@ export default function CommandCenter() {
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-space-sm">
                   <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Command Center</h1>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-telemetry-mono text-label-sm">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-mono text-label-sm">
                     <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
                     Updated 2m ago
                   </span>
@@ -37,7 +37,7 @@ export default function CommandCenter() {
               <div className="flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
                 <div className="flex items-start justify-between">
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Communities</span>
-                  <span className="flex items-center text-secondary font-telemetry-mono text-label-sm bg-secondary-container/40 px-2 py-0.5 rounded-full">
+                  <span className="flex items-center text-secondary font-mono text-label-sm bg-secondary-container/40 px-2 py-0.5 rounded-full">
                     +3 this wk
                   </span>
                 </div>
@@ -58,7 +58,7 @@ export default function CommandCenter() {
               <div className="flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
                 <div className="flex items-start justify-between">
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">High Potential</span>
-                  <span className="flex items-center text-on-surface font-telemetry-mono text-label-sm bg-surface-container px-2 py-0.5 rounded-full">
+                  <span className="flex items-center text-on-surface font-mono text-label-sm bg-surface-container px-2 py-0.5 rounded-full">
                     Score ≥ 75
                   </span>
                 </div>
@@ -79,7 +79,7 @@ export default function CommandCenter() {
               <div className="flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
                 <div className="flex items-start justify-between">
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Connectors</span>
-                  <span className="flex items-center text-secondary font-telemetry-mono text-label-sm bg-secondary-container/40 px-2 py-0.5 rounded-full">
+                  <span className="flex items-center text-secondary font-mono text-label-sm bg-secondary-container/40 px-2 py-0.5 rounded-full">
                     94% driver conv
                   </span>
                 </div>
@@ -100,7 +100,7 @@ export default function CommandCenter() {
               <div className="flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
                 <div className="flex items-start justify-between">
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Demand Opportunities</span>
-                  <span className="flex items-center text-on-tertiary-container font-telemetry-mono text-label-sm bg-tertiary-fixed px-2 py-0.5 rounded-full">
+                  <span className="flex items-center text-on-tertiary-container font-mono text-label-sm bg-tertiary-fixed px-2 py-0.5 rounded-full">
                     4 shortages
                   </span>
                 </div>
@@ -127,7 +127,7 @@ export default function CommandCenter() {
                   </div>
                   <div>
                     <h2 className="font-headline-sm text-headline-sm text-on-surface">Community Map</h2>
-                    <span className="font-telemetry-mono text-label-sm text-outline">Metro Commute Graph</span>
+                    <span className="font-mono text-label-sm text-outline">Metro Commute Graph</span>
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-surface-container-low">
@@ -168,7 +168,7 @@ export default function CommandCenter() {
                   <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-md">
                     <span className="material-symbols-outlined text-[13px]">apartment</span>
                   </div>
-                  <span className="mt-1 px-2 py-0.5 rounded bg-primary text-on-primary font-telemetry-mono text-[10px] tracking-wide">
+                  <span className="mt-1 px-2 py-0.5 rounded bg-primary text-on-primary font-mono text-[10px] tracking-wide">
                     CENTRAL TECH HUB
                   </span>
                 </div>
@@ -181,7 +181,7 @@ export default function CommandCenter() {
                   <div className="mt-1 px-2 py-0.5 rounded bg-surface-container-lowest shadow-sm text-on-surface font-label-sm text-label-sm">
                     Eastview Civic Hub
                   </div>
-                  <span className="font-telemetry-mono text-[10px] text-outline">Score: 84</span>
+                  <span className="font-mono text-[10px] text-outline">Score: 84</span>
                 </div>
 
                 {/* Node: Lakeside */}
@@ -192,7 +192,7 @@ export default function CommandCenter() {
                   <div className="mt-1 px-2 py-0.5 rounded bg-surface-container-lowest shadow-sm text-on-surface font-label-sm text-label-sm">
                     Lakeside Marina
                   </div>
-                  <span className="font-telemetry-mono text-[10px] text-outline">Score: 76</span>
+                  <span className="font-mono text-[10px] text-outline">Score: 76</span>
                 </div>
 
                 {/* Node: West End */}
@@ -203,7 +203,7 @@ export default function CommandCenter() {
                   <div className="mt-1 px-2 py-0.5 rounded bg-surface-container-lowest shadow-sm text-on-surface font-label-sm text-label-sm flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-error"></span> West End Arena
                   </div>
-                  <span className="font-telemetry-mono text-[10px] text-error font-semibold">-25 Seats</span>
+                  <span className="font-mono text-[10px] text-error font-semibold">-25 Seats</span>
                 </div>
 
                 {/* Node: Northside (Priority #1) */}
@@ -214,12 +214,12 @@ export default function CommandCenter() {
                   <div className="mt-1 px-2 py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
                     Northside Heights
                   </div>
-                  <span className="font-telemetry-mono text-[10px] text-secondary font-bold">91/100 Potential</span>
+                  <span className="font-mono text-[10px] text-secondary font-bold">91/100 Potential</span>
                 </div>
 
                 {/* Callout HUD Over Node #1 */}
                 <div className="absolute top-4 left-4 p-3.5 rounded-xl bg-surface-container-lowest/95 backdrop-blur-md shadow-md max-w-sm flex flex-col gap-1">
-                  <div className="flex items-center gap-1.5 text-secondary font-telemetry-mono text-[10px] uppercase tracking-wider font-bold">
+                  <div className="flex items-center gap-1.5 text-secondary font-mono text-[10px] uppercase tracking-wider font-bold">
                     <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
                     Priority #1
                   </div>
@@ -316,19 +316,19 @@ export default function CommandCenter() {
                     </div>
                     <div className="grid grid-cols-4 gap-2 pt-2 bg-surface-container-low/60 p-2.5 rounded-lg">
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Members</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Members</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">12,400</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Drivers</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Drivers</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">43</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Passengers</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Passengers</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">128</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Connectors</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Connectors</div>
                         <div className="font-headline-sm text-headline-sm text-secondary font-bold">7</div>
                       </div>
                     </div>
@@ -341,7 +341,7 @@ export default function CommandCenter() {
                           Connector: <strong className="text-on-surface">Alex Morgan</strong> (Score: 96)
                         </span>
                       </div>
-                      <span className="font-telemetry-mono text-[11px] text-secondary font-medium">Ready to activate</span>
+                      <span className="font-mono text-[11px] text-secondary font-medium">Ready to activate</span>
                     </div>
                   </div>
 
@@ -371,19 +371,19 @@ export default function CommandCenter() {
                     </div>
                     <div className="grid grid-cols-4 gap-2 pt-2 bg-surface-container-low/60 p-2.5 rounded-lg">
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Members</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Members</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">9,850</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Drivers</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Drivers</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">29</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Passengers</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Passengers</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">86</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Connectors</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Connectors</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface font-bold">5</div>
                       </div>
                     </div>
@@ -396,7 +396,7 @@ export default function CommandCenter() {
                           Connector: <strong className="text-on-surface">Priya Shah</strong> (Score: 88)
                         </span>
                       </div>
-                      <span className="font-telemetry-mono text-[11px] text-outline font-medium">Shift sync pending</span>
+                      <span className="font-mono text-[11px] text-outline font-medium">Shift sync pending</span>
                     </div>
                   </div>
 
@@ -426,19 +426,19 @@ export default function CommandCenter() {
                     </div>
                     <div className="grid grid-cols-4 gap-2 pt-2 bg-surface-container-low/60 p-2.5 rounded-lg">
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Members</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Members</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">8,200</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Drivers</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Drivers</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">18</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Passengers</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Passengers</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">74</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Connectors</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Connectors</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">2</div>
                       </div>
                     </div>
@@ -470,19 +470,19 @@ export default function CommandCenter() {
                     </div>
                     <div className="grid grid-cols-4 gap-2 pt-2 bg-surface-container-low/60 p-2.5 rounded-lg">
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Members</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Members</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">6,400</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Drivers</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Drivers</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">14</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Passengers</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Passengers</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">42</div>
                       </div>
                       <div>
-                        <div className="font-telemetry-mono text-[11px] text-outline uppercase">Connectors</div>
+                        <div className="font-mono text-[11px] text-outline uppercase">Connectors</div>
                         <div className="font-headline-sm text-headline-sm text-on-surface">1</div>
                       </div>
                     </div>
@@ -497,11 +497,11 @@ export default function CommandCenter() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-on-tertiary-container animate-ping"></span>
-                      <span className="font-telemetry-mono text-label-sm uppercase tracking-wider text-on-tertiary-container font-bold">
+                      <span className="font-mono text-label-sm uppercase tracking-wider text-on-tertiary-container font-bold">
                         Ghost Demand · 87%
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-container font-telemetry-mono text-[10px] font-bold">
+                    <span className="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-container font-mono text-[10px] font-bold">
                       TIME CRITICAL
                     </span>
                   </div>
@@ -516,12 +516,12 @@ export default function CommandCenter() {
                   {/* Metric Comparison Grid */}
                   <div className="grid grid-cols-2 gap-space-sm">
                     <div className="p-3 rounded-lg bg-surface-container-low flex flex-col">
-                      <span className="font-telemetry-mono text-[11px] text-outline uppercase">Predicted Riders</span>
+                      <span className="font-mono text-[11px] text-outline uppercase">Predicted Riders</span>
                       <span className="font-headline-lg text-headline-lg text-on-surface mt-1 font-bold">37</span>
                       <span className="font-body-sm text-[11px] text-secondary font-medium">Passenger pool ready</span>
                     </div>
                     <div className="p-3 rounded-lg bg-surface-container-low flex flex-col">
-                      <span className="font-telemetry-mono text-[11px] text-outline uppercase">Available Drivers</span>
+                      <span className="font-mono text-[11px] text-outline uppercase">Available Drivers</span>
                       <span className="font-headline-lg text-headline-lg text-on-surface mt-1 font-bold">6</span>
                       <span className="font-body-sm text-[11px] text-on-surface-variant">Capacity: 12 seats</span>
                     </div>
@@ -533,7 +533,7 @@ export default function CommandCenter() {
                           <div className="font-body-sm text-body-sm text-on-surface-variant">25 unassigned passengers expected</div>
                         </div>
                       </div>
-                      <span className="px-2.5 py-1 rounded bg-error text-on-error font-telemetry-mono text-label-sm font-bold">
+                      <span className="px-2.5 py-1 rounded bg-error text-on-error font-mono text-label-sm font-bold">
                         -25 SEATS
                       </span>
                     </div>
@@ -547,7 +547,7 @@ export default function CommandCenter() {
                         <span className="material-symbols-outlined text-[15px] text-secondary">event</span>
                         Event Schedule Sync
                       </span>
-                      <span className="font-telemetry-mono text-label-sm text-on-surface font-bold">92%</span>
+                      <span className="font-mono text-label-sm text-on-surface font-bold">92%</span>
                     </div>
                     <div className="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
                       <div className="bg-secondary h-full rounded-full" style={{ width: '92%' }}></div>
@@ -557,7 +557,7 @@ export default function CommandCenter() {
                         <span className="material-symbols-outlined text-[15px] text-secondary">fitness_center</span>
                         Athletic Club Patterns
                       </span>
-                      <span className="font-telemetry-mono text-label-sm text-on-surface font-bold">89%</span>
+                      <span className="font-mono text-label-sm text-on-surface font-bold">89%</span>
                     </div>
                     <div className="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
                       <div className="bg-secondary h-full rounded-full" style={{ width: '89%' }}></div>
@@ -567,7 +567,7 @@ export default function CommandCenter() {
                         <span className="material-symbols-outlined text-[15px] text-outline">directions_bus</span>
                         Weekend Transit Shift
                       </span>
-                      <span className="font-telemetry-mono text-label-sm text-on-surface font-bold">78%</span>
+                      <span className="font-mono text-label-sm text-on-surface font-bold">78%</span>
                     </div>
                     <div className="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
                       <div className="bg-surface-tint h-full rounded-full" style={{ width: '78%' }}></div>
@@ -593,7 +593,7 @@ export default function CommandCenter() {
                       <span className="material-symbols-outlined text-secondary text-[20px]">auto_fix_high</span>
                       <h3 className="font-headline-sm text-headline-sm text-on-surface">Recommended Interventions</h3>
                     </div>
-                    <span className="font-telemetry-mono text-label-sm text-outline">NEXT ACTIONS</span>
+                    <span className="font-mono text-label-sm text-outline">NEXT ACTIONS</span>
                   </div>
 
                   {/* Action 1 */}
@@ -604,7 +604,7 @@ export default function CommandCenter() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <span className="font-label-md text-label-md text-on-surface font-semibold truncate">Invite Alex Morgan</span>
-                        <span className="font-telemetry-mono text-[10px] text-secondary font-bold shrink-0">HIGH IMPACT</span>
+                        <span className="font-mono text-[10px] text-secondary font-bold shrink-0">HIGH IMPACT</span>
                       </div>
                       <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
                         Ready to start carpool loop for 24 riders in Northside.
@@ -623,7 +623,7 @@ export default function CommandCenter() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <span className="font-label-md text-label-md text-on-surface font-semibold truncate">Schedule Driver Incentive</span>
-                        <span className="font-telemetry-mono text-[10px] text-outline shrink-0">NORTHSIDE 8:00 AM</span>
+                        <span className="font-mono text-[10px] text-outline shrink-0">NORTHSIDE 8:00 AM</span>
                       </div>
                       <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
                         Add $4.50 credit per seat to unblock morning commute.
@@ -642,7 +642,7 @@ export default function CommandCenter() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <span className="font-label-md text-label-md text-on-surface font-semibold truncate">Sync Hospital Shifts</span>
-                        <span className="font-telemetry-mono text-[10px] text-outline shrink-0">CIVIC HUB</span>
+                        <span className="font-mono text-[10px] text-outline shrink-0">CIVIC HUB</span>
                       </div>
                       <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
                         Align 34 nursing shift changes at 07:00 and 19:00 with existing routes.

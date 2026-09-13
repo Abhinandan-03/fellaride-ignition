@@ -345,7 +345,7 @@ export default function OnboardingProfile() {
             <div className="p-6 rounded-2xl border border-slate-200 bg-white flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">LIVE PROFILE PREVIEW</span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">PROFILE PREVIEW</span>
                   <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     Ready to Join

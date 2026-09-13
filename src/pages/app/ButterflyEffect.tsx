@@ -213,9 +213,9 @@ export default function ButterflyEffect() {
 <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
 <div>
 <div className="flex items-center gap-space-xs mb-1">
-<span className="font-telemetry-mono text-telemetry-mono text-outline uppercase tracking-wider">GROWTH</span>
+<span className="font-mono text-mono text-outline uppercase tracking-wider">GROWTH</span>
 <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold">LIVE NETWORK</span>
+<span className="font-mono text-mono text-secondary font-semibold">NETWORK GRAPH</span>
 </div>
 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Butterfly Effect</h1>
 <p className="font-body-md text-body-md text-on-surface-variant">Everything Starts Small.</p>
@@ -275,7 +275,7 @@ export default function ButterflyEffect() {
 <span className="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold">32 activated</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">1 → 3 → 8 → 17 → 32</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-outline mt-2">Northside Pilot · 4 Waves</span>
+<span className="font-mono text-mono text-outline mt-2">Northside Pilot · 4 Waves</span>
 </div>
 </div>
 </div>
@@ -286,7 +286,7 @@ export default function ButterflyEffect() {
 <span className="material-symbols-outlined text-secondary text-base">history</span>
 <span className="font-label-lg text-label-lg text-on-surface font-semibold">Growth Waves</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-outline" id="waveCurrentStatus">Wave 4 · 32 Members (36h)</span>
+<span className="font-mono text-mono text-outline" id="waveCurrentStatus">Wave 4 · 32 Members (36h)</span>
 </div>
 {/*  Wave Tab Selectors  */}
 <div className="grid grid-cols-2 sm:grid-cols-5 gap-space-sm p-1.5 bg-surface-container-low rounded-xl shadow-sm" id="waveNavButtons">
@@ -341,7 +341,7 @@ export default function ButterflyEffect() {
 <span className="text-on-surface-variant">Member</span>
 </div>
 </div>
-<div className="flex items-center gap-space-xs font-telemetry-mono text-telemetry-mono text-outline">
+<div className="flex items-center gap-space-xs font-mono text-mono text-outline">
 <span className="material-symbols-outlined text-sm">hub</span>
 <span>Community Map</span>
 </div>
@@ -415,7 +415,7 @@ export default function ButterflyEffect() {
 <span className="font-bold text-secondary-container">Alex Morgan</span>
 <span className="text-on-primary-container text-[10px]">#01</span>
 </div>
-<span className="text-[10px] font-telemetry-mono text-secondary font-bold tracking-tight">CONNECTOR • SCORE 96</span>
+<span className="text-[10px] font-mono text-secondary font-bold tracking-tight">CONNECTOR • SCORE 96</span>
 </div>
 {/*  WAVE 1 NODES (T+4h)  */}
 <div className="contents" id="waveNodes1">
@@ -428,7 +428,7 @@ export default function ButterflyEffect() {
 <span className="font-semibold">Sam Carter</span>
 <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
 </div>
-<span className="text-[10px] font-telemetry-mono text-outline">DRIVER</span>
+<span className="text-[10px] font-mono text-outline">DRIVER</span>
 </div>
 {/*  Priya Shah  */}
 <div className="graph-node absolute z-20 flex flex-col items-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-all hover:scale-110" data-corridor="Northside ↔ Tech Square" data-invited="Alex Morgan" data-name="Priya Shah" data-rides="5 Completed" data-role="Driver & Passenger" data-score="92/100" style={{ left: '63%', top: '31.6%' }}>
@@ -439,7 +439,7 @@ export default function ButterflyEffect() {
 <span className="font-semibold">Priya Shah</span>
 <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
 </div>
-<span className="text-[10px] font-telemetry-mono text-outline">DRIVER/PASSENGER</span>
+<span className="text-[10px] font-mono text-outline">DRIVER/PASSENGER</span>
 </div>
 {/*  Marcus Vance  */}
 <div className="graph-node absolute z-20 flex flex-col items-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-all hover:scale-110" data-corridor="South Campus ↔ Northside" data-invited="Alex Morgan" data-name="Marcus Vance" data-rides="3 Completed" data-role="Community Steward" data-score="85/100" style={{ left: '50%', top: '73.3%' }}>
@@ -449,7 +449,7 @@ export default function ButterflyEffect() {
 <div className="mt-1 px-2 py-0.5 rounded-full bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm whitespace-nowrap">
 <span className="font-semibold">Marcus V.</span>
 </div>
-<span className="text-[10px] font-telemetry-mono text-outline">COORDINATOR</span>
+<span className="text-[10px] font-mono text-outline">COORDINATOR</span>
 </div>
 </div>
 {/*  WAVE 2 NODES (T+11h)  */}
@@ -544,7 +544,7 @@ export default function ButterflyEffect() {
 <div className="absolute z-50 pointer-events-none opacity-0 transition-opacity duration-200 bg-primary text-on-primary p-3 rounded-lg shadow-xl min-w-[210px] flex flex-col gap-1 text-xs" id="nodeTooltip">
 <div className="flex items-center justify-between pb-1 border-b border-primary-container">
 <span className="font-bold text-sm text-secondary-container" id="tooltipName">Member Name</span>
-<span className="font-telemetry-mono text-[10px] text-on-primary-container" id="tooltipScore">Score: 96</span>
+<span className="font-mono text-[10px] text-on-primary-container" id="tooltipScore">Score: 96</span>
 </div>
 <div className="flex justify-between py-0.5">
 <span className="text-on-primary-container">Role:</span>
@@ -570,7 +570,7 @@ export default function ButterflyEffect() {
 <span className="material-symbols-outlined text-secondary text-sm">touch_app</span>
 <span>Hover any member to view invite path and rides.</span>
 </div>
-<div className="font-telemetry-mono text-telemetry-mono text-outline">
+<div className="font-mono text-mono text-outline">
         Verified connections
       </div>
 </div>
@@ -604,7 +604,7 @@ export default function ButterflyEffect() {
 <span className="font-body-sm text-body-sm text-on-surface-variant">Northside Community · Reach: 24</span>
 </div>
 </div>
-<div className="flex items-center gap-space-md font-telemetry-mono text-telemetry-mono self-stretch sm:self-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-outline-variant/30">
+<div className="flex items-center gap-space-md font-mono text-mono self-stretch sm:self-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-outline-variant/30">
 <div className="flex flex-col">
 <span className="text-outline text-[10px] uppercase">Score</span>
 <span className="font-bold text-primary text-sm">96/100</span>
@@ -637,7 +637,7 @@ export default function ButterflyEffect() {
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Comparison</span>
 <h3 className="font-headline-md text-headline-md text-on-surface">Network Growth</h3>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold px-2 py-1 bg-secondary/10 rounded">+355% Health</span>
+<span className="font-mono text-mono text-secondary font-bold px-2 py-1 bg-secondary/10 rounded">+355% Health</span>
 </div>
 {/*  Before & After Comparison Grid  */}
 <div className="grid grid-cols-1 md:grid-cols-2 gap-space-md mb-space-md">
@@ -651,20 +651,20 @@ export default function ButterflyEffect() {
 <div className="space-y-2 mb-3">
 <div className="flex justify-between font-body-sm text-body-sm">
 <span className="text-on-surface-variant">Active Riders:</span>
-<span className="font-telemetry-mono font-semibold text-on-surface">0</span>
+<span className="font-mono font-semibold text-on-surface">0</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm">
 <span className="text-on-surface-variant">Completed Rides:</span>
-<span className="font-telemetry-mono font-semibold text-on-surface">0</span>
+<span className="font-mono font-semibold text-on-surface">0</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm">
 <span className="text-on-surface-variant">Supply / Demand:</span>
-<span className="font-telemetry-mono text-error font-semibold">Unmatched</span>
+<span className="font-mono text-error font-semibold">Unmatched</span>
 </div>
 </div>
 </div>
 <div className="pt-2 border-t border-outline-variant/30">
-<span className="text-[11px] font-telemetry-mono text-outline uppercase">Health</span>
+<span className="text-[11px] font-mono text-outline uppercase">Health</span>
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-outline font-bold">18 / 100</span>
 <span className="font-label-sm text-label-sm text-error font-medium">Inactive</span>
@@ -681,20 +681,20 @@ export default function ButterflyEffect() {
 <div className="space-y-2 mb-3">
 <div className="flex justify-between font-body-sm text-body-sm">
 <span className="text-on-surface-variant">Activated Members:</span>
-<span className="font-telemetry-mono font-bold text-secondary">32 Connected</span>
+<span className="font-mono font-bold text-secondary">32 Connected</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm">
 <span className="text-on-surface-variant">Active Drivers:</span>
-<span className="font-telemetry-mono font-semibold text-on-surface">9 Drivers</span>
+<span className="font-mono font-semibold text-on-surface">9 Drivers</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm">
 <span className="text-on-surface-variant">Shared Rides:</span>
-<span className="font-telemetry-mono text-secondary font-bold">14 Rides</span>
+<span className="font-mono text-secondary font-bold">14 Rides</span>
 </div>
 </div>
 </div>
 <div className="pt-2 border-t border-outline-variant/30">
-<span className="text-[11px] font-telemetry-mono text-outline uppercase">Health</span>
+<span className="text-[11px] font-mono text-outline uppercase">Health</span>
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-secondary font-bold">82 / 100</span>
 <span className="font-label-sm text-label-sm text-secondary font-medium">Healthy & Growing</span>
@@ -706,7 +706,7 @@ export default function ButterflyEffect() {
 <div className="p-space-md rounded-xl bg-surface-container-low">
 <div className="flex justify-between items-center mb-1">
 <span className="font-label-sm text-label-sm text-on-surface font-semibold">Self-Sustaining Threshold</span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">18 → 82 / 100</span>
+<span className="font-mono text-mono text-secondary font-bold">18 → 82 / 100</span>
 </div>
 <div className="w-full bg-surface-container-high h-3 rounded-full overflow-hidden flex">
 <div className="h-full bg-outline-variant" style={{ width: '18%' }}></div>
@@ -735,22 +735,22 @@ export default function ButterflyEffect() {
 <div className="p-space-md rounded-lg bg-surface-container-low flex flex-col">
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Activated</span>
 <span className="font-headline-lg text-headline-lg text-primary font-bold mt-1" id="metricMembers">32</span>
-<span className="font-telemetry-mono text-[11px] text-secondary font-semibold">32 people activated</span>
+<span className="font-mono text-[11px] text-secondary font-semibold">32 people activated</span>
 </div>
 <div className="p-space-md rounded-lg bg-surface-container-low flex flex-col">
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Drivers</span>
 <span className="font-headline-lg text-headline-lg text-secondary font-bold mt-1" id="metricDrivers">9</span>
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">28% of network</span>
+<span className="font-mono text-[11px] text-on-surface-variant">28% of network</span>
 </div>
 <div className="p-space-md rounded-lg bg-surface-container-low flex flex-col">
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Passengers</span>
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold mt-1" id="metricPassengers">18</span>
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">56% of network</span>
+<span className="font-mono text-[11px] text-on-surface-variant">56% of network</span>
 </div>
 <div className="p-space-md rounded-lg bg-surface-container-low flex flex-col">
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Rides</span>
 <span className="font-headline-lg text-headline-lg text-secondary font-bold mt-1" id="metricRides">14</span>
-<span className="font-telemetry-mono text-[11px] text-secondary font-semibold">100% matched</span>
+<span className="font-mono text-[11px] text-secondary font-semibold">100% matched</span>
 </div>
 </div>
 {/*  Secondary Mobility Metrics  */}
@@ -760,21 +760,21 @@ export default function ButterflyEffect() {
 <span className="material-symbols-outlined text-secondary text-sm">share</span>
 <span className="text-on-surface">Referrals</span>
 </div>
-<span className="font-telemetry-mono font-bold text-on-surface">21 Referrals</span>
+<span className="font-mono font-bold text-on-surface">21 Referrals</span>
 </div>
 <div className="flex items-center justify-between p-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm">
 <div className="flex items-center gap-2">
 <span className="material-symbols-outlined text-secondary text-sm">repeat</span>
 <span className="text-on-surface">Daily Commuters</span>
 </div>
-<span className="font-telemetry-mono font-bold text-on-surface">15 Active</span>
+<span className="font-mono font-bold text-on-surface">15 Active</span>
 </div>
 <div className="flex items-center justify-between p-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm">
 <div className="flex items-center gap-2">
 <span className="material-symbols-outlined text-secondary text-sm">eco</span>
 <span className="text-on-surface">CO₂ Avoided</span>
 </div>
-<span className="font-telemetry-mono font-bold text-secondary">126 kg / Week</span>
+<span className="font-mono font-bold text-secondary">126 kg / Week</span>
 </div>
 </div>
 <div className="mt-space-md p-space-sm rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm">

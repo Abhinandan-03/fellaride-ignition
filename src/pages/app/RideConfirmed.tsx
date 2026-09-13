@@ -27,7 +27,7 @@ export default function RideConfirmed() {
 <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
           Confirmed · Seat 1 Reserved
         </span>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">#FR-84092-NS</span>
+<span className="font-mono text-mono text-outline">#FR-84092-NS</span>
 </div>
 <h1 className="font-display-hero-mobile lg:font-display-hero text-display-hero-mobile lg:text-display-hero text-on-surface tracking-tight">
         Ride Confirmed
@@ -64,7 +64,7 @@ export default function RideConfirmed() {
 <span className="material-symbols-outlined text-secondary text-base">check_circle</span>
 <span className="font-label-md text-label-md text-on-surface">Added: Northside → Central District · Today 6:00 PM</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">Saved</span>
+<span className="font-mono text-mono text-outline">Saved</span>
 </div>
 {/*  Primary 12-Column Grid Layout  */}
 <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
@@ -81,13 +81,13 @@ export default function RideConfirmed() {
 <span className="w-2.5 h-2.5 rounded-full bg-secondary"></span>
 <span className="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold">Verified Match · Route 44</span>
 </div>
-<span className="px-space-xs py-0.5 rounded-md bg-surface-container text-on-surface-variant font-telemetry-mono text-telemetry-mono">
+<span className="px-space-xs py-0.5 rounded-md bg-surface-container text-on-surface-variant font-mono text-mono">
               ₹0 Fee
             </span>
 </div>
 {/*  Corridor Destination Vector  */}
 <div className="flex flex-col gap-space-xs">
-<span className="font-telemetry-mono text-telemetry-mono text-outline uppercase tracking-wider">Route</span>
+<span className="font-mono text-mono text-outline uppercase tracking-wider">Route</span>
 <div className="flex items-baseline gap-space-sm flex-wrap">
 <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
                 Northside Community
@@ -101,7 +101,7 @@ export default function RideConfirmed() {
 <span className="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-md text-label-md">
                 Today · 6:00 PM
               </span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold">
+<span className="font-mono text-mono text-secondary font-semibold">
                 32 mins · 14.2 km
               </span>
 </div>
@@ -126,7 +126,7 @@ export default function RideConfirmed() {
 <span className="font-body-sm text-body-sm text-on-surface-variant truncate mt-0.5">
                   Northside Community
                 </span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary mt-1 flex items-center gap-1">
+<span className="font-mono text-mono text-secondary mt-1 flex items-center gap-1">
 <span className="material-symbols-outlined text-xs">format_image_left</span>
                   14 rides completed · 100% on-time
                 </span>
@@ -135,14 +135,14 @@ export default function RideConfirmed() {
 <div className="flex flex-col md:items-end bg-surface-container-lowest md:bg-transparent p-space-sm md:p-0 rounded-lg w-full md:w-auto">
 <span className="font-label-sm text-label-sm text-outline uppercase">Vehicle</span>
 <span className="font-label-md text-label-md text-on-surface font-semibold">Toyota RAV4</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">Navy · NS-44</span>
+<span className="font-mono text-mono text-on-surface-variant">Navy · NS-44</span>
 </div>
 </div>
 {/*  Route Timeline  */}
 <div className="flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Route Overlap</span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold bg-surface-container px-2 py-0.5 rounded">
+<span className="font-mono text-mono text-secondary font-semibold bg-surface-container px-2 py-0.5 rounded">
                 96% Route Overlap
               </span>
 </div>
@@ -166,7 +166,7 @@ export default function RideConfirmed() {
 </div>
 <div className="text-right">
 <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">6:00 PM</span>
-<span className="block font-telemetry-mono text-telemetry-mono text-outline">DEPART</span>
+<span className="block font-mono text-mono text-outline">DEPART</span>
 </div>
 </div>
 <div className="flex items-center justify-between">
@@ -179,7 +179,7 @@ export default function RideConfirmed() {
 </div>
 <div className="text-right">
 <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">6:32 PM</span>
-<span className="block font-telemetry-mono text-telemetry-mono text-secondary">ARRIVE</span>
+<span className="block font-mono text-mono text-secondary">ARRIVE</span>
 </div>
 </div>
 </div>
@@ -198,7 +198,7 @@ export default function RideConfirmed() {
 <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
 <div className="flex items-center justify-between">
 <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Fuel Share</span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">₹0 FEE</span>
+<span className="font-mono text-mono text-secondary font-bold">₹0 FEE</span>
 </div>
 <div className="flex items-baseline gap-2">
 <span className="font-headline-md text-headline-md text-on-surface font-bold">₹80</span>
@@ -210,15 +210,15 @@ export default function RideConfirmed() {
 </div>
 </div>
 {/*  Micro Route Synchrony Map Placeholder  */}
-<div className="w-full h-44 bg-cover bg-center rounded-xl relative overflow-hidden flex items-end p-space-md shadow-sm" data-location="Northside Community Center to Central Transit Hub" style={{ backgroundImage: 'url(\'https://lh3.googleusercontent.com/aida-public/AB6AXuAFMLRY73Uij0OaOQmevDENT1yprh_-nJ4o0IqsnW9X5YI9RjGKhOudUxHJisbb4CUa-BOrC4QpQkf1lD3sEaC9eB4jSxmyVbhKbGHLOY7FmyxKGrf_nzEyJZGHVdp1U_ts1cyIctNUnIkqV-P5QjYB-fFxqTp_sm04O0oB4RBeDPEzWla_dapJlVccMCWylnVm0c-N1-3FRoEepf38dv1_bYvqlgU8yjdi-uqICEtXcZg1ZOfRYZo1\')' }}>
+<div className="w-full h-44 bg-cover bg-center rounded-xl relative overflow-hidden flex items-end p-space-md shadow-sm" data-location="Northside Community Center to Central Transit Hub" style={{ backgroundImage: 'url(\'/route-map.jpg\')' }}>
 <div className="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
 <div className="relative z-10 flex items-center justify-between w-full text-surface-bright">
 <div className="flex items-center gap-2">
 <span className="material-symbols-outlined text-secondary-fixed text-lg">explore</span>
 <span className="font-label-md text-label-md">Direct Route 44 Navigation</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono bg-inverse-surface/70 px-2 py-0.5 rounded backdrop-blur-sm">
-                Route 44 · Live
+<span className="font-mono text-mono bg-inverse-surface/70 px-2 py-0.5 rounded backdrop-blur-sm">
+                Route 44 · Verified Route
               </span>
 </div>
 </div>
@@ -233,7 +233,7 @@ export default function RideConfirmed() {
               Why This Match Works
             </h3>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">96% Match</span>
+<span className="font-mono text-mono text-secondary font-bold">96% Match</span>
 </div>
 <p className="font-body-md text-body-md text-on-surface-variant">
           Matched on community connection and direct corridor overlap.
@@ -295,7 +295,7 @@ export default function RideConfirmed() {
 </div>
 {/*  Ripple Effect Visual  */}
 <div className="flex flex-col gap-space-xs mt-space-xs">
-<span className="font-telemetry-mono text-telemetry-mono text-outline">Community Ripple</span>
+<span className="font-mono text-mono text-outline">Community Ripple</span>
 <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-md">
 {/*  Node Flow SVG Diagram  */}
 <svg className="w-full h-16" fill="none" viewBox="0 0 360 64" xmlns="http://www.w3.org/2000/svg">
@@ -331,7 +331,7 @@ export default function RideConfirmed() {
 <span className="material-symbols-outlined text-secondary-fixed text-lg">flare</span>
 <span className="font-label-sm text-label-sm uppercase tracking-widest text-secondary-fixed font-bold">Share</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-primary-fixed-dim">Northside</span>
+<span className="font-mono text-mono text-primary-fixed-dim">Northside</span>
 </div>
 <div>
 <h3 className="font-headline-md text-headline-md text-surface-bright font-bold tracking-tight">
@@ -345,10 +345,10 @@ export default function RideConfirmed() {
 <div className="p-space-md rounded-xl bg-primary-container flex flex-col gap-space-sm">
 <div className="flex items-center justify-between">
 <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Invite Link</span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary-fixed">NORTHSIDE-RTE44</span>
+<span className="font-mono text-mono text-secondary-fixed">NORTHSIDE-RTE44</span>
 </div>
 <div className="flex items-center justify-between bg-surface-container-lowest text-on-surface p-2 rounded-lg gap-2">
-<span className="font-telemetry-mono text-telemetry-mono truncate select-all pl-1" id="inviteLinkText">
+<span className="font-mono text-mono truncate select-all pl-1" id="inviteLinkText">
               fellaride.app/invite/northside-route44
             </span>
 <button
@@ -407,7 +407,7 @@ export default function RideConfirmed() {
 </div>
 </div>
 <div className="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">fellaride.app/invite/northside-route44</span>
+<span className="font-mono text-mono text-on-surface-variant">fellaride.app/invite/northside-route44</span>
 <button className="text-secondary font-label-md text-label-md hover:underline">Copy</button>
 </div>
 <div className="flex justify-end gap-space-sm pt-space-xs">

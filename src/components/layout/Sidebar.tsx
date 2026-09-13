@@ -1,5 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
+import {
+  LayoutDashboard,
+  Radar,
+  Network,
+  Share2,
+  Radio,
+  Zap,
+  Sparkles,
+  Activity,
+  Compass,
+  Car,
+  RefreshCw,
+  User,
+  SlidersHorizontal,
+} from 'lucide-react';
 
 export default function Sidebar() {
   const { currentUser, community } = useApp();
@@ -13,11 +28,11 @@ export default function Sidebar() {
             <img
               alt="FellaRide Logo"
               className="h-8 w-auto object-contain"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEaJIEfVPj3eOn2dEWzrNAHc3gN0cliRPY7yxmFGihQznibvL6M690a7XcRCso4fUAtIfcShqfgpa2o8s433IxDlUjA7Svq_Joqe76Pv0BGfKubf0RNIGs9FtRGzGmvFoCeEaea8BWXwafDO1Wp4iqQ01w0ZUtCpVfbKssR2OOLwODpxOsrZPVxXUi_Sh-IGQZzDVKc3s8jdGl-V5A0gAzIT9ja3wnMohZDmMooqpO9WF07Ucpevyw"
+              src="/fellaride-logo.png"
             />
             <div className="flex flex-col">
               <span className="font-headline-sm text-headline-sm text-primary tracking-tight">FellaRide</span>
-              <span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">v2.4</span>
+              <span className="font-mono text-mono text-on-surface-variant">v2.4</span>
             </div>
           </div>
           <span className="px-space-xs py-0.5 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full tracking-wider uppercase">
@@ -45,7 +60,8 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">dashboard</span>Command Center
+                  <LayoutDashboard size={18} className="shrink-0" />
+                  Command Center
                 </span>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
@@ -69,7 +85,8 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">radar</span>Community Radar
+                  <Radar size={18} className="shrink-0" />
+                  Community Radar
                 </span>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
@@ -89,7 +106,8 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">hub</span>Communities
+                  <Network size={18} className="shrink-0" />
+                  Communities
                 </span>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
@@ -113,7 +131,8 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">share</span>Connectors
+                  <Share2 size={18} className="shrink-0" />
+                  Connectors
                 </span>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
@@ -133,10 +152,11 @@ export default function Sidebar() {
             {() => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">sensors</span>Ghost Demand
+                  <Radio size={18} className="shrink-0" />
+                  Ghost Demand
                 </span>
-                <span className="px-space-xs py-0.5 bg-secondary text-on-secondary font-label-sm text-label-sm rounded-full animate-pulse">
-                  LIVE
+                <span className="px-space-xs py-0.5 bg-secondary text-on-secondary font-label-sm text-label-sm rounded-full">
+                  Predicted
                 </span>
               </>
             )}
@@ -155,7 +175,8 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">bolt</span>Activation
+                  <Zap size={18} className="shrink-0" />
+                  Activation
                 </span>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
@@ -179,9 +200,10 @@ export default function Sidebar() {
             {() => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">flare</span>Butterfly Effect
+                  <Sparkles size={18} className="shrink-0" />
+                  Butterfly Effect
                 </span>
-                <span className="material-symbols-outlined text-base text-secondary">auto_awesome</span>
+                <Sparkles size={16} className="text-secondary shrink-0" />
               </>
             )}
           </NavLink>
@@ -199,7 +221,8 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">vital_signs</span>Community Health
+                  <Activity size={18} className="shrink-0" />
+                  Community Health
                 </span>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
@@ -223,7 +246,8 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">travel_explore</span>Find a Ride
+                  <Compass size={18} className="shrink-0" />
+                  Find a Ride
                 </span>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
@@ -243,7 +267,8 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
-                  <span className="material-symbols-outlined text-base">directions_car</span>Offer a Ride
+                  <Car size={18} className="shrink-0" />
+                  Offer a Ride
                 </span>
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
@@ -257,18 +282,18 @@ export default function Sidebar() {
         <div className="flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-lowest">
           <div className="flex items-center gap-space-sm">
             <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
-            <span className="font-telemetry-mono text-telemetry-mono text-on-surface font-semibold">
+            <span className="font-mono text-mono text-on-surface font-semibold">
               Demo: {community?.name ? 'Northside Pilot' : 'Northside'}
             </span>
           </div>
           <button className="text-on-surface-variant hover:text-on-surface" aria-label="Sync status">
-            <span className="material-symbols-outlined text-base">sync_alt</span>
+            <RefreshCw size={15} className="shrink-0" />
           </button>
         </div>
 
         <div className="flex items-center gap-space-sm p-space-sm rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
           <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-on-primary text-[18px]">person</span>
+            <User size={18} className="text-on-primary shrink-0" />
           </div>
           <div className="flex flex-col min-w-0 flex-1">
             <span className="font-label-md text-label-md text-on-surface truncate">
@@ -276,7 +301,7 @@ export default function Sidebar() {
             </span>
             <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Growth Lead</span>
           </div>
-          <span className="material-symbols-outlined text-on-surface-variant text-base">tune</span>
+          <SlidersHorizontal size={16} className="text-on-surface-variant shrink-0" />
         </div>
       </div>
     </aside>

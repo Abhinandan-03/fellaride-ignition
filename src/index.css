@@ -92,6 +92,7 @@
   --font-headline-lg-mobile: 'Plus Jakarta Sans', sans-serif;
   --font-display-hero: 'Plus Jakarta Sans', sans-serif;
   --font-display-hero-mobile: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Inter', monospace;
   --font-telemetry-mono: 'Inter', monospace;
 }
 
@@ -197,6 +198,12 @@
   letter-spacing: 0.06em;
   font-weight: 700;
 }
+@utility text-mono {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
 @utility text-telemetry-mono {
   font-size: 12px;
   line-height: 16px;
@@ -244,6 +251,10 @@
 @utility font-label-sm {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
+}
+@utility font-mono {
+  font-family: 'Inter', monospace;
+  font-weight: 500;
 }
 @utility font-telemetry-mono {
   font-family: 'Inter', monospace;

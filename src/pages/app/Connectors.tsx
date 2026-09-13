@@ -10,7 +10,7 @@ export default function Connectors() {
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-space-sm">
                   <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wider">Top Candidates</span>
-                  <span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant flex items-center gap-1">
+                  <span className="font-mono text-mono text-on-surface-variant flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
                     Updated just now
                   </span>
@@ -27,7 +27,7 @@ export default function Connectors() {
                   <span className="material-symbols-outlined text-base text-outline">tune</span>
                   <span>Filter</span>
                 </button>
-                <div className="hidden sm:flex items-center px-space-sm py-2 rounded-lg bg-surface-container-high text-on-surface-variant font-telemetry-mono text-telemetry-mono">
+                <div className="hidden sm:flex items-center px-space-sm py-2 rounded-lg bg-surface-container-high text-on-surface-variant font-mono text-mono">
                   <span className="text-secondary font-semibold">38</span>
                   <span className="mx-1">/</span>
                   <span>540 Scanned</span>
@@ -48,7 +48,7 @@ export default function Connectors() {
                   <span className="font-display-hero text-display-hero text-on-surface tracking-tight">38</span>
                   <span className="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-bold">+6 this cycle</span>
                 </div>
-                <div className="flex items-center justify-between font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                <div className="flex items-center justify-between font-mono text-mono text-on-surface-variant">
                   <span>Confidence</span>
                   <span className="text-on-surface font-semibold">100% Verified</span>
                 </div>
@@ -65,7 +65,7 @@ export default function Connectors() {
                   <span className="font-display-hero text-display-hero text-secondary tracking-tight">7</span>
                   <span className="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-semibold">Score ≥ 85</span>
                 </div>
-                <div className="flex items-center justify-between font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                <div className="flex items-center justify-between font-mono text-mono text-on-surface-variant">
                   <span>Priority pool</span>
                   <span className="text-secondary font-semibold">Ready to activate</span>
                 </div>
@@ -82,7 +82,7 @@ export default function Connectors() {
                   <span className="font-display-hero text-display-hero text-on-surface tracking-tight">18</span>
                   <span className="font-body-sm text-body-sm text-on-surface-variant font-medium">people / connector</span>
                 </div>
-                <div className="flex items-center justify-between font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                <div className="flex items-center justify-between font-mono text-mono text-on-surface-variant">
                   <span>Network growth</span>
                   <span className="text-secondary font-semibold">4.8x Organics</span>
                 </div>
@@ -99,7 +99,7 @@ export default function Connectors() {
                   <span className="font-display-hero text-display-hero text-on-surface tracking-tight">5</span>
                   <span className="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-semibold">Communities</span>
                 </div>
-                <div className="flex items-center justify-between font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                <div className="flex items-center justify-between font-mono text-mono text-on-surface-variant">
                   <span>Active targets</span>
                   <span className="text-on-surface font-semibold truncate max-w-[140px]">Northside, Eastview</span>
                 </div>
@@ -113,7 +113,7 @@ export default function Connectors() {
                 <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm">
                     <span className="font-headline-sm text-headline-sm text-on-surface">Top Connectors</span>
-                    <span className="font-telemetry-mono text-telemetry-mono text-outline">Sorted by score</span>
+                    <span className="font-mono text-mono text-outline">Sorted by score</span>
                   </div>
                   <div className="relative w-full">
                     <span className="material-symbols-outlined absolute left-3 top-2.5 text-outline text-base">search</span>
@@ -158,7 +158,7 @@ export default function Connectors() {
                         <div className="text-right flex flex-col items-end">
                           <div className="flex items-baseline gap-1">
                             <span className="font-headline-md text-headline-md text-secondary font-bold">96</span>
-                            <span className="font-telemetry-mono text-telemetry-mono text-outline">/100</span>
+                            <span className="font-mono text-mono text-outline">/100</span>
                           </div>
                           <span className="font-label-sm text-label-sm text-on-surface-variant">Connector Score</span>
                         </div>
@@ -171,7 +171,7 @@ export default function Connectors() {
                       <p className="font-body-sm text-body-sm text-on-surface-variant">
                         Athletic club organizer with direct daily route to Central Hub.
                       </p>
-                      <div className="flex items-center justify-between pt-1 font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                      <div className="flex items-center justify-between pt-1 font-mono text-mono text-on-surface-variant">
                         <span>Why Alex? <strong className="text-on-surface font-semibold">Highly connected within Northside.</strong></span>
                         <button className="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-semibold hover:underline" onClick={() => navigate('/app/activation')}>
                           Activate Alex <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -207,7 +207,7 @@ export default function Connectors() {
                         <div className="text-right flex flex-col items-end">
                           <div className="flex items-baseline gap-1">
                             <span className="font-headline-md text-headline-md text-on-surface font-bold">94</span>
-                            <span className="font-telemetry-mono text-telemetry-mono text-outline">/100</span>
+                            <span className="font-mono text-mono text-outline">/100</span>
                           </div>
                           <span className="font-label-sm text-label-sm text-on-surface-variant">Connector Score</span>
                         </div>
@@ -220,7 +220,7 @@ export default function Connectors() {
                       <p className="font-body-sm text-body-sm text-on-surface-variant">
                         Hospital staff coordinator with consistent morning schedule.
                       </p>
-                      <div className="flex items-center justify-between pt-1 font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                      <div className="flex items-center justify-between pt-1 font-mono text-mono text-on-surface-variant">
                         <span>Why Priya? <strong className="text-on-surface font-semibold">Connects 21 healthcare commuters.</strong></span>
                         <span className="flex items-center gap-1 text-on-surface hover:text-secondary font-label-sm text-label-sm font-semibold">
                           View Candidate <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -256,7 +256,7 @@ export default function Connectors() {
                         <div className="text-right flex flex-col items-end">
                           <div className="flex items-baseline gap-1">
                             <span className="font-headline-md text-headline-md text-on-surface font-bold">89</span>
-                            <span className="font-telemetry-mono text-telemetry-mono text-outline">/100</span>
+                            <span className="font-mono text-mono text-outline">/100</span>
                           </div>
                           <span className="font-label-sm text-label-sm text-on-surface-variant">Connector Score</span>
                         </div>
@@ -268,7 +268,7 @@ export default function Connectors() {
                       <p className="font-body-sm text-body-sm text-on-surface-variant">
                         High-frequency corridor driver with 3 empty seats daily.
                       </p>
-                      <div className="flex items-center justify-between pt-1 font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                      <div className="flex items-center justify-between pt-1 font-mono text-mono text-on-surface-variant">
                         <span>Why Sam? <strong className="text-on-surface font-semibold">Immediate daily driver capacity.</strong></span>
                         <span className="flex items-center gap-1 text-on-surface hover:text-secondary font-label-sm text-label-sm font-semibold">
                           View Candidate <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -304,7 +304,7 @@ export default function Connectors() {
                         <div className="text-right flex flex-col items-end">
                           <div className="flex items-baseline gap-1">
                             <span className="font-headline-md text-headline-md text-on-surface font-bold">82</span>
-                            <span className="font-telemetry-mono text-telemetry-mono text-outline">/100</span>
+                            <span className="font-mono text-mono text-outline">/100</span>
                           </div>
                           <span className="font-label-sm text-label-sm text-on-surface-variant">Connector Score</span>
                         </div>
@@ -346,7 +346,7 @@ export default function Connectors() {
                         <div className="text-right flex flex-col items-end">
                           <div className="flex items-baseline gap-1">
                             <span className="font-headline-md text-headline-md text-on-surface font-bold">75</span>
-                            <span className="font-telemetry-mono text-telemetry-mono text-outline">/100</span>
+                            <span className="font-mono text-mono text-outline">/100</span>
                           </div>
                           <span className="font-label-sm text-label-sm text-on-surface-variant">Connector Score</span>
                         </div>
@@ -369,7 +369,7 @@ export default function Connectors() {
                   {/* Header */}
                   <div className="flex flex-col gap-space-sm">
                     <div className="flex items-center justify-between">
-                      <span className="font-telemetry-mono text-telemetry-mono text-secondary uppercase font-semibold tracking-wider flex items-center gap-1">
+                      <span className="font-mono text-mono text-secondary uppercase font-semibold tracking-wider flex items-center gap-1">
                         <span className="material-symbols-outlined text-sm">verified</span>
                         Connector Profile
                       </span>
@@ -389,10 +389,10 @@ export default function Connectors() {
                       </div>
                       <div className="text-right">
                         <div className="font-display-hero text-display-hero text-secondary font-bold leading-none">96</div>
-                        <span className="font-telemetry-mono text-telemetry-mono text-outline">/100 Score</span>
+                        <span className="font-mono text-mono text-outline">/100 Score</span>
                       </div>
                     </div>
-                    <p className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                    <p className="font-mono text-mono text-on-surface-variant">
                       Top <strong className="text-secondary font-semibold">0.5% in Northside</strong>. Immediate network viability.
                     </p>
                   </div>
@@ -488,19 +488,19 @@ export default function Connectors() {
                   <div className="grid grid-cols-2 gap-2">
                     <div className="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant">Reach</span>
-                      <span className="font-telemetry-mono text-telemetry-mono font-bold text-secondary">24</span>
+                      <span className="font-mono text-mono font-bold text-secondary">24</span>
                     </div>
                     <div className="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant">Driver</span>
-                      <span className="font-telemetry-mono text-telemetry-mono font-bold text-on-surface">91%</span>
+                      <span className="font-mono text-mono font-bold text-on-surface">91%</span>
                     </div>
                     <div className="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant">Early Adopter</span>
-                      <span className="font-telemetry-mono text-telemetry-mono font-bold text-on-surface">88%</span>
+                      <span className="font-mono text-mono font-bold text-on-surface">88%</span>
                     </div>
                     <div className="p-2 rounded-lg bg-surface-container-low flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant">Passenger</span>
-                      <span className="font-telemetry-mono text-telemetry-mono font-bold text-outline">12%</span>
+                      <span className="font-mono text-mono font-bold text-outline">12%</span>
                     </div>
                   </div>
 
@@ -515,7 +515,7 @@ export default function Connectors() {
                       <span>View Northside</span>
                     </button>
                   </div>
-                  <div className="text-[11px] text-outline text-center pt-1 font-telemetry-mono">
+                  <div className="text-[11px] text-outline text-center pt-1 font-mono">
                     Public data only. No personal data stored.
                   </div>
                 </div>

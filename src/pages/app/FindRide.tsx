@@ -29,7 +29,7 @@ export default function FindRide() {
 <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
             Northside Active
           </span>
-<span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+<span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low font-mono text-mono text-on-surface-variant">
 <span className="text-on-surface font-semibold">Northside Community</span>
 <span className="text-outline-variant">•</span>
 <span>8 Drivers</span>
@@ -49,14 +49,14 @@ export default function FindRide() {
 <span className="material-symbols-outlined text-secondary text-base">verified_user</span>
 <div className="flex flex-col">
 <span className="font-label-sm text-label-sm uppercase text-outline">Trust</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface font-semibold">Peer Verified</span>
+<span className="font-mono text-mono text-on-surface font-semibold">Peer Verified</span>
 </div>
 </div>
 <div className="flex items-center gap-2 px-space-md py-2 rounded-xl bg-surface-container-lowest shadow-sm">
 <span className="material-symbols-outlined text-secondary text-base">payments</span>
 <div className="flex flex-col">
 <span className="font-label-sm text-label-sm uppercase text-outline">Markup</span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold">₹0 Fee</span>
+<span className="font-mono text-mono text-secondary font-semibold">₹0 Fee</span>
 </div>
 </div>
 </div>
@@ -116,7 +116,7 @@ export default function FindRide() {
               </span>
 <div className="flex items-center justify-between">
 <span className="font-label-lg text-label-lg text-on-surface font-semibold">Around 6:00 PM</span>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">±15 min</span>
+<span className="font-mono text-mono text-outline">±15 min</span>
 </div>
 </div>
 </div>
@@ -142,7 +142,7 @@ export default function FindRide() {
 <span className="flex h-2.5 w-2.5 rounded-full bg-secondary"></span>
 <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">3 matches</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">Updated 2m ago</span>
+<span className="font-mono text-mono text-outline">Updated 2m ago</span>
 </div>
 <p className="font-body-md text-body-md text-on-surface-variant">
             3 verified Northside neighbors heading along Route 44 around 6:00 PM.
@@ -167,7 +167,7 @@ export default function FindRide() {
 <span className="material-symbols-outlined text-sm">stars</span>
               Best Match
             </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold">
+<span className="font-mono text-mono text-secondary font-semibold">
               Leaves in 45m
             </span>
 </div>
@@ -205,7 +205,7 @@ export default function FindRide() {
 <span className="font-display-hero text-display-hero text-on-surface tracking-tight font-bold">₹80</span>
 <span className="font-label-sm text-label-sm text-on-surface-variant uppercase">fuel share</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">₹0 fee</span>
+<span className="font-mono text-mono text-outline">₹0 fee</span>
 </div>
 </div>
 {/*  Route Path Visualizer  */}
@@ -223,11 +223,11 @@ export default function FindRide() {
 <div className="flex flex-col justify-between h-12 flex-1 min-w-0">
 <div className="flex items-center justify-between">
 <span className="font-label-lg text-label-lg text-on-surface font-semibold truncate">Northside Community</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface font-semibold">6:00 PM</span>
+<span className="font-mono text-mono text-on-surface font-semibold">6:00 PM</span>
 </div>
 <div className="flex items-center justify-between">
 <span className="font-label-lg text-label-lg text-on-surface-variant truncate">Central District</span>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">6:32 PM</span>
+<span className="font-mono text-mono text-outline">6:32 PM</span>
 </div>
 </div>
 </div>
@@ -265,13 +265,13 @@ export default function FindRide() {
 <div className="flex flex-col gap-1 p-space-sm bg-surface-container rounded-lg">
 <div className="flex items-center justify-between">
 <span className="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Route Match</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface font-bold">96% Overlap</span>
+<span className="font-mono text-mono text-on-surface font-bold">96% Overlap</span>
 </div>
 {/*  Score Bar  */}
 <div className="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden mt-2">
 <div className="bg-secondary h-full rounded-full" style={{ width: '96%' }}></div>
 </div>
-<div className="flex items-center justify-between font-telemetry-mono text-label-sm text-outline mt-1">
+<div className="flex items-center justify-between font-mono text-label-sm text-outline mt-1">
 <span>Departure sync</span>
 <span>Minimal detour (&lt;3 min)</span>
 </div>
@@ -307,7 +307,7 @@ export default function FindRide() {
 <div className="flex items-center gap-2">
 <span className="font-label-lg text-label-lg text-on-surface font-bold">Sam Carter</span>
 <span className="px-2 py-0.2 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm">Driver</span>
-<span className="font-telemetry-mono text-label-sm text-outline">3 rides</span>
+<span className="font-mono text-label-sm text-outline">3 rides</span>
 </div>
 <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
 <span className="font-semibold text-on-surface">5:30 PM</span>
@@ -341,7 +341,7 @@ export default function FindRide() {
 <div className="flex items-center gap-2">
 <span className="font-label-lg text-label-lg text-on-surface font-bold">Priya Shah</span>
 <span className="px-2 py-0.2 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Driver</span>
-<span className="font-telemetry-mono text-label-sm text-outline">5 rides</span>
+<span className="font-mono text-label-sm text-outline">5 rides</span>
 </div>
 <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
 <span className="font-semibold text-on-surface">6:15 PM</span>
@@ -430,7 +430,7 @@ export default function FindRide() {
 {/*  Corridor Overlap Visual Diagram  */}
 <div className="p-space-sm rounded-lg bg-surface-container flex flex-col gap-2">
 <span className="font-label-sm text-label-sm uppercase text-outline font-semibold">Route Overlap</span>
-<div className="flex flex-col gap-1 font-telemetry-mono text-label-sm">
+<div className="flex flex-col gap-1 font-mono text-label-sm">
 <div className="flex items-center justify-between text-on-surface">
 <span>Your path:</span>
 <span className="font-bold">Northside → Central</span>
@@ -444,7 +444,7 @@ export default function FindRide() {
 <div className="relative w-full h-3 bg-surface-container-high rounded-full overflow-hidden mt-1">
 <div className="absolute left-0 top-0 bottom-0 bg-secondary rounded-full" style={{ width: '96%' }}></div>
 </div>
-<div className="flex justify-between items-center font-telemetry-mono text-label-sm text-on-surface-variant">
+<div className="flex justify-between items-center font-mono text-label-sm text-on-surface-variant">
 <span>Overlap: 96%</span>
 <span>Detour: &lt; 3 mins</span>
 </div>
@@ -457,7 +457,7 @@ export default function FindRide() {
 <span className="material-symbols-outlined text-secondary text-xl">shield</span>
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Community Trust</h3>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">Score 96/100</span>
+<span className="font-mono text-mono text-secondary font-bold">Score 96/100</span>
 </div>
 <div className="flex items-center gap-space-md p-space-sm rounded-lg bg-surface-container-low">
 <div className="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold">
@@ -491,7 +491,7 @@ export default function FindRide() {
 <span className="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold uppercase tracking-wider" id="booking-badge">
               Ready to Join
             </span>
-<span className="font-telemetry-mono text-telemetry-mono text-outline">Selected Match</span>
+<span className="font-mono text-mono text-outline">Selected Match</span>
 </div>
 <div className="flex flex-col gap-2">
 <div className="flex items-center justify-between">
@@ -535,7 +535,7 @@ export default function FindRide() {
 <span>Share with Neighbor</span>
 </button>
 </div>
-            <span className="font-telemetry-mono text-label-sm text-outline text-center">Direct driver contribution via UPI upon boarding.</span>
+            <span className="font-mono text-label-sm text-outline text-center">Direct driver contribution via UPI upon boarding.</span>
           </div>
         </div>
       </div>

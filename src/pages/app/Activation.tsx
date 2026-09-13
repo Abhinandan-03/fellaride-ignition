@@ -11,7 +11,7 @@ export default function Activation() {
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-lg">
               <div className="flex flex-col">
                 <div className="flex items-center gap-space-xs mb-1">
-                  <span className="font-telemetry-mono text-telemetry-mono text-secondary uppercase font-semibold">Ready to Launch</span>
+                  <span className="font-mono text-mono text-secondary uppercase font-semibold">Ready to Launch</span>
                 </div>
                 <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight">Activate Northside</h1>
                 <p className="font-body-lg text-body-lg text-on-surface-variant mt-0.5">Start with one connection.</p>
@@ -47,7 +47,7 @@ export default function Activation() {
                     <div className="flex items-center gap-1">
                       <span className="font-headline-sm text-headline-sm text-on-surface truncate">Alex Morgan</span>
                     </div>
-                    <span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">Score: <strong className="text-primary font-bold">96</strong></span>
+                    <span className="font-mono text-mono text-on-surface-variant">Score: <strong className="text-primary font-bold">96</strong></span>
                   </div>
                 </div>
 
@@ -55,7 +55,7 @@ export default function Activation() {
                   <span className="material-symbols-outlined text-outline text-lg">groups</span>
                   <div className="flex flex-col min-w-0">
                     <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">DEMAND</span>
-                    <span className="font-telemetry-mono text-telemetry-mono text-on-surface">37 Riders / 6 Drivers</span>
+                    <span className="font-mono text-mono text-on-surface">37 Riders / 6 Drivers</span>
                   </div>
                 </div>
 
@@ -64,7 +64,7 @@ export default function Activation() {
                     <span className="material-symbols-outlined text-error text-base">warning</span>
                     <span className="font-label-sm text-label-sm font-semibold uppercase text-on-surface-variant">Shortage</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full bg-error text-on-error font-telemetry-mono text-telemetry-mono font-bold">-25 Seats</span>
+                  <span className="px-2 py-0.5 rounded-full bg-error text-on-error font-mono text-mono font-bold">-25 Seats</span>
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@ export default function Activation() {
                       <span className="material-symbols-outlined text-secondary text-xl">psychology</span>
                       <h2 className="font-headline-md text-headline-md text-primary font-semibold">Activation Strategy</h2>
                     </div>
-                    <span className="px-space-xs py-0.5 rounded-full bg-surface-container-low font-telemetry-mono text-telemetry-mono text-on-surface-variant">Score 96</span>
+                    <span className="px-space-xs py-0.5 rounded-full bg-surface-container-low font-mono text-mono text-on-surface-variant">Score 96</span>
                   </div>
                   <p className="font-body-md text-body-md text-on-surface-variant mb-space-md">
                     Alex connects to 24 commuters in Northside. A personalized invitation bypasses the cold-start deadlock.
@@ -129,11 +129,11 @@ export default function Activation() {
 
                   <div className="bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
                     <div className="p-space-sm bg-surface-container space-y-1.5">
-                      <div className="flex items-center gap-space-sm font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                      <div className="flex items-center gap-space-sm font-mono text-mono text-on-surface-variant">
                         <span className="w-16 uppercase text-outline font-bold">TO:</span>
                         <span className="text-primary font-semibold">Alex Morgan</span>
                       </div>
-                      <div className="flex items-center gap-space-sm font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                      <div className="flex items-center gap-space-sm font-mono text-mono text-on-surface-variant">
                         <span className="w-16 uppercase text-outline font-bold">SUBJECT:</span>
                         <span className="text-primary font-semibold">Start Northside Carpool Group</span>
                       </div>
@@ -178,7 +178,7 @@ export default function Activation() {
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-xs p-1.5 bg-surface-container-low rounded-lg">
                     <div className="flex items-center gap-space-xs px-space-sm flex-1">
                       <span className="material-symbols-outlined text-outline text-base">lock_open</span>
-                      <input className="w-full bg-transparent font-telemetry-mono text-telemetry-mono text-primary font-semibold focus:outline-none select-all" readOnly type="text" value="fellaride.app/northside/start?c=AM96" />
+                      <input className="w-full bg-transparent font-mono text-mono text-primary font-semibold focus:outline-none select-all" readOnly type="text" value="fellaride.app/northside/start?c=AM96" />
                     </div>
                     <button className="flex items-center gap-1.5 px-space-md py-2 rounded-md bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-all shadow-sm">
                       <span className="material-symbols-outlined text-base">content_copy</span>
@@ -196,7 +196,7 @@ export default function Activation() {
                       <span className="material-symbols-outlined text-secondary text-xl">account_tree</span>
                       <h3 className="font-headline-md text-headline-md text-primary font-semibold">Growth Cascade</h3>
                     </div>
-                    <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-telemetry-mono text-telemetry-mono font-bold">T+7 DAYS</span>
+                    <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-mono text-mono font-bold">T+7 DAYS</span>
                   </div>
 
                   <div className="flex items-baseline justify-between p-space-md rounded-xl bg-surface-container-low mb-space-md">
@@ -212,38 +212,38 @@ export default function Activation() {
                   <div className="relative pl-6 space-y-3 mb-space-md">
                     <div className="absolute left-2.5 top-3 bottom-3 w-0.5 bg-surface-container-highest"></div>
                     <div className="relative flex items-center gap-space-sm">
-                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center font-telemetry-mono text-[10px] z-10 font-bold">1</div>
+                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center font-mono text-[10px] z-10 font-bold">1</div>
                       <div className="flex-1 p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
                         <span className="font-label-lg text-label-lg text-primary font-bold">1 Connector (Alex)</span>
-                        <span className="font-telemetry-mono text-telemetry-mono text-primary font-semibold">Score: 96</span>
+                        <span className="font-mono text-mono text-primary font-semibold">Score: 96</span>
                       </div>
                     </div>
                     <div className="relative flex items-center gap-space-sm">
-                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-telemetry-mono text-[10px] z-10 font-bold">2</div>
+                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-mono text-[10px] z-10 font-bold">2</div>
                       <div className="flex-1 p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
                         <span className="font-label-lg text-label-lg text-primary font-bold">24 Members</span>
-                        <span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold">Wave 1</span>
+                        <span className="font-mono text-mono text-secondary font-semibold">Wave 1</span>
                       </div>
                     </div>
                     <div className="relative flex items-center gap-space-sm">
-                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-surface-tint text-on-primary flex items-center justify-center font-telemetry-mono text-[10px] z-10 font-bold">3</div>
+                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-surface-tint text-on-primary flex items-center justify-center font-mono text-[10px] z-10 font-bold">3</div>
                       <div className="flex-1 p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
                         <span className="font-label-lg text-label-lg text-primary font-bold">8 Drivers + 15 Passengers</span>
-                        <span className="font-telemetry-mono text-telemetry-mono text-on-surface font-semibold">Balanced</span>
+                        <span className="font-mono text-mono text-on-surface font-semibold">Balanced</span>
                       </div>
                     </div>
                     <div className="relative flex items-center gap-space-sm">
-                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-telemetry-mono text-[10px] z-10 font-bold">4</div>
+                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-mono text-[10px] z-10 font-bold">4</div>
                       <div className="flex-1 p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
                         <span className="font-label-lg text-label-lg text-primary font-bold">14 Rides / week</span>
-                        <span className="font-telemetry-mono text-telemetry-mono text-on-surface font-semibold">Active</span>
+                        <span className="font-mono text-mono text-on-surface font-semibold">Active</span>
                       </div>
                     </div>
                     <div className="relative flex items-center gap-space-sm">
-                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-telemetry-mono text-[10px] z-10 font-bold">5</div>
+                      <div className="absolute -left-6 w-5 h-5 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-mono text-[10px] z-10 font-bold">5</div>
                       <div className="flex-1 p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
                         <span className="font-label-lg text-label-lg text-primary font-bold">21 Referrals</span>
-                        <span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">Organic</span>
+                        <span className="font-mono text-mono text-secondary font-bold">Organic</span>
                       </div>
                     </div>
                   </div>
@@ -260,7 +260,7 @@ export default function Activation() {
                       <span className="material-symbols-outlined text-xl">bolt</span>
                       <span>Launch Activation</span>
                     </button>
-                    <span className="text-[11px] text-outline text-center font-telemetry-mono">
+                    <span className="text-[11px] text-outline text-center font-mono">
                       Sends invite link and initializes ride group.
                     </span>
                   </div>

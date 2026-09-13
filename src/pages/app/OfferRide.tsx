@@ -44,16 +44,16 @@ export default function OfferRide() {
 {/*  Telemetry Micro Header / Breadcrumb & Status Ribbon  */}
 <div className="flex flex-wrap items-center justify-between gap-space-sm pb-space-md border-b border-surface-container mb-space-lg">
 <div className="flex items-center gap-space-sm">
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant font-medium tracking-wider">OFFER A RIDE</span>
+<span className="font-mono text-mono text-on-surface-variant font-medium tracking-wider">OFFER A RIDE</span>
 <span className="text-outline-variant">•</span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold">NORTHSIDE</span>
+<span className="font-mono text-mono text-secondary font-semibold">NORTHSIDE</span>
 <span className="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm flex items-center gap-1">
 <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
         Active
       </span>
 </div>
 <div className="flex items-center gap-space-md">
-<div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-telemetry-mono text-telemetry-mono">
+<div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-mono text-mono">
 <span className="material-symbols-outlined text-secondary text-base">hub</span>
 <span>Supply: <strong className="font-semibold text-on-surface">8 Drivers · 15 Rides</strong></span>
 </div>
@@ -99,7 +99,7 @@ export default function OfferRide() {
 <section className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
 <div className="flex items-center justify-between mb-space-md">
 <div className="flex items-center gap-space-xs">
-<span className="w-6 h-6 rounded-md bg-surface-container-high text-on-surface flex items-center justify-center font-telemetry-mono text-label-sm font-bold">01</span>
+<span className="w-6 h-6 rounded-md bg-surface-container-high text-on-surface flex items-center justify-center font-mono text-label-sm font-bold">01</span>
 <h2 className="font-headline-sm text-headline-sm text-on-surface">Your Route</h2>
 </div>
 <div className="inline-flex p-0.5 bg-surface-container-low rounded-lg" id="route-type-toggle">
@@ -131,13 +131,13 @@ export default function OfferRide() {
 <span className="font-headline-sm text-body-md font-semibold text-on-surface truncate">Northside Community</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Civic Garden Loop</span>
 </div>
-<span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-telemetry-mono text-label-sm shrink-0">P-01</span>
+<span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-mono text-label-sm shrink-0">P-01</span>
 </div>
 </div>
 </div>
 {/*  Route Spec Meta Pill  */}
 <div className="ml-11 flex items-center gap-space-sm py-0.5">
-<span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-telemetry-mono text-label-sm flex items-center gap-1.5">
+<span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono text-label-sm flex items-center gap-1.5">
 <span className="material-symbols-outlined text-xs text-secondary">alt_route</span>
               Route 44 · 14.2 km · Direct Path
             </span>
@@ -154,7 +154,7 @@ export default function OfferRide() {
 <span className="font-headline-sm text-body-md font-semibold text-on-surface truncate">Central District</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Intermodal Interchange</span>
 </div>
-<span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-telemetry-mono text-label-sm shrink-0">D-09</span>
+<span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-mono text-label-sm shrink-0">D-09</span>
 </div>
 </div>
 </div>
@@ -171,10 +171,10 @@ export default function OfferRide() {
 <section className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
 <div className="flex items-center justify-between mb-space-md">
 <div className="flex items-center gap-space-xs">
-<span className="w-6 h-6 rounded-md bg-surface-container-high text-on-surface flex items-center justify-center font-telemetry-mono text-label-sm font-bold">02</span>
+<span className="w-6 h-6 rounded-md bg-surface-container-high text-on-surface flex items-center justify-center font-mono text-label-sm font-bold">02</span>
 <h2 className="font-headline-sm text-headline-sm text-on-surface">Schedule</h2>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">ETA: 32 mins</span>
+<span className="font-mono text-mono text-on-surface-variant">ETA: 32 mins</span>
 </div>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-space-md mb-space-md">
 {/*  Date Pill Selector  */}
@@ -221,7 +221,7 @@ export default function OfferRide() {
             37 predicted passengers seeking departures along Route 44 between 5:45 and 6:15 PM.
           </p>
 <div className="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
-<div className="flex items-center gap-space-md text-telemetry-mono text-telemetry-mono text-on-surface">
+<div className="flex items-center gap-space-md text-mono text-mono text-on-surface">
 <span><strong className="font-bold text-secondary">37</strong> predicted</span>
 <span className="text-outline-variant">•</span>
 <span><strong className="font-bold text-error">25</strong> shortage</span>
@@ -254,7 +254,7 @@ export default function OfferRide() {
 <section className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
 <div className="flex items-center justify-between mb-space-md">
 <div className="flex items-center gap-space-xs">
-<span className="w-6 h-6 rounded-md bg-surface-container-high text-on-surface flex items-center justify-center font-telemetry-mono text-label-sm font-bold">03</span>
+<span className="w-6 h-6 rounded-md bg-surface-container-high text-on-surface flex items-center justify-center font-mono text-label-sm font-bold">03</span>
 <h2 className="font-headline-sm text-headline-sm text-on-surface">Available Seats</h2>
 </div>
 <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">Toyota RAV4 · Silver</span>
@@ -299,7 +299,7 @@ export default function OfferRide() {
   })}
 </div>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-semibold flex items-center gap-1">
+<span className="font-mono text-mono text-secondary font-semibold flex items-center gap-1">
 <span className="material-symbols-outlined text-sm">verified_user</span>
             Verified
           </span>
@@ -309,7 +309,7 @@ export default function OfferRide() {
 <section className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
 <div className="flex items-center justify-between mb-space-md">
 <div className="flex items-center gap-space-xs">
-<span className="w-6 h-6 rounded-md bg-surface-container-high text-on-surface flex items-center justify-center font-telemetry-mono text-label-sm font-bold">04</span>
+<span className="w-6 h-6 rounded-md bg-surface-container-high text-on-surface flex items-center justify-center font-mono text-label-sm font-bold">04</span>
 <h2 className="font-headline-sm text-headline-sm text-on-surface">Fuel Share</h2>
 </div>
 <span className="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold uppercase">
@@ -404,7 +404,7 @@ export default function OfferRide() {
 <span className="w-2 h-2 rounded-full bg-secondary"></span>
 <span>Corridor update:</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">
+<span className="font-mono text-mono text-secondary font-bold">
             8 → 9 Drivers · 14 → 15 Rides
           </span>
 </div>
@@ -439,7 +439,7 @@ export default function OfferRide() {
 <span className="font-label-lg text-label-lg font-bold text-on-surface">Sarah Chen</span>
 <span className="material-symbols-outlined text-secondary text-sm">verified</span>
 </div>
-<span className="font-telemetry-mono text-label-sm text-on-surface-variant">Northside · 4.98 ★</span>
+<span className="font-mono text-label-sm text-on-surface-variant">Northside · 4.98 ★</span>
 </div>
 </div>
 <span className="px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold" id="preview-seat-badge">
@@ -470,7 +470,7 @@ export default function OfferRide() {
 </div>
 </div>
 {/*  Corridor Route Fit & Pickup note  */}
-<div className="px-space-sm py-1 rounded bg-surface-container-low flex items-center justify-between text-body-sm text-on-surface-variant font-telemetry-mono">
+<div className="px-space-sm py-1 rounded bg-surface-container-low flex items-center justify-between text-body-sm text-on-surface-variant font-mono">
 <span className="flex items-center gap-1 text-secondary font-semibold">
 <span className="material-symbols-outlined text-xs">sync</span>
               100% Route Overlap
@@ -486,7 +486,7 @@ export default function OfferRide() {
 <span className="material-symbols-outlined text-secondary text-base">radar</span>
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Corridor Demand</h3>
 </div>
-<span className="font-telemetry-mono text-label-sm text-secondary font-bold">RT-44</span>
+<span className="font-mono text-label-sm text-secondary font-bold">RT-44</span>
 </div>
 <span className="font-body-sm text-body-sm text-on-surface-variant">
           Northside ⇄ Central District
@@ -494,12 +494,12 @@ export default function OfferRide() {
 {/*  Metric Cluster  */}
 <div className="grid grid-cols-2 gap-space-sm pt-space-xs">
 <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
-<span className="font-telemetry-mono text-label-sm text-outline uppercase">Ghost Demand</span>
+<span className="font-mono text-label-sm text-outline uppercase">Ghost Demand</span>
 <span className="font-headline-lg text-headline-md font-bold text-on-surface mt-0.5">37</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Passengers</span>
 </div>
 <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col">
-<span className="font-telemetry-mono text-label-sm text-outline uppercase">Shortage</span>
+<span className="font-mono text-label-sm text-outline uppercase">Shortage</span>
 <span className="font-headline-lg text-headline-md font-bold text-error mt-0.5">25</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Seats needed</span>
 </div>

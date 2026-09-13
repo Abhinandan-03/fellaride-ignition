@@ -46,7 +46,7 @@ export default function GhostDemand() {
                 </div>
                 <div className="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
                   <span className="text-error font-medium">4 seat shortages flagged</span>
-                  <span className="font-telemetry-mono text-telemetry-mono text-outline">High priority</span>
+                  <span className="font-mono text-mono text-outline">High priority</span>
                 </div>
               </div>
 
@@ -63,7 +63,7 @@ export default function GhostDemand() {
                 </div>
                 <div className="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
                   <span>Confidence ≥ 80%</span>
-                  <span className="font-telemetry-mono text-telemetry-mono text-secondary">Verified Events</span>
+                  <span className="font-mono text-mono text-secondary">Verified Events</span>
                 </div>
               </div>
 
@@ -74,11 +74,11 @@ export default function GhostDemand() {
                 </div>
                 <div className="flex items-baseline gap-space-sm">
                   <span className="font-headline-lg text-headline-lg font-bold text-on-surface">184</span>
-                  <span className="font-telemetry-mono text-telemetry-mono text-outline">TOTAL</span>
+                  <span className="font-mono text-mono text-outline">TOTAL</span>
                 </div>
                 <div className="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
                   <span>Across 4 transit corridors</span>
-                  <span className="font-telemetry-mono text-telemetry-mono text-on-surface">46/corridor avg</span>
+                  <span className="font-mono text-mono text-on-surface">46/corridor avg</span>
                 </div>
               </div>
 
@@ -89,11 +89,11 @@ export default function GhostDemand() {
                 </div>
                 <div className="flex items-baseline gap-space-sm">
                   <span className="font-headline-lg text-headline-lg font-bold text-tertiary-fixed">-76</span>
-                  <span className="font-telemetry-mono text-telemetry-mono text-tertiary-fixed-dim">SEATS</span>
+                  <span className="font-mono text-mono text-tertiary-fixed-dim">SEATS</span>
                 </div>
                 <div className="mt-space-sm pt-space-xs flex items-center justify-between text-tertiary-fixed font-body-sm text-body-sm">
                   <span>Requires connector activation</span>
-                  <span className="font-telemetry-mono text-telemetry-mono text-tertiary-fixed font-semibold">Immediate</span>
+                  <span className="font-mono text-mono text-tertiary-fixed font-semibold">Immediate</span>
                 </div>
               </div>
             </section>
@@ -109,7 +109,7 @@ export default function GhostDemand() {
                       <span className="material-symbols-outlined text-base">warning</span>
                       <span>Predicted Shortage · Saturday 6:00 PM</span>
                     </div>
-                    <span className="font-telemetry-mono text-telemetry-mono font-semibold bg-tertiary-container text-on-tertiary px-2 py-0.5 rounded">
+                    <span className="font-mono text-mono font-semibold bg-tertiary-container text-on-tertiary px-2 py-0.5 rounded">
                       Demand expected in 3 days
                     </span>
                   </div>
@@ -130,7 +130,7 @@ export default function GhostDemand() {
                         </div>
                       </div>
                       <div className="flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-sm rounded-lg self-start">
-                        <div className="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold font-telemetry-mono text-telemetry-mono">
+                        <div className="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold font-mono text-mono">
                           87%
                         </div>
                         <div className="flex flex-col">
@@ -247,7 +247,7 @@ export default function GhostDemand() {
                       <span className="material-symbols-outlined text-base text-secondary">insights</span>
                       Updated every 15 minutes.
                     </span>
-                    <span className="font-telemetry-mono text-telemetry-mono text-outline">Confidence: 87%</span>
+                    <span className="font-mono text-mono text-outline">Confidence: 87%</span>
                   </div>
                 </div>
 
@@ -258,38 +258,38 @@ export default function GhostDemand() {
                       <span className="material-symbols-outlined text-secondary text-lg">schema</span>
                       <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">Signal Pipeline</h3>
                     </div>
-                    <span className="px-space-xs py-0.5 rounded bg-surface-container font-telemetry-mono text-telemetry-mono text-on-surface-variant">
+                    <span className="px-space-xs py-0.5 rounded bg-surface-container font-mono text-mono text-on-surface-variant">
                       Zero app requests recorded yet
                     </span>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-space-xs">
                     <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
-                      <span className="font-telemetry-mono text-telemetry-mono text-outline font-bold">01</span>
+                      <span className="font-mono text-mono text-outline font-bold">01</span>
                       <span className="font-label-md text-label-md text-on-surface font-semibold">Public Data</span>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-tight">Calendar parsed</p>
                     </div>
                     <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
-                      <span className="font-telemetry-mono text-telemetry-mono text-outline font-bold">02</span>
+                      <span className="font-mono text-mono text-outline font-bold">02</span>
                       <span className="font-label-md text-label-md text-on-surface font-semibold">Event Match</span>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-tight">Festival identified</p>
                     </div>
                     <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
-                      <span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">03</span>
+                      <span className="font-mono text-mono text-secondary font-bold">03</span>
                       <span className="font-label-md text-label-md text-on-surface font-semibold">Route Sync</span>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-tight">Route 44 surge</p>
                     </div>
                     <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
-                      <span className="font-telemetry-mono text-telemetry-mono text-outline font-bold">04</span>
+                      <span className="font-mono text-mono text-outline font-bold">04</span>
                       <span className="font-label-md text-label-md text-on-surface font-semibold">Demand Model</span>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-tight">37 riders projected</p>
                     </div>
                     <div className="p-space-sm rounded-lg bg-error-container text-on-error-container flex flex-col gap-1">
-                      <span className="font-telemetry-mono text-telemetry-mono text-error font-bold">05</span>
+                      <span className="font-mono text-mono text-error font-bold">05</span>
                       <span className="font-label-md text-label-md font-bold">Seat Deficit</span>
                       <p className="font-body-sm text-body-sm leading-tight">-25 seats gap</p>
                     </div>
                     <div className="p-space-sm rounded-lg bg-secondary text-on-secondary flex flex-col gap-1">
-                      <span className="font-telemetry-mono text-telemetry-mono font-bold">06</span>
+                      <span className="font-mono text-mono font-bold">06</span>
                       <span className="font-label-md text-label-md font-bold">Activation</span>
                       <p className="font-body-sm text-body-sm leading-tight">Mobilize Alex</p>
                     </div>
@@ -325,9 +325,9 @@ export default function GhostDemand() {
                       <span className="font-label-lg text-label-lg font-bold text-on-surface truncate">Alex Morgan</span>
                       <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Northside Athletic Club Anchor</span>
                       <div className="flex items-center gap-space-xs mt-1">
-                        <span className="font-telemetry-mono text-telemetry-mono font-bold text-secondary">Score: 96</span>
+                        <span className="font-mono text-mono font-bold text-secondary">Score: 96</span>
                         <span className="text-outline-variant">•</span>
-                        <span className="font-telemetry-mono text-telemetry-mono text-on-surface">Reach: 24</span>
+                        <span className="font-mono text-mono text-on-surface">Reach: 24</span>
                       </div>
                     </div>
                   </div>
@@ -339,14 +339,14 @@ export default function GhostDemand() {
                         <span className="material-symbols-outlined text-secondary text-base">airline_seat_recline_normal</span>
                         Mobilize +8 Drivers
                       </span>
-                      <span className="font-telemetry-mono text-telemetry-mono font-semibold text-secondary">+16 seats</span>
+                      <span className="font-mono text-mono font-semibold text-secondary">+16 seats</span>
                     </div>
                     <div className="flex items-center justify-between text-body-sm font-body-sm">
                       <span className="flex items-center gap-1.5 text-on-surface">
                         <span className="material-symbols-outlined text-secondary text-base">hub</span>
                         Consolidate +15 Passengers
                       </span>
-                      <span className="font-telemetry-mono text-telemetry-mono font-semibold text-on-surface">Carpools</span>
+                      <span className="font-mono text-mono font-semibold text-on-surface">Carpools</span>
                     </div>
                     <div className="mt-space-xs pt-space-xs border-t border-surface-container-high flex items-center justify-between font-label-md text-label-md">
                       <span className="text-on-surface font-semibold">Net Deficit:</span>
@@ -370,7 +370,7 @@ export default function GhostDemand() {
                 <div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
                   <div className="flex items-center justify-between">
                     <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">Corridor Map</h3>
-                    <span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">ZONE 1</span>
+                    <span className="font-mono text-mono text-secondary font-bold">ZONE 1</span>
                   </div>
                   <div className="relative w-full rounded-lg bg-primary-container p-space-md text-on-primary">
                     <svg className="w-full h-40" viewBox="0 0 340 180">
@@ -408,21 +408,21 @@ export default function GhostDemand() {
                         <span className="font-label-md text-label-md font-semibold text-on-surface">Eastview Civic</span>
                         <span className="font-body-sm text-body-sm text-on-surface-variant">Sunday · 22 riders</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-telemetry-mono text-label-sm">-12 seats</span>
+                      <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono text-label-sm">-12 seats</span>
                     </div>
                     <div className="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
                       <div className="flex flex-col">
                         <span className="font-label-md text-label-md font-semibold text-on-surface">Lakeside Marina</span>
                         <span className="font-body-sm text-body-sm text-on-surface-variant">Monday · 18 riders</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-telemetry-mono text-label-sm">-8 seats</span>
+                      <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono text-label-sm">-8 seats</span>
                     </div>
                     <div className="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
                       <div className="flex flex-col">
                         <span className="font-label-md text-label-md font-semibold text-on-surface">West End Arena</span>
                         <span className="font-body-sm text-body-sm text-on-surface-variant">Tuesday · 14 riders</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-telemetry-mono text-label-sm">Balanced</span>
+                      <span className="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-mono text-label-sm">Balanced</span>
                     </div>
                   </div>
                 </div>

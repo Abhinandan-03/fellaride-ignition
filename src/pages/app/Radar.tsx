@@ -18,7 +18,7 @@ export default function Radar() {
                 <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">Find communities ready to start ride networks.</p>
               </div>
               <div className="flex flex-wrap items-center gap-space-sm">
-                <div className="hidden sm:flex items-center gap-space-xs px-3 py-1.5 bg-surface-container rounded-lg text-on-surface-variant font-telemetry-mono text-telemetry-mono">
+                <div className="hidden sm:flex items-center gap-space-xs px-3 py-1.5 bg-surface-container rounded-lg text-on-surface-variant font-mono text-mono">
                   <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
                   <span className="text-on-surface font-semibold">Updated just now</span>
                 </div>
@@ -38,7 +38,7 @@ export default function Radar() {
               <div className="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between relative overflow-hidden">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Communities</span>
-                  <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-telemetry-mono text-telemetry-mono font-semibold">+3 this week</span>
+                  <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-mono text-mono font-semibold">+3 this week</span>
                 </div>
                 <div className="flex items-baseline gap-space-sm mt-space-sm">
                   <span className="font-headline-lg text-headline-lg text-on-surface tracking-tight">24</span>
@@ -54,7 +54,7 @@ export default function Radar() {
               <div className="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between relative overflow-hidden">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">High Potential</span>
-                  <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-telemetry-mono text-telemetry-mono font-bold">Score ≥ 75</span>
+                  <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-mono text-mono font-bold">Score ≥ 75</span>
                 </div>
                 <div className="flex items-baseline gap-space-sm mt-space-sm">
                   <span className="font-headline-lg text-headline-lg text-secondary tracking-tight">7</span>
@@ -70,7 +70,7 @@ export default function Radar() {
               <div className="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between relative overflow-hidden">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Commute Routes</span>
-                  <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-telemetry-mono text-telemetry-mono font-semibold">84% overlap</span>
+                  <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-mono text-mono font-semibold">84% overlap</span>
                 </div>
                 <div className="flex items-baseline gap-space-sm mt-space-sm">
                   <span className="font-headline-lg text-headline-lg text-on-surface tracking-tight">18</span>
@@ -86,7 +86,7 @@ export default function Radar() {
               <div className="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between relative overflow-hidden">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Connectors</span>
-                  <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-telemetry-mono text-telemetry-mono font-semibold">Ready</span>
+                  <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-mono text-mono font-semibold">Ready</span>
                 </div>
                 <div className="flex items-baseline gap-space-sm mt-space-sm">
                   <span className="font-headline-lg text-headline-lg text-on-surface tracking-tight">12</span>
@@ -163,7 +163,7 @@ export default function Radar() {
 
                   {/* Pin: Central Hub */}
                   <div className="absolute left-[440px] top-[350px] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 flex flex-col items-center">
-                    <span className="mt-8 px-2 py-0.5 rounded bg-primary text-on-primary font-telemetry-mono text-[10px] font-bold shadow-md">
+                    <span className="mt-8 px-2 py-0.5 rounded bg-primary text-on-primary font-mono text-[10px] font-bold shadow-md">
                       CENTRAL TECH HUB
                     </span>
                   </div>
@@ -173,7 +173,7 @@ export default function Radar() {
                     <div className="p-2.5 rounded-xl bg-surface-container-lowest shadow-md border border-secondary/20 flex flex-col gap-1 min-w-[210px]">
                       <div className="flex items-center justify-between">
                         <span className="font-label-sm text-[10px] uppercase font-bold text-secondary">Priority #1</span>
-                        <span className="font-telemetry-mono text-[11px] font-bold text-on-surface bg-secondary-container/40 px-1.5 py-0.2 rounded">91/100</span>
+                        <span className="font-mono text-[11px] font-bold text-on-surface bg-secondary-container/40 px-1.5 py-0.2 rounded">91/100</span>
                       </div>
                       <span className="font-headline-sm text-sm text-on-surface font-bold">Northside Heights</span>
                       <span className="text-[11px] text-on-surface-variant">43 drivers · 128 passengers · 7 connectors</span>
@@ -218,7 +218,7 @@ export default function Radar() {
                   </div>
 
                   {/* Bottom Ticker */}
-                  <div className="absolute bottom-4 right-4 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm font-telemetry-mono text-[11px] text-on-surface-variant flex items-center gap-2">
+                  <div className="absolute bottom-4 right-4 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm font-mono text-[11px] text-on-surface-variant flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
                     <span>4 clusters · 3 corridors · 91% confidence</span>
                   </div>
@@ -244,9 +244,9 @@ export default function Radar() {
                       <div className="flex flex-col items-end">
                         <div className="flex items-baseline px-3 py-1.5 bg-secondary-container rounded-xl">
                           <span className="font-headline-lg text-headline-lg text-on-secondary-container font-bold">91</span>
-                          <span className="font-telemetry-mono text-telemetry-mono text-on-secondary-container opacity-70 ml-0.5">/100</span>
+                          <span className="font-mono text-mono text-on-secondary-container opacity-70 ml-0.5">/100</span>
                         </div>
-                        <span className="font-telemetry-mono text-[10px] text-secondary font-semibold uppercase tracking-wider mt-0.5">Potential</span>
+                        <span className="font-mono text-[10px] text-secondary font-semibold uppercase tracking-wider mt-0.5">Potential</span>
                       </div>
                     </div>
                   </div>
@@ -259,7 +259,7 @@ export default function Radar() {
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-between text-body-sm font-medium">
                         <span className="text-on-surface">Population Density</span>
-                        <span className="font-telemetry-mono font-semibold text-secondary">92 / 100</span>
+                        <span className="font-mono font-semibold text-secondary">92 / 100</span>
                       </div>
                       <div className="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
                         <div className="h-full bg-secondary rounded-full" style={{ width: '92%' }}></div>
@@ -268,7 +268,7 @@ export default function Radar() {
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-between text-body-sm font-medium">
                         <span className="text-on-surface">Commute Overlap</span>
-                        <span className="font-telemetry-mono font-semibold text-secondary">88 / 100</span>
+                        <span className="font-mono font-semibold text-secondary">88 / 100</span>
                       </div>
                       <div className="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
                         <div className="h-full bg-secondary rounded-full" style={{ width: '88%' }}></div>
@@ -277,7 +277,7 @@ export default function Radar() {
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-between text-body-sm font-medium">
                         <span className="text-on-surface">Route Match</span>
-                        <span className="font-telemetry-mono font-semibold text-secondary">91 / 100</span>
+                        <span className="font-mono font-semibold text-secondary">91 / 100</span>
                       </div>
                       <div className="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
                         <div className="h-full bg-secondary rounded-full" style={{ width: '91%' }}></div>
@@ -286,7 +286,7 @@ export default function Radar() {
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-between text-body-sm font-medium">
                         <span className="text-on-surface">Transit Need</span>
-                        <span className="font-telemetry-mono font-semibold text-on-surface">86 / 100</span>
+                        <span className="font-mono font-semibold text-on-surface">86 / 100</span>
                       </div>
                       <div className="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
                         <div className="h-full bg-secondary-fixed-dim rounded-full" style={{ width: '86%' }}></div>
@@ -295,7 +295,7 @@ export default function Radar() {
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-between text-body-sm font-medium">
                         <span className="text-on-surface">Connector Readiness</span>
-                        <span className="font-telemetry-mono font-semibold text-on-surface-variant">78 / 100</span>
+                        <span className="font-mono font-semibold text-on-surface-variant">78 / 100</span>
                       </div>
                       <div className="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
                         <div className="h-full bg-outline rounded-full" style={{ width: '78%' }}></div>
@@ -313,9 +313,9 @@ export default function Radar() {
                       High commute overlap + 7 active connectors.
                     </p>
                     <div className="flex flex-wrap gap-1.5 mt-1">
-                      <span className="px-2 py-0.5 rounded bg-surface-container-lowest text-secondary font-telemetry-mono text-[11px] font-semibold">Reach 24</span>
-                      <span className="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface font-telemetry-mono text-[11px]">Zero Subsidy</span>
-                      <span className="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface font-telemetry-mono text-[11px]">High Overlap</span>
+                      <span className="px-2 py-0.5 rounded bg-surface-container-lowest text-secondary font-mono text-[11px] font-semibold">Reach 24</span>
+                      <span className="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface font-mono text-[11px]">Zero Subsidy</span>
+                      <span className="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface font-mono text-[11px]">High Overlap</span>
                     </div>
                   </div>
 
@@ -323,7 +323,7 @@ export default function Radar() {
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Corridor Rankings</span>
-                      <span className="font-telemetry-mono text-[11px] text-secondary">Peak Hours</span>
+                      <span className="font-mono text-[11px] text-secondary">Peak Hours</span>
                     </div>
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center justify-between p-2 rounded-lg bg-surface-container-low text-on-surface">
@@ -331,7 +331,7 @@ export default function Radar() {
                           <span className="w-2 h-2 rounded-full bg-secondary"></span>
                           <span className="font-label-md text-label-md">Northside → Central District</span>
                         </div>
-                        <div className="flex items-center gap-2 font-telemetry-mono text-[11px]">
+                        <div className="flex items-center gap-2 font-mono text-[11px]">
                           <span className="text-secondary font-semibold">8:05 AM</span>
                           <span className="px-1.5 py-0.2 rounded bg-secondary-container text-on-secondary-container font-bold">High</span>
                         </div>
@@ -341,7 +341,7 @@ export default function Radar() {
                           <span className="w-2 h-2 rounded-full bg-secondary"></span>
                           <span className="font-label-md text-label-md">Eastview → Central District</span>
                         </div>
-                        <div className="flex items-center gap-2 font-telemetry-mono text-[11px]">
+                        <div className="flex items-center gap-2 font-mono text-[11px]">
                           <span className="text-on-surface-variant">8:20 AM</span>
                           <span className="px-1.5 py-0.2 rounded bg-secondary-container text-on-secondary-container font-bold">High</span>
                         </div>
@@ -351,7 +351,7 @@ export default function Radar() {
                           <span className="w-2 h-2 rounded-full bg-outline"></span>
                           <span className="font-label-md text-label-md">Lakeside → Central District</span>
                         </div>
-                        <div className="flex items-center gap-2 font-telemetry-mono text-[11px]">
+                        <div className="flex items-center gap-2 font-mono text-[11px]">
                           <span className="text-on-surface-variant">8:45 AM</span>
                           <span className="px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface">Med</span>
                         </div>
@@ -361,7 +361,7 @@ export default function Radar() {
                           <span className="w-2 h-2 rounded-full bg-outline-variant"></span>
                           <span className="font-label-md text-label-md">West End → Central District</span>
                         </div>
-                        <div className="flex items-center gap-2 font-telemetry-mono text-[11px]">
+                        <div className="flex items-center gap-2 font-mono text-[11px]">
                           <span className="text-on-surface-variant">9:00 AM</span>
                           <span className="px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface">Med</span>
                         </div>
@@ -374,19 +374,19 @@ export default function Radar() {
                     <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Community Snapshot</span>
                     <div className="grid grid-cols-4 gap-2 text-center">
                       <div className="p-2 rounded-lg bg-surface-container-low flex flex-col">
-                        <span className="font-telemetry-mono text-base font-bold text-on-surface">12.4k</span>
+                        <span className="font-mono text-base font-bold text-on-surface">12.4k</span>
                         <span className="text-[10px] text-on-surface-variant leading-tight mt-0.5">Members</span>
                       </div>
                       <div className="p-2 rounded-lg bg-surface-container-low flex flex-col">
-                        <span className="font-telemetry-mono text-base font-bold text-on-surface">43</span>
+                        <span className="font-mono text-base font-bold text-on-surface">43</span>
                         <span className="text-[10px] text-on-surface-variant leading-tight mt-0.5">Drivers</span>
                       </div>
                       <div className="p-2 rounded-lg bg-surface-container-low flex flex-col">
-                        <span className="font-telemetry-mono text-base font-bold text-on-surface">128</span>
+                        <span className="font-mono text-base font-bold text-on-surface">128</span>
                         <span className="text-[10px] text-on-surface-variant leading-tight mt-0.5">Passengers</span>
                       </div>
                       <div className="p-2 rounded-lg bg-secondary-container flex flex-col">
-                        <span className="font-telemetry-mono text-base font-bold text-on-secondary-container">7</span>
+                        <span className="font-mono text-base font-bold text-on-secondary-container">7</span>
                         <span className="text-[10px] text-on-secondary-container font-semibold leading-tight mt-0.5">Connectors</span>
                       </div>
                     </div>

@@ -27,7 +27,7 @@ export default function CommunityHealthView() {
 <div className="flex items-center gap-2">
 <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">GROWTH</span>
 <span className="text-outline-variant font-label-sm text-label-sm">•</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant font-semibold">LIVE HEALTH</span>
+<span className="font-mono text-mono text-on-surface-variant font-semibold">HEALTH INDEX</span>
 </div>
 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Community Health</h1>
 <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl">
@@ -39,7 +39,7 @@ export default function CommunityHealthView() {
 <div className="flex items-center gap-2 bg-surface-container px-space-md py-2 rounded-lg shadow-sm">
 <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
 <span className="font-label-md text-label-md text-on-surface font-semibold">Northside Community</span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary bg-secondary-container/40 px-1.5 py-0.5 rounded font-bold">82/100</span>
+<span className="font-mono text-mono text-secondary bg-secondary-container/40 px-1.5 py-0.5 rounded font-bold">82/100</span>
 </div>
 {/*  Butterfly Effect CTA  */}
 <Link to="/app/butterfly-effect" className="flex items-center gap-1.5 px-space-md py-2 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded-lg transition-all shadow-sm">
@@ -62,9 +62,9 @@ export default function CommunityHealthView() {
 {/*  Left 7 cols: Community info & score display  */}
 <div className="xl:col-span-7 flex flex-col space-y-space-md">
 <div className="flex flex-wrap items-center gap-space-sm">
-<span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-telemetry-mono text-telemetry-mono">Northside Pilot</span>
+<span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono text-mono">Northside Pilot</span>
 <span className="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold tracking-wide uppercase">Healthy & Growing</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">Updated 2m ago</span>
+<span className="font-mono text-mono text-on-surface-variant">Updated 2m ago</span>
 </div>
 <h2 className="font-headline-lg text-headline-lg text-on-surface">
           Northside Community
@@ -76,7 +76,7 @@ export default function CommunityHealthView() {
 <div className="pt-space-xs">
 <div className="flex justify-between items-center mb-1.5">
 <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Health Tiers</span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">Current: 82/100 · Healthy & Growing</span>
+<span className="font-mono text-mono text-secondary font-bold">Current: 82/100 · Healthy & Growing</span>
 </div>
 <div className="grid grid-cols-5 gap-1.5 h-2.5 rounded-full overflow-hidden bg-surface-container">
 <div className="bg-surface-variant h-full" title="0–30 Dormant"></div>
@@ -87,7 +87,7 @@ export default function CommunityHealthView() {
 </div>
 <div className="bg-surface-variant h-full" title="86–100 Self-Sustaining"></div>
 </div>
-<div className="grid grid-cols-5 gap-1.5 pt-1.5 text-center font-telemetry-mono text-[10px] text-on-surface-variant">
+<div className="grid grid-cols-5 gap-1.5 pt-1.5 text-center font-mono text-[10px] text-on-surface-variant">
 <span>0–30 Dormant</span>
 <span>31–50 Emerging</span>
 <span>51–70 Growing</span>
@@ -110,7 +110,7 @@ export default function CommunityHealthView() {
 </svg>
 {/*  Metric Value in center  */}
 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-<span className="font-telemetry-mono text-label-sm text-outline uppercase tracking-wider">Health</span>
+<span className="font-mono text-label-sm text-outline uppercase tracking-wider">Health</span>
 <div className="flex items-baseline gap-1">
 <span className="font-display-hero text-display-hero text-on-surface font-bold">82</span>
 <span className="font-headline-md text-headline-md text-on-surface-variant">/100</span>
@@ -119,7 +119,7 @@ export default function CommunityHealthView() {
 </div>
 </div>
 <div className="mt-space-sm text-center">
-<p className="font-telemetry-mono text-telemetry-mono text-secondary font-bold text-base">18 → 82</p>
+<p className="font-mono text-mono text-secondary font-bold text-base">18 → 82</p>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Self-sustaining threshold crossed</p>
 </div>
 </div>
@@ -136,11 +136,11 @@ export default function CommunityHealthView() {
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface">Participation</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">+12%</span>
+<span className="font-mono text-mono text-secondary font-bold">+12%</span>
 </div>
 <div className="flex items-baseline justify-between pt-1">
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold">88%</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">23 / 24 Target</span>
+<span className="font-mono text-mono text-on-surface-variant">23 / 24 Target</span>
 </div>
 <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
 <div className="bg-secondary h-full rounded-full" style={{ width: '88%' }}></div>
@@ -159,11 +159,11 @@ export default function CommunityHealthView() {
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface">Driver Supply</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">1:2.8 Ratio</span>
+<span className="font-mono text-mono text-secondary font-bold">1:2.8 Ratio</span>
 </div>
 <div className="flex items-baseline justify-between pt-1">
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold">84%</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">8 Active Drivers</span>
+<span className="font-mono text-mono text-on-surface-variant">8 Active Drivers</span>
 </div>
 <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
 <div className="bg-secondary h-full rounded-full" style={{ width: '84%' }}></div>
@@ -182,11 +182,11 @@ export default function CommunityHealthView() {
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface">Ride Activity</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">14 Rides</span>
+<span className="font-mono text-mono text-secondary font-bold">14 Rides</span>
 </div>
 <div className="flex items-baseline justify-between pt-1">
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold">79%</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">Active Routes</span>
+<span className="font-mono text-mono text-on-surface-variant">Active Routes</span>
 </div>
 <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
 <div className="bg-secondary h-full rounded-full" style={{ width: '79%' }}></div>
@@ -205,11 +205,11 @@ export default function CommunityHealthView() {
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface">Repeat Usage</span>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">18 Habitual</span>
+<span className="font-mono text-mono text-secondary font-bold">18 Habitual</span>
 </div>
 <div className="flex items-baseline justify-between pt-1">
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold">78%</span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface-variant">48h Return Loop</span>
+<span className="font-mono text-mono text-on-surface-variant">48h Return Loop</span>
 </div>
 <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
 <div className="bg-secondary h-full rounded-full" style={{ width: '78%' }}></div>
@@ -227,7 +227,7 @@ export default function CommunityHealthView() {
 <h3 className="font-headline-md text-headline-md text-on-surface">Community Lifecycle</h3>
 <p className="font-body-sm text-body-sm text-on-surface-variant">From cold start to self-sustaining mobility</p>
 </div>
-<div className="px-space-md py-1 bg-secondary-container text-on-secondary-container font-telemetry-mono text-telemetry-mono rounded-full font-bold self-start sm:self-auto">
+<div className="px-space-md py-1 bg-secondary-container text-on-secondary-container font-mono text-mono rounded-full font-bold self-start sm:self-auto">
         Northside: Stage 4 · Repeat Usage
       </div>
 </div>
@@ -236,75 +236,75 @@ export default function CommunityHealthView() {
 {/*  Step 1  */}
 <div className="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between space-y-2 opacity-80">
 <div className="flex items-center justify-between">
-<span className="font-telemetry-mono text-[10px] text-outline">STAGE 01</span>
+<span className="font-mono text-[10px] text-outline">STAGE 01</span>
 <span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">Discovered</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Community Radar</span>
 </div>
-<span className="font-telemetry-mono text-[11px] text-secondary">Identified hub</span>
+<span className="font-mono text-[11px] text-secondary">Identified hub</span>
 </div>
 {/*  Step 2  */}
 <div className="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between space-y-2 opacity-80">
 <div className="flex items-center justify-between">
-<span className="font-telemetry-mono text-[10px] text-outline">STAGE 02</span>
+<span className="font-mono text-[10px] text-outline">STAGE 02</span>
 <span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">Predicted</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Ghost Demand</span>
 </div>
-<span className="font-telemetry-mono text-[11px] text-secondary">Route 44 routes</span>
+<span className="font-mono text-[11px] text-secondary">Route 44 routes</span>
 </div>
 {/*  Step 3  */}
 <div className="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between space-y-2 opacity-80">
 <div className="flex items-center justify-between">
-<span className="font-telemetry-mono text-[10px] text-outline">STAGE 03</span>
+<span className="font-mono text-[10px] text-outline">STAGE 03</span>
 <span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">Activated</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Alex Morgan</span>
 </div>
-<span className="font-telemetry-mono text-[11px] text-secondary">1 → 32 Users</span>
+<span className="font-mono text-[11px] text-secondary">1 → 32 Users</span>
 </div>
 {/*  Step 4  */}
 <div className="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between space-y-2 opacity-80">
 <div className="flex items-center justify-between">
-<span className="font-telemetry-mono text-[10px] text-outline">STAGE 04</span>
+<span className="font-mono text-[10px] text-outline">STAGE 04</span>
 <span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">First Rides</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Initial routes</span>
 </div>
-<span className="font-telemetry-mono text-[11px] text-secondary">3 Seed rides</span>
+<span className="font-mono text-[11px] text-secondary">3 Seed rides</span>
 </div>
 {/*  Step 5 (ACTIVE STEP)  */}
 <div className="bg-primary text-on-primary p-space-sm rounded-lg flex flex-col justify-between space-y-2 shadow-md relative overflow-hidden">
 <div className="absolute top-0 right-0 w-12 h-12 bg-secondary/30 rounded-bl-full pointer-events-none"></div>
 <div className="flex items-center justify-between">
-<span className="font-telemetry-mono text-[10px] text-secondary-container font-bold">CURRENT</span>
+<span className="font-mono text-[10px] text-secondary-container font-bold">CURRENT</span>
 <span className="w-2 h-2 rounded-full bg-secondary-container animate-ping"></span>
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-primary block">Repeat Usage</span>
 <span className="font-body-sm text-body-sm text-outline-variant">Northside</span>
 </div>
-<span className="font-telemetry-mono text-[11px] text-secondary-container font-semibold">18 Habitual pairs</span>
+<span className="font-mono text-[11px] text-secondary-container font-semibold">18 Habitual pairs</span>
 </div>
 {/*  Step 6 (NEXT)  */}
 <div className="bg-surface-container p-space-sm rounded-lg flex flex-col justify-between space-y-2">
 <div className="flex items-center justify-between">
-<span className="font-telemetry-mono text-[10px] text-outline">NEXT</span>
+<span className="font-mono text-[10px] text-outline">NEXT</span>
 <span className="material-symbols-outlined text-outline text-sm">hourglass_empty</span>
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">Self-Sustaining</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Autonomous</span>
 </div>
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">Projected at 88/100</span>
+<span className="font-mono text-[11px] text-on-surface-variant">Projected at 88/100</span>
 </div>
 </div>
 </div>
@@ -317,7 +317,7 @@ export default function CommunityHealthView() {
 </div>
 <div className="flex items-center gap-2">
 <span className="w-3 h-3 rounded-full bg-secondary"></span>
-<span className="font-telemetry-mono text-telemetry-mono text-on-surface font-semibold">18 → 82</span>
+<span className="font-mono text-mono text-on-surface font-semibold">18 → 82</span>
 </div>
 </div>
 {/*  Inline SVG Sparkline / Trajectory Chart  */}
@@ -348,28 +348,28 @@ export default function CommunityHealthView() {
 {/*  Milestones Data Badges Overlay  */}
 <div className="absolute inset-0 flex justify-between px-6 pointer-events-none items-end pb-2">
 <div className="flex flex-col items-start -mb-2">
-<span className="font-telemetry-mono text-[11px] text-on-surface font-bold">18</span>
-<span className="font-telemetry-mono text-[10px] text-outline">0h</span>
+<span className="font-mono text-[11px] text-on-surface font-bold">18</span>
+<span className="font-mono text-[10px] text-outline">0h</span>
 </div>
 <div className="flex flex-col items-center -mb-2">
-<span className="font-telemetry-mono text-[11px] text-on-surface font-bold">34</span>
-<span className="font-telemetry-mono text-[10px] text-outline">4h</span>
+<span className="font-mono text-[11px] text-on-surface font-bold">34</span>
+<span className="font-mono text-[10px] text-outline">4h</span>
 </div>
 <div className="flex flex-col items-center -mb-2">
-<span className="font-telemetry-mono text-[11px] text-on-surface font-bold">51</span>
-<span className="font-telemetry-mono text-[10px] text-outline">11h</span>
+<span className="font-mono text-[11px] text-on-surface font-bold">51</span>
+<span className="font-mono text-[10px] text-outline">11h</span>
 </div>
 <div className="flex flex-col items-center -mb-2">
-<span className="font-telemetry-mono text-[11px] text-on-surface font-bold">67</span>
-<span className="font-telemetry-mono text-[10px] text-outline">20h</span>
+<span className="font-mono text-[11px] text-on-surface font-bold">67</span>
+<span className="font-mono text-[10px] text-outline">20h</span>
 </div>
 <div className="flex flex-col items-end -mb-2">
-<span className="font-telemetry-mono text-[12px] text-secondary font-bold">82</span>
-<span className="font-telemetry-mono text-[10px] text-secondary font-semibold">36h</span>
+<span className="font-mono text-[12px] text-secondary font-bold">82</span>
+<span className="font-mono text-[10px] text-secondary font-semibold">36h</span>
 </div>
 </div>
 </div>
-<div className="pt-space-md flex flex-wrap items-center justify-between text-on-surface-variant font-telemetry-mono text-telemetry-mono border-t border-transparent">
+<div className="pt-space-md flex flex-wrap items-center justify-between text-on-surface-variant font-mono text-mono border-t border-transparent">
 <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-secondary text-sm">trending_up</span>+64 pts in 36 hours (18 → 82)</span>
 <span>Key route: Northside → Central District</span>
 </div>
@@ -378,37 +378,37 @@ export default function CommunityHealthView() {
 {/*  ACTIVITY METRICS GRID  */}
 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-space-sm">
 <div className="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col">
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">Active Members</span>
+<span className="font-mono text-[11px] text-on-surface-variant">Active Members</span>
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold mt-1">23</span>
 <span className="font-label-sm text-label-sm text-secondary mt-0.5">96% retention</span>
 </div>
 <div className="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col">
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">Drivers</span>
+<span className="font-mono text-[11px] text-on-surface-variant">Drivers</span>
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold mt-1">8</span>
 <span className="font-label-sm text-label-sm text-secondary mt-0.5">88% active</span>
 </div>
 <div className="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col">
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">Passengers</span>
+<span className="font-mono text-[11px] text-on-surface-variant">Passengers</span>
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold mt-1">15</span>
 <span className="font-label-sm text-label-sm text-secondary mt-0.5">Daily commute</span>
 </div>
 <div className="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col">
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">Rides</span>
+<span className="font-mono text-[11px] text-on-surface-variant">Rides</span>
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold mt-1">14</span>
 <span className="font-label-sm text-label-sm text-secondary mt-0.5">This week</span>
 </div>
 <div className="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col">
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">Habitual</span>
+<span className="font-mono text-[11px] text-on-surface-variant">Habitual</span>
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold mt-1">18</span>
 <span className="font-label-sm text-label-sm text-secondary mt-0.5">78% repeat</span>
 </div>
 <div className="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col">
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">Referrals</span>
+<span className="font-mono text-[11px] text-on-surface-variant">Referrals</span>
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold mt-1">21</span>
 <span className="font-label-sm text-label-sm text-secondary mt-0.5">1.4 multiplier</span>
 </div>
 <div className="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col">
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant">CO₂ Avoided</span>
+<span className="font-mono text-[11px] text-on-surface-variant">CO₂ Avoided</span>
 <span className="font-headline-lg text-headline-lg text-on-surface font-bold mt-1">126<span className="text-base font-normal">kg</span></span>
 <span className="font-label-sm text-label-sm text-secondary mt-0.5">This week</span>
 </div>
@@ -542,7 +542,7 @@ export default function CommunityHealthView() {
 <span className="material-symbols-outlined text-secondary text-xl">bolt</span>
 <h3 className="font-headline-md text-headline-md text-on-surface">Recommended Action</h3>
 </div>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary font-bold">Priority #1</span>
+<span className="font-mono text-mono text-secondary font-bold">Priority #1</span>
 </div>
 {/*  Highlighted Card  */}
 <div className="bg-surface-container-low p-space-md rounded-xl flex flex-col space-y-space-sm">
@@ -554,7 +554,7 @@ export default function CommunityHealthView() {
             Strengthen Evening Driver Supply
           </h4>
 <div className="p-space-sm bg-surface-container-lowest rounded-lg">
-<span className="font-telemetry-mono text-[11px] text-on-surface-variant font-semibold block mb-1">GHOST DEMAND</span>
+<span className="font-mono text-[11px] text-on-surface-variant font-semibold block mb-1">GHOST DEMAND</span>
 <p className="font-body-sm text-body-sm text-on-surface">
               Predicted <strong className="text-error">-4 to -8 seat shortage</strong> this Saturday at 6:00 PM for the sports festival.
             </p>
@@ -590,16 +590,16 @@ export default function CommunityHealthView() {
 </div>
 {/*  Sort pills  */}
 <div className="flex items-center gap-1 bg-surface-container p-1 rounded-lg">
-<button onClick={() => setSortBy('health')} className={`px-2 py-0.5 rounded font-telemetry-mono text-[11px] transition-all ${sortBy === 'health' ? 'bg-surface-container-lowest text-on-surface font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}>Health</button>
-<button onClick={() => setSortBy('rides')} className={`px-2 py-0.5 rounded font-telemetry-mono text-[11px] transition-all ${sortBy === 'rides' ? 'bg-surface-container-lowest text-on-surface font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}>Rides</button>
-<button onClick={() => setSortBy('repeat')} className={`px-2 py-0.5 rounded font-telemetry-mono text-[11px] transition-all ${sortBy === 'repeat' ? 'bg-surface-container-lowest text-on-surface font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}>Repeat</button>
+<button onClick={() => setSortBy('health')} className={`px-2 py-0.5 rounded font-mono text-[11px] transition-all ${sortBy === 'health' ? 'bg-surface-container-lowest text-on-surface font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}>Health</button>
+<button onClick={() => setSortBy('rides')} className={`px-2 py-0.5 rounded font-mono text-[11px] transition-all ${sortBy === 'rides' ? 'bg-surface-container-lowest text-on-surface font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}>Rides</button>
+<button onClick={() => setSortBy('repeat')} className={`px-2 py-0.5 rounded font-mono text-[11px] transition-all ${sortBy === 'repeat' ? 'bg-surface-container-lowest text-on-surface font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}>Repeat</button>
 </div>
 </div>
 {/*  High-density benchmark table  */}
 <div className="overflow-x-auto">
 <table className="w-full text-left">
 <thead>
-<tr className="bg-surface-container-low text-on-surface-variant font-telemetry-mono text-telemetry-mono">
+<tr className="bg-surface-container-low text-on-surface-variant font-mono text-mono">
 <th className="p-space-sm font-semibold rounded-l-lg">Community</th>
 <th className="p-space-sm font-semibold">Health</th>
 <th className="p-space-sm font-semibold text-right">Drivers</th>
@@ -617,10 +617,10 @@ export default function CommunityHealthView() {
           <span className="w-2 h-2 rounded-full bg-secondary"></span>
           <span>{cluster.name}</span>
         </td>
-        <td className="p-space-sm font-telemetry-mono text-telemetry-mono font-bold text-secondary">{cluster.score} / 100</td>
-        <td className="p-space-sm font-telemetry-mono text-telemetry-mono text-right">{cluster.drivers}</td>
-        <td className="p-space-sm font-telemetry-mono text-telemetry-mono text-right">{cluster.rides}</td>
-        <td className="p-space-sm font-telemetry-mono text-telemetry-mono text-right font-semibold">{cluster.repeat}%</td>
+        <td className="p-space-sm font-mono text-mono font-bold text-secondary">{cluster.score} / 100</td>
+        <td className="p-space-sm font-mono text-mono text-right">{cluster.drivers}</td>
+        <td className="p-space-sm font-mono text-mono text-right">{cluster.rides}</td>
+        <td className="p-space-sm font-mono text-mono text-right font-semibold">{cluster.repeat}%</td>
         <td className="p-space-sm">
           <span className="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-[10px] font-bold">HEALTHY</span>
         </td>
@@ -633,10 +633,10 @@ export default function CommunityHealthView() {
         <span className="w-2 h-2 rounded-full bg-outline-variant"></span>
         <span>{cluster.name}</span>
       </td>
-      <td className="p-space-sm font-telemetry-mono text-telemetry-mono text-on-surface">{cluster.score} / 100</td>
-      <td className="p-space-sm font-telemetry-mono text-telemetry-mono text-right">{cluster.drivers}</td>
-      <td className="p-space-sm font-telemetry-mono text-telemetry-mono text-right">{cluster.rides}</td>
-      <td className="p-space-sm font-telemetry-mono text-telemetry-mono text-right">{cluster.repeat}%</td>
+      <td className="p-space-sm font-mono text-mono text-on-surface">{cluster.score} / 100</td>
+      <td className="p-space-sm font-mono text-mono text-right">{cluster.drivers}</td>
+      <td className="p-space-sm font-mono text-mono text-right">{cluster.rides}</td>
+      <td className="p-space-sm font-mono text-mono text-right">{cluster.repeat}%</td>
       <td className="p-space-sm">
         {cluster.status === 'GROWING' && (
           <span className="px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-[10px]">GROWING</span>
@@ -666,7 +666,7 @@ export default function CommunityHealthView() {
 <div className="max-w-3xl space-y-space-sm">
 <div className="flex items-center gap-2">
 <span className="w-2 h-2 rounded-full bg-secondary-container"></span>
-<span className="font-telemetry-mono text-telemetry-mono text-secondary-container tracking-wider uppercase font-semibold">Principle</span>
+<span className="font-mono text-mono text-secondary-container tracking-wider uppercase font-semibold">Principle</span>
 </div>
 <h3 className="font-headline-lg text-headline-lg text-on-primary tracking-tight">
           "A healthy community is more than a large community."
@@ -677,7 +677,7 @@ export default function CommunityHealthView() {
 </div>
 {/*  Strategic loop badge  */}
 <div className="flex flex-col items-start md:items-end shrink-0 gap-2">
-<div className="p-space-sm bg-surface-container-low/10 backdrop-blur-md rounded-lg flex flex-wrap items-center gap-1.5 font-telemetry-mono text-[11px] text-on-primary">
+<div className="p-space-sm bg-surface-container-low/10 backdrop-blur-md rounded-lg flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-on-primary">
 <span className="text-secondary-fixed font-bold">DISCOVER</span>
 <span>→</span>
 <span className="text-secondary-fixed font-bold">PREDICT</span>
@@ -690,7 +690,7 @@ export default function CommunityHealthView() {
 <span>→</span>
 <span className="text-secondary-container font-extrabold bg-secondary/40 px-1.5 py-0.5 rounded">SUSTAIN</span>
 </div>
-<span className="font-telemetry-mono text-[11px] text-inverse-primary">Community Loop</span>
+<span className="font-mono text-[11px] text-inverse-primary">Community Loop</span>
 </div>
 </div>
 </div>
