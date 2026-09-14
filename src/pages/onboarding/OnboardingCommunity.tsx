@@ -22,7 +22,7 @@ import { useApp } from '../../store/AppContext';
 
 export default function OnboardingCommunity() {
   const navigate = useNavigate();
-  const { communities, selectedCommunity: currentSelected, selectCommunity, joinCommunity, createCommunity } = useApp();
+  const { communities, selectedCommunity: currentSelected, joinCommunity, createCommunity } = useApp();
   const [selectedId, setSelectedId] = useState(currentSelected?.id || 'northside');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<'all' | 'colleges' | 'residential' | 'emerging'>('all');
@@ -67,8 +67,7 @@ export default function OnboardingCommunity() {
 
   const handleContinue = () => {
     if (selectedId) {
-      joinCommunity(selectedId);
-      selectCommunity(selectedId);
+      joinCommunity(selectedId, true);
     }
     navigate('/onboarding/profile');
   };

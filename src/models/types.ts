@@ -12,6 +12,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  passwordHash?: string; // hashed via Web Crypto API (SHA-256 hex)
   role: UserRole;
   plan: UserPlan;
   communityIds: string[];

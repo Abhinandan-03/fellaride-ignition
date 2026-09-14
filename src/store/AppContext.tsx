@@ -15,8 +15,8 @@ interface CreateCommunityData {
 interface AppContextType {
   // User & Auth
   currentUser: User | null;
-  signUp: (name: string, email: string, role?: UserRole) => AuthResult;
-  login: (email?: string) => AuthResult;
+  signUp: (name: string, email: string, password: string, role?: UserRole) => Promise<AuthResult>;
+  login: (email: string, password: string) => Promise<AuthResult>;
   loginAsUser: (userId: string) => AuthResult;
   logout: () => void;
   updateRidePreference: (role: UserRole) => void;
@@ -37,6 +37,7 @@ interface AppContextType {
   joinCommunity: (communityId: string, autoSwitch?: boolean) => void;
   leaveCommunity: (communityId: string) => void;
   createCommunity: (data: CreateCommunityData) => Community;
+  isMember: (communityId: string) => boolean;
 
   // Routes
   communityRoutes: Route[];
@@ -61,6 +62,33 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+// Fallback community used when no real community is available
+const FALLBACK_COMMUNITY: Community = {
+  id: 'community-fallback',
+  name: 'Local Hub',
+  potentialScore: 80,
+  potentialMembers: 1000,
+  potentialDrivers: 10,
+  potentialPassengers: 40,
+  potentialConnectors: 2,
+  isActivated: false,
+  state: {
+    activeMembers: 0,
+    drivers: 0,
+    passengers: 0,
+    rides: 0,
+    health: {
+      score: 50,
+      activeParticipation: 0,
+      driverSupply: 0,
+      rideActivity: 0,
+      repeatUsage: 0,
+      trend: 'stable',
+      previousScore: 50,
+    },
+  },
+};
+
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   // Auth state initialized from persistent session
   const [currentUser, setCurrentUser] = useState<User | null>(() => auth.getCurrentUser());
@@ -83,40 +111,17 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  // Compute active user's communities
+  // Compute active user's communities (only their memberships)
   const userCommunities = communities.filter((c) =>
     currentUser ? currentUser.communityIds.includes(c.id) : false
   );
 
-  // Compute currently selected community
+  // Compute currently selected community (must be one they're a member of)
   const selectedCommunity =
-    (currentUser && communities.find((c) => c.id === currentUser.selectedCommunityId)) ||
+    (currentUser && communities.find((c) => c.id === currentUser.selectedCommunityId && currentUser.communityIds.includes(c.id))) ||
     userCommunities[0] ||
-    communities[0] || {
-      id: 'community-fallback',
-      name: 'Local Hub',
-      potentialScore: 80,
-      potentialMembers: 1000,
-      potentialDrivers: 10,
-      potentialPassengers: 40,
-      potentialConnectors: 2,
-      isActivated: false,
-      state: {
-        activeMembers: 0,
-        drivers: 0,
-        passengers: 0,
-        rides: 0,
-        health: {
-          score: 50,
-          activeParticipation: 0,
-          driverSupply: 0,
-          rideActivity: 0,
-          repeatUsage: 0,
-          trend: 'stable',
-          previousScore: 50,
-        },
-      },
-    };
+    communities[0] ||
+    FALLBACK_COMMUNITY;
 
   // Compute strictly scoped community rides & routes
   const communityRides = rides.filter((r) => r.communityId === selectedCommunity.id);
@@ -130,29 +135,29 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const canJoinRide = currentUser ? currentUser.role === 'Find' || currentUser.role === 'Both' : false;
   const canCreateCommunity = Boolean(currentUser);
 
-  // Auth Handlers
-  const signUp = (name: string, email: string, role: UserRole = 'Both'): AuthResult => {
-    const res = auth.signUp(name, email, role);
+  // Check if current user is member of a community
+  const isMember = (communityId: string): boolean => {
+    if (!currentUser) return false;
+    return currentUser.communityIds.includes(communityId);
+  };
+
+  // Auth Handlers (async)
+  const signUp = async (name: string, email: string, password: string, role: UserRole = 'Both'): Promise<AuthResult> => {
+    const res = await auth.signUp(name, email, password, role);
     if (res.success && res.user) {
       setCurrentUser(res.user);
     }
     return res;
   };
 
-  const login = (email?: string): AuthResult => {
-    if (!email) {
-      // Default demo login to first demo user
-      const users = storage.getUsers();
-      const demoUser = users[0];
-      if (demoUser) {
-        return loginAsUser(demoUser.id);
-      }
-      return { success: false, error: 'No user accounts available.' };
-    }
-
-    const res = auth.login(email);
+  const login = async (email: string, password: string): Promise<AuthResult> => {
+    const res = await auth.login(email, password);
     if (res.success && res.user) {
       setCurrentUser(res.user);
+      // Refresh communities/rides/routes in case data changed
+      setCommunities(storage.getCommunities());
+      setRoutes(storage.getRoutes());
+      setRides(storage.getRides());
     }
     return res;
   };
@@ -161,6 +166,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const res = auth.loginAsUser(userId);
     if (res.success && res.user) {
       setCurrentUser(res.user);
+      setCommunities(storage.getCommunities());
+      setRoutes(storage.getRoutes());
+      setRides(storage.getRides());
     }
     return res;
   };
@@ -192,19 +200,24 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Community Management
+
+  /**
+   * SWITCH community — only allowed if user is already a MEMBER.
+   * Does NOT auto-join. This enforces Switch ≠ Join.
+   */
   const switchCommunity = (communityId: string) => {
     if (!currentUser) return;
     const target = communities.find((c) => c.id === communityId);
     if (!target) return;
 
-    // Auto-join if not already a member
-    const newCommunityIds = currentUser.communityIds.includes(communityId)
-      ? currentUser.communityIds
-      : [...currentUser.communityIds, communityId];
+    // ENFORCE: user must be a member to switch
+    if (!currentUser.communityIds.includes(communityId)) {
+      // Silently blocked — callers should check isMember() first
+      return;
+    }
 
     const updatedUser: User = {
       ...currentUser,
-      communityIds: newCommunityIds,
       selectedCommunityId: communityId,
     };
 
@@ -212,19 +225,28 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setCurrentUser(updatedUser);
   };
 
+  /**
+   * JOIN community — adds membership. Optionally switches to it.
+   */
   const joinCommunity = (communityId: string, autoSwitch = true) => {
     if (!currentUser) return;
-    if (!currentUser.communityIds.includes(communityId)) {
-      const updatedUser: User = {
-        ...currentUser,
-        communityIds: [...currentUser.communityIds, communityId],
-        selectedCommunityId: autoSwitch ? communityId : currentUser.selectedCommunityId,
-      };
-      storage.saveUser(updatedUser);
-      setCurrentUser(updatedUser);
-    } else if (autoSwitch) {
-      switchCommunity(communityId);
-    }
+
+    const alreadyMember = currentUser.communityIds.includes(communityId);
+    const newCommunityIds = alreadyMember
+      ? currentUser.communityIds
+      : [...currentUser.communityIds, communityId];
+
+    const newSelectedId =
+      autoSwitch ? communityId
+      : currentUser.selectedCommunityId || communityId;
+
+    const updatedUser: User = {
+      ...currentUser,
+      communityIds: newCommunityIds,
+      selectedCommunityId: newSelectedId,
+    };
+    storage.saveUser(updatedUser);
+    setCurrentUser(updatedUser);
   };
 
   const leaveCommunity = (communityId: string) => {
@@ -323,6 +345,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
     const targetCommunityId = rideData.communityId || selectedCommunity.id;
 
+    // Verify user is a member of the target community
+    if (!currentUser.communityIds.includes(targetCommunityId)) return null;
+
     // Check if route exists or register it
     let routeId = rideData.routeId;
     if (!routeId) {
@@ -359,7 +384,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     storage.saveRide(newRide);
     setRides(storage.getRides());
 
-    // Update community stats logically
+    // Update community stats
     const targetCommunity = communities.find((c) => c.id === targetCommunityId);
     if (targetCommunity) {
       const isAlreadyDriver = rides.some(
@@ -386,17 +411,19 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const rideToJoin = rides.find((r) => r.id === rideId);
     if (!rideToJoin) return false;
 
-    // Enforce community scoping rule: ride must belong to selected community!
-    if (rideToJoin.communityId !== selectedCommunity.id) {
-      return false;
-    }
+    // Enforce community scoping: ride must belong to selected community
+    if (rideToJoin.communityId !== selectedCommunity.id) return false;
 
-    // Check capacity and duplicate join
+    // Enforce membership: user must be member of that community
+    if (!currentUser.communityIds.includes(rideToJoin.communityId)) return false;
+
+    // Check capacity
     if (rideToJoin.availableSeats <= 0) {
       setConfirmedRide(rideToJoin);
       return false;
     }
 
+    // Prevent duplicate join
     if (rideToJoin.passengerIds.includes(currentUser.id)) {
       setConfirmedRide(rideToJoin);
       return true;
@@ -412,7 +439,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setRides(storage.getRides());
     setConfirmedRide(updated);
 
-    // Update community passenger stats if user is new passenger in community
+    // Update community passenger stats
     const isAlreadyPassenger = rides.some(
       (r) => r.communityId === selectedCommunity.id && r.passengerIds.includes(currentUser.id)
     );
@@ -502,6 +529,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         joinCommunity,
         leaveCommunity,
         createCommunity,
+        isMember,
         communityRoutes,
         createRoute,
         rides,

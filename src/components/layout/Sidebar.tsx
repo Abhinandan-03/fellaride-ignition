@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
 import {
   LayoutDashboard,
@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 export default function Sidebar() {
+  const navigate = useNavigate();
   const { currentUser, community, selectedCommunity, canOfferRide } = useApp();
 
   return (
@@ -296,7 +297,7 @@ export default function Sidebar() {
         </div>
 
         <div
-          onClick={() => window.location.href = '/onboarding/profile'}
+          onClick={() => navigate('/onboarding/profile')}
           className="flex items-center gap-space-sm p-space-sm rounded-lg hover:bg-surface-container transition-colors cursor-pointer"
         >
           <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">

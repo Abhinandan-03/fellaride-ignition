@@ -56,7 +56,7 @@ export default function CommunityView() {
     e.preventDefault();
     if (!newCommName.trim()) return;
 
-    const created = createCommunity({
+    createCommunity({
       name: newCommName.trim(),
       corridor: newCommCorridor.trim() || `${newCommName.trim()} · Central Corridor`,
       description: newCommDesc.trim() || `Community network for ${newCommName.trim()} commuters.`,
@@ -67,7 +67,7 @@ export default function CommunityView() {
     setNewCommName('');
     setNewCommCorridor('');
     setNewCommDesc('');
-    selectCommunity(created.id);
+    // createCommunity already joins & switches — no extra selectCommunity needed
   };
 
   return (
@@ -135,7 +135,12 @@ export default function CommunityView() {
             return (
               <div
                 key={c.id}
-                onClick={() => selectCommunity(c.id)}
+              onClick={() => {
+                // Only allow switching if already a member
+                if (currentUser?.communityIds?.includes(c.id)) {
+                  selectCommunity(c.id);
+                }
+              }}
                 className={`p-3 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? 'border-2 border-emerald-500 bg-[#f8fcfa] shadow-xs'
@@ -162,8 +167,7 @@ export default function CommunityView() {
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        joinCommunity(c.id);
-                        selectCommunity(c.id);
+                        joinCommunity(c.id, true); // join + auto-switch
                       }}
                       className="text-[10px] font-bold text-emerald-600 hover:underline cursor-pointer"
                     >

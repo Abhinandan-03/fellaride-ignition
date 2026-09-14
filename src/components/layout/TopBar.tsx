@@ -143,10 +143,15 @@ export default function TopBar() {
 
   const getStatusBadge = () => {
     const path = location.pathname;
+    const communityName = selectedCommunity?.name || community?.name || 'Community';
+    const potential = selectedCommunity?.potentialScore || community?.potentialScore || 80;
+    const healthScore = selectedCommunity?.state?.health?.score || community?.state?.health?.score || 50;
+    const activeMembers = selectedCommunity?.state?.activeMembers || community?.state?.activeMembers || 0;
+
     if (path === '/app') {
       return (
         <span className="font-mono text-mono text-on-surface">
-          <strong className="font-semibold">Northside Community:</strong> 91/100 Potential
+          <strong className="font-semibold">{communityName}:</strong> {potential}/100 Potential
         </span>
       );
     }
@@ -174,7 +179,7 @@ export default function TopBar() {
     if (path.includes('activation')) {
       return (
         <span className="font-mono text-mono text-on-surface">
-          <strong className="font-semibold">Activation:</strong> Northside Community
+          <strong className="font-semibold">Activation:</strong> {communityName}
         </span>
       );
     }
@@ -188,13 +193,13 @@ export default function TopBar() {
     if (path.includes('community-health')) {
       return (
         <span className="font-mono text-mono text-on-surface">
-          <strong className="font-semibold">Community Health:</strong> {community.state.health.score}/100 Score
+          <strong className="font-semibold">Community Health:</strong> {healthScore}/100 Score
         </span>
       );
     }
     return (
       <span className="font-mono text-mono text-on-surface">
-        <strong className="font-semibold">{selectedCommunity?.name || 'Active Community'}:</strong> {selectedCommunity?.state?.activeMembers || community?.state?.activeMembers || 32} Active Members
+        <strong className="font-semibold">{communityName}:</strong> {activeMembers} Active Members
       </span>
     );
   };

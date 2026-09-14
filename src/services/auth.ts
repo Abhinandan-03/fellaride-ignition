@@ -7,17 +7,50 @@ export interface AuthResult {
   error?: string;
 }
 
-export interface GoogleAuthStatus {
-  isConfigured: boolean;
-  clientId?: string;
-  instructions: string;
+/**
+ * Hash a password using SHA-256 via the Web Crypto API.
+ * Returns a lowercase hex string.
+ */
+async function hashPassword(password: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * Synchronous fallback hash for environments without crypto.subtle.
+ * Uses a simple djb2 variant — only used if crypto.subtle is unavailable.
+ */
+function hashPasswordSync(password: string): string {
+  let hash = 5381;
+  for (let i = 0; i < password.length; i++) {
+    hash = (hash << 5) + hash + password.charCodeAt(i);
+    hash = hash & hash; // Force 32-bit integer
+  }
+  return 'sync_' + Math.abs(hash).toString(16).padStart(8, '0');
+}
+
+/**
+ * Hash a password — async when crypto.subtle is available, sync fallback otherwise.
+ */
+async function computeHash(password: string): Promise<string> {
+  try {
+    if (typeof crypto !== 'undefined' && crypto.subtle) {
+      return await hashPassword(password);
+    }
+  } catch {
+    // fall through to sync fallback
+  }
+  return hashPasswordSync(password);
 }
 
 class AuthService {
   /**
-   * Register a new user account.
+   * Register a new user account with password.
    */
-  signUp(name: string, email: string, role: UserRole = 'Both'): AuthResult {
+  async signUp(name: string, email: string, password: string, role: UserRole = 'Both'): Promise<AuthResult> {
     const trimmedEmail = email.trim().toLowerCase();
     const trimmedName = name.trim();
 
@@ -30,24 +63,28 @@ class AuthService {
       return { success: false, error: 'Please enter a valid email address.' };
     }
 
-    // Duplicate check
+    if (!password || password.length < 6) {
+      return { success: false, error: 'Password must be at least 6 characters.' };
+    }
+
+    // Duplicate email check
     const existing = storage.findUserByEmail(trimmedEmail);
     if (existing) {
       return { success: false, error: 'An account with this email address already exists. Please log in.' };
     }
 
-    // Default to the first seed community (Northside) if none specified
-    const initialCommunityId = 'community-northside';
+    const passwordHash = await computeHash(password);
 
     const newUser: User = {
       id: `user-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name: trimmedName,
       email: trimmedEmail,
+      passwordHash,
       role,
       plan: 'Free',
-      communityIds: [initialCommunityId],
-      selectedCommunityId: initialCommunityId,
-      typicalCorridor: 'Northside · Central District',
+      communityIds: [],
+      selectedCommunityId: '',
+      typicalCorridor: '',
       createdAt: new Date().toISOString(),
     };
 
@@ -58,17 +95,36 @@ class AuthService {
   }
 
   /**
-   * Authenticate an existing user by email.
+   * Authenticate an existing user by email + password.
    */
-  login(email: string): AuthResult {
+  async login(email: string, password: string): Promise<AuthResult> {
     const trimmedEmail = email.trim().toLowerCase();
-    const user = storage.findUserByEmail(trimmedEmail);
 
+    if (!trimmedEmail) {
+      return { success: false, error: 'Please enter your email address.' };
+    }
+    if (!password) {
+      return { success: false, error: 'Please enter your password.' };
+    }
+
+    const user = storage.findUserByEmail(trimmedEmail);
     if (!user) {
       return {
         success: false,
-        error: 'No account found matching this email. Please check your spelling or sign up.',
+        error: 'No account found with this email. Please check your spelling or sign up.',
       };
+    }
+
+    // If user has no stored hash (legacy seed accounts), accept any password for demo
+    if (!user.passwordHash) {
+      storage.setCurrentSessionUserId(user.id);
+      return { success: true, user };
+    }
+
+    // Verify password
+    const inputHash = await computeHash(password);
+    if (inputHash !== user.passwordHash) {
+      return { success: false, error: 'Incorrect password. Please try again.' };
     }
 
     storage.setCurrentSessionUserId(user.id);
@@ -76,7 +132,7 @@ class AuthService {
   }
 
   /**
-   * Log in with a specific user ID directly (used for demo switches).
+   * Log in with a specific user ID directly (used for demo quick-logins).
    */
   loginAsUser(userId: string): AuthResult {
     const user = storage.findUserById(userId);
@@ -102,23 +158,6 @@ class AuthService {
     if (!sessionUserId) return null;
     return storage.findUserById(sessionUserId);
   }
-
-  /**
-   * Check if Google OAuth provider configuration is set up.
-   * Real OAuth requires VITE_GOOGLE_CLIENT_ID in the environment.
-   */
-  getGoogleAuthStatus(): GoogleAuthStatus {
-    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const isConfigured = Boolean(clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID');
-
-    return {
-      isConfigured,
-      clientId: isConfigured ? clientId : undefined,
-      instructions:
-        'To enable Google Sign-In, add VITE_GOOGLE_CLIENT_ID=<your-client-id> to your .env file and configure authorized JavaScript origins in your Google Cloud Console.',
-    };
-  }
 }
 
 export const auth = new AuthService();
-export const getGoogleAuthStatus = () => auth.getGoogleAuthStatus();
