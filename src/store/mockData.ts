@@ -35,9 +35,9 @@ export const CANONICAL_COMMUNITY: Community = {
 };
 
 export const POST_ACTIVATION_STATE = {
-  activeMembers: 23,
-  drivers: 8,
-  passengers: 15,
+  activeMembers: 32,
+  drivers: 9,
+  passengers: 18,
   rides: 14,
   health: {
     score: 82,
@@ -143,9 +143,9 @@ export const INITIAL_RIDES: Ride[] = [
 ];
 
 export const BUTTERFLY_STAGES = [
-  { step: 0, stage: 1, label: '1 Initial Connector', count: 1, drivers: 1, passengers: 0, rides: 1, referrals: 0, repeatRiders: 0, co2: 4 },
-  { step: 1, stage: 3, label: '3 Activated Members', count: 3, drivers: 1, passengers: 2, rides: 2, referrals: 2, repeatRiders: 1, co2: 12 },
-  { step: 2, stage: 8, label: '8 Active Members', count: 8, drivers: 3, passengers: 5, rides: 4, referrals: 5, repeatRiders: 4, co2: 32 },
-  { step: 3, stage: 17, label: '17 Active Members', count: 17, drivers: 5, passengers: 12, rides: 8, referrals: 11, repeatRiders: 9, co2: 68 },
-  { step: 4, stage: 32, label: '32 Network Members', count: 32, drivers: 9, passengers: 18, rides: 14, referrals: 21, repeatRiders: 18, co2: 126 }
+  { step: 0, stage: 1, label: 'Wave 0 · 1 Connector (0h)', tabTime: 'Wave 0 · 0h', tabSubtitle: 'Connector', ratio: '1 → 1', count: 1, members: 1, drivers: 1, passengers: 0, rides: 1, referrals: 0, repeatRiders: 0, co2: 4 },
+  { step: 1, stage: 3, label: 'Wave 1 · 3 Invites (4h)', tabTime: 'Wave 1 · 4h', tabSubtitle: 'First invites', ratio: '1 → 3', count: 3, members: 3, drivers: 1, passengers: 2, rides: 2, referrals: 2, repeatRiders: 1, co2: 12 },
+  { step: 2, stage: 8, label: 'Wave 2 · 8 Members (11h)', tabTime: 'Wave 2 · 11h', tabSubtitle: 'Shared routes', ratio: '1 → 8', count: 8, members: 8, drivers: 3, passengers: 5, rides: 4, referrals: 5, repeatRiders: 4, co2: 32 },
+  { step: 3, stage: 17, label: 'Wave 3 · 17 Members (20h)', tabTime: 'Wave 3 · 20h', tabSubtitle: 'Route network', ratio: '1 → 17', count: 17, members: 17, drivers: 5, passengers: 12, rides: 8, referrals: 11, repeatRiders: 9, co2: 72 },
+  { step: 4, stage: 32, label: 'Wave 4 · 32 Members (36h)', tabTime: 'Wave 4 · 36h', tabSubtitle: 'Self-sustaining', ratio: '1 → 32', count: 32, members: 32, drivers: 9, passengers: 18, rides: 14, referrals: 21, repeatRiders: 18, co2: 126 }
 ];

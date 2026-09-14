@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { ArrowRight, CheckCircle2, ChevronRight, Clock, ListFilter, LocateFixed, MapPin, Minus, Network, Plus, RefreshCw, Search, ShieldCheck, Zap } from 'lucide-react';
 
 export default function Radar() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function Radar() {
               <div className="flex flex-col">
                 <div className="flex items-center gap-space-xs text-on-surface-variant font-label-sm uppercase tracking-wider mb-1">
                   <span>Discover</span>
-                  <span className="material-symbols-outlined text-xs">chevron_right</span>
+                  <ChevronRight className="text-xs" />
                   <span className="text-secondary font-bold">Community Radar</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-secondary ml-1 animate-pulse"></span>
                 </div>
@@ -23,11 +24,11 @@ export default function Radar() {
                   <span className="text-on-surface font-semibold">Updated just now</span>
                 </div>
                 <button aria-label="Filter Map Intel" className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <span className="material-symbols-outlined text-base text-secondary">filter_list</span>
+                  <ListFilter className="text-base text-secondary" />
                   <span>Filter</span>
                 </button>
                 <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-inverse-surface transition-all">
-                  <span className="material-symbols-outlined text-base">refresh</span>
+                  <RefreshCw className="text-base" />
                   <span>Refresh</span>
                 </button>
               </div>
@@ -45,7 +46,7 @@ export default function Radar() {
                   <span className="font-body-sm text-body-sm text-on-surface-variant font-medium">mapped</span>
                 </div>
                 <div className="flex items-center gap-1.5 mt-space-xs text-on-surface-variant font-body-sm text-body-sm">
-                  <span className="material-symbols-outlined text-sm text-secondary">check_circle</span>
+                  <CheckCircle2 className="text-sm text-secondary" />
                   <span>100% metro coverage</span>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-surface-container-highest"></div>
@@ -61,7 +62,7 @@ export default function Radar() {
                   <span className="font-body-sm text-body-sm text-on-surface-variant font-medium">prime zones</span>
                 </div>
                 <div className="flex items-center gap-1.5 mt-space-xs text-on-surface-variant font-body-sm text-body-sm">
-                  <span className="material-symbols-outlined text-sm text-secondary">bolt</span>
+                  <Zap className="text-sm text-secondary" />
                   <span>Ready to activate</span>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-secondary"></div>
@@ -77,7 +78,7 @@ export default function Radar() {
                   <span className="font-body-sm text-body-sm text-on-surface-variant font-medium">corridors</span>
                 </div>
                 <div className="flex items-center gap-1.5 mt-space-xs text-on-surface-variant font-body-sm text-body-sm">
-                  <span className="material-symbols-outlined text-sm text-on-surface-variant">schedule</span>
+                  <Clock className="text-sm text-on-surface-variant" />
                   <span>Peak hours aligned</span>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-surface-container-highest"></div>
@@ -93,7 +94,7 @@ export default function Radar() {
                   <span className="font-body-sm text-body-sm text-on-surface-variant font-medium">ready to lead</span>
                 </div>
                 <div className="flex items-center gap-1.5 mt-space-xs text-on-surface-variant font-body-sm text-body-sm">
-                  <span className="material-symbols-outlined text-sm text-secondary">hub</span>
+                  <Network className="text-sm text-secondary" />
                   <span>High availability</span>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-surface-container-highest"></div>
@@ -107,7 +108,7 @@ export default function Radar() {
                 <div className="p-space-md bg-surface-container-low flex flex-wrap items-center justify-between gap-space-sm">
                   <div className="flex items-center gap-space-sm flex-1 min-w-[240px]">
                     <div className="relative w-full max-w-sm">
-                      <span className="material-symbols-outlined absolute left-3 top-2.5 text-outline text-base">search</span>
+                      <Search className="absolute left-3 top-2.5 text-outline text-base" />
                       <input className="w-full h-9 pl-9 pr-4 rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none shadow-sm" placeholder="Search communities or corridors..." type="text" />
                     </div>
                   </div>
@@ -183,14 +184,14 @@ export default function Radar() {
                   {/* Floating Controls */}
                   <div className="absolute top-4 right-4 flex flex-col bg-surface-container-lowest rounded-lg shadow-md p-1 gap-1">
                     <button className="w-8 h-8 flex items-center justify-center rounded text-on-surface hover:bg-surface-container transition-colors" title="Zoom In">
-                      <span className="material-symbols-outlined text-base">add</span>
+                      <Plus className="text-base" />
                     </button>
                     <button className="w-8 h-8 flex items-center justify-center rounded text-on-surface hover:bg-surface-container transition-colors" title="Zoom Out">
-                      <span className="material-symbols-outlined text-base">remove</span>
+                      <Minus className="text-base" />
                     </button>
                     <div className="h-px w-6 bg-surface-variant mx-auto my-0.5"></div>
                     <button className="w-8 h-8 flex items-center justify-center rounded text-on-surface hover:bg-surface-container transition-colors" title="Center Hub">
-                      <span className="material-symbols-outlined text-base">my_location</span>
+                      <LocateFixed className="text-base" />
                     </button>
                   </div>
 
@@ -237,7 +238,7 @@ export default function Radar() {
                       <div>
                         <h2 className="font-headline-lg text-headline-lg text-on-surface">Northside</h2>
                         <div className="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
-                          <span className="material-symbols-outlined text-sm text-secondary">location_on</span>
+                          <MapPin className="text-sm text-secondary" />
                           <span>Metro Sector 04 · 4.8 km Radius</span>
                         </div>
                       </div>
@@ -306,7 +307,7 @@ export default function Radar() {
                   {/* Why Northside? */}
                   <div className="p-3.5 rounded-xl bg-surface-container-low flex flex-col gap-2">
                     <div className="flex items-center gap-1.5 text-secondary">
-                      <span className="material-symbols-outlined text-base">verified_user</span>
+                      <ShieldCheck className="text-base" />
                       <span className="font-label-sm text-label-sm font-bold uppercase tracking-wider">Why Northside?</span>
                     </div>
                     <p className="font-body-sm text-body-sm text-on-surface leading-relaxed">
@@ -396,7 +397,7 @@ export default function Radar() {
                   <div className="flex flex-col gap-2 pt-2">
                     <button onClick={() => navigate('/app/activation')} className="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg shadow-sm hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 cursor-pointer">
                       <span>Activate Community</span>
-                      <span className="material-symbols-outlined text-base">arrow_forward</span>
+                      <ArrowRight className="text-base" />
                     </button>
                     <div className="grid grid-cols-2 gap-2">
                       <button className="py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all text-center cursor-pointer">

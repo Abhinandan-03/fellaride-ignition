@@ -31,7 +31,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [rides, setRides] = useState<Ride[]>(INITIAL_RIDES);
   const [demand] = useState<DemandOpportunity>(CANONICAL_DEMAND);
   const [isActivated, setIsActivated] = useState(false);
-  const [growthStage, setGrowthStage] = useState(0);
+  const [growthStage, setGrowthStage] = useState(4);
   const [confirmedRide, setConfirmedRide] = useState<Ride | null>(null);
 
   const login = () => {

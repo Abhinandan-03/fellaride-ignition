@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { AlertTriangle, ArrowLeft, Brain, Building2, CarFront, Copy, GitFork, Link, LockOpen, MailCheck, Network, Train, Users, Zap } from 'lucide-react';
 import { useApp } from '../../store/AppContext';
 
 export default function Activation() {
@@ -18,7 +19,7 @@ export default function Activation() {
               </div>
               <div className="flex items-center gap-space-sm shrink-0">
                 <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" onClick={() => navigate('/app/connectors')}>
-                  <span className="material-symbols-outlined text-base">arrow_back</span>
+                  <ArrowLeft className="text-base" />
                   Back
                 </button>
                 <div className="flex items-center gap-space-xs px-space-md py-2 rounded-full bg-secondary/10 text-secondary font-label-md text-label-md">
@@ -32,7 +33,7 @@ export default function Activation() {
             <div className="w-full bg-surface-container-lowest rounded-xl p-space-sm shadow-sm mb-space-lg">
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-sm items-center">
                 <div className="flex items-center gap-space-sm px-space-sm py-1.5 bg-surface-container-low rounded-lg">
-                  <span className="material-symbols-outlined text-secondary text-lg">location_city</span>
+                  <Building2 className="text-secondary text-lg" />
                   <div className="flex flex-col min-w-0">
                     <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">COMMUNITY</span>
                     <span className="font-headline-sm text-headline-sm text-on-surface truncate">Northside</span>
@@ -52,7 +53,7 @@ export default function Activation() {
                 </div>
 
                 <div className="flex items-center gap-space-sm px-space-sm py-1.5 bg-surface-container-low rounded-lg">
-                  <span className="material-symbols-outlined text-outline text-lg">groups</span>
+                  <Users className="text-outline text-lg" />
                   <div className="flex flex-col min-w-0">
                     <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">DEMAND</span>
                     <span className="font-mono text-mono text-on-surface">37 Riders / 6 Drivers</span>
@@ -61,7 +62,7 @@ export default function Activation() {
 
                 <div className="flex items-center justify-between px-space-sm py-2 rounded-lg bg-surface-container">
                   <div className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-error text-base">warning</span>
+                    <AlertTriangle className="text-error text-base" />
                     <span className="font-label-sm text-label-sm font-semibold uppercase text-on-surface-variant">Shortage</span>
                   </div>
                   <span className="px-2 py-0.5 rounded-full bg-error text-on-error font-mono text-mono font-bold">-25 Seats</span>
@@ -77,7 +78,7 @@ export default function Activation() {
                 <div className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
                   <div className="flex items-center justify-between pb-space-sm mb-space-sm">
                     <div className="flex items-center gap-space-xs">
-                      <span className="material-symbols-outlined text-secondary text-xl">psychology</span>
+                      <Brain className="text-secondary text-xl" />
                       <h2 className="font-headline-md text-headline-md text-primary font-semibold">Activation Strategy</h2>
                     </div>
                     <span className="px-space-xs py-0.5 rounded-full bg-surface-container-low font-mono text-mono text-on-surface-variant">Score 96</span>
@@ -89,7 +90,7 @@ export default function Activation() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
                     <div className="bg-surface-container-low p-space-sm rounded-lg">
                       <div className="flex items-center gap-1.5 text-secondary mb-1">
-                        <span className="material-symbols-outlined text-base">hub</span>
+                        <Network className="text-base" />
                         <span className="font-label-md text-label-md text-primary font-semibold">Reach</span>
                       </div>
                       <div className="font-display-hero-mobile text-display-hero-mobile text-primary font-bold">24</div>
@@ -97,7 +98,7 @@ export default function Activation() {
                     </div>
                     <div className="bg-surface-container-low p-space-sm rounded-lg">
                       <div className="flex items-center gap-1.5 text-secondary mb-1">
-                        <span className="material-symbols-outlined text-base">commute</span>
+                        <Train className="text-base" />
                         <span className="font-label-md text-label-md text-primary font-semibold">Driver Match</span>
                       </div>
                       <div className="font-display-hero-mobile text-display-hero-mobile text-primary font-bold">91%</div>
@@ -105,7 +106,7 @@ export default function Activation() {
                     </div>
                     <div className="bg-surface-container-low p-space-sm rounded-lg">
                       <div className="flex items-center gap-1.5 text-secondary mb-1">
-                        <span className="material-symbols-outlined text-base">bolt</span>
+                        <Zap className="text-base" />
                         <span className="font-label-md text-label-md text-primary font-semibold">Early Adopter</span>
                       </div>
                       <div className="font-display-hero-mobile text-display-hero-mobile text-primary font-bold">88%</div>
@@ -118,7 +119,7 @@ export default function Activation() {
                 <div className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
                   <div className="flex items-center justify-between mb-space-sm">
                     <div className="flex items-center gap-space-xs">
-                      <span className="material-symbols-outlined text-secondary text-xl">mark_email_read</span>
+                      <MailCheck className="text-secondary text-xl" />
                       <h2 className="font-headline-md text-headline-md text-primary font-semibold">Invitation Preview</h2>
                     </div>
                     <span className="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-medium">Personalized</span>
@@ -150,7 +151,7 @@ export default function Activation() {
                         <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm shadow-sm">
                           <div className="flex items-center gap-space-sm">
                             <div className="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center shrink-0">
-                              <span className="material-symbols-outlined text-xl">car_tag</span>
+                              <CarFront className="text-xl" />
                             </div>
                             <div>
                               <h5 className="font-headline-sm text-headline-sm text-primary">Northside Ride Pool</h5>
@@ -176,18 +177,18 @@ export default function Activation() {
                 <div className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
                   <div className="flex items-center justify-between mb-space-sm">
                     <div className="flex items-center gap-space-xs">
-                      <span className="material-symbols-outlined text-secondary text-xl">link</span>
+                      <Link className="text-secondary text-xl" />
                       <h3 className="font-headline-sm text-headline-sm text-primary font-semibold">Invite Link</h3>
                     </div>
                     <span className="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface font-semibold">Invite-Only</span>
                   </div>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-xs p-1.5 bg-surface-container-low rounded-lg">
                     <div className="flex items-center gap-space-xs px-space-sm flex-1">
-                      <span className="material-symbols-outlined text-outline text-base">lock_open</span>
+                      <LockOpen className="text-outline text-base" />
                       <input className="w-full bg-transparent font-mono text-mono text-primary font-semibold focus:outline-none select-all" readOnly type="text" value="fellaride.app/northside/start?c=AM96" />
                     </div>
                     <button className="flex items-center gap-1.5 px-space-md py-2 rounded-md bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-all shadow-sm">
-                      <span className="material-symbols-outlined text-base">content_copy</span>
+                      <Copy className="text-base" />
                       <span>Copy Link</span>
                     </button>
                   </div>
@@ -199,7 +200,7 @@ export default function Activation() {
                 <div className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
                   <div className="flex items-center justify-between mb-space-md">
                     <div className="flex items-center gap-space-xs">
-                      <span className="material-symbols-outlined text-secondary text-xl">account_tree</span>
+                      <GitFork className="text-secondary text-xl" />
                       <h3 className="font-headline-md text-headline-md text-primary font-semibold">Growth Cascade</h3>
                     </div>
                     <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-mono text-mono font-bold">T+7 DAYS</span>
@@ -263,7 +264,7 @@ export default function Activation() {
                         navigate('/app/butterfly-effect');
                       }}
                     >
-                      <span className="material-symbols-outlined text-xl">bolt</span>
+                      <Zap className="text-xl" />
                       <span>Launch Activation</span>
                     </button>
                     <span className="text-[11px] text-outline text-center font-mono">

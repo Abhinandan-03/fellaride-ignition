@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
+import { Share2, ArrowLeft, Users, Car, ArrowLeftRight, Clock, Lock, ArrowRight } from 'lucide-react';
 
 export default function OnboardingProfile() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function OnboardingProfile() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group focus:outline-none">
             <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform duration-200 border border-slate-700/50">
-              <span className="material-symbols-outlined text-emerald-400 text-xl">share</span>
+              <Share2 className="text-emerald-400" size={20} />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-extrabold tracking-tight text-navy-900 leading-none">FellaRide</span>
@@ -43,7 +44,7 @@ export default function OnboardingProfile() {
               to="/login"
               className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-700 hover:text-navy-900 transition-all shadow-xs"
             >
-              <span className="material-symbols-outlined text-sm">arrow_back</span>
+              <ArrowLeft size={14} />
               <span>Back to Login</span>
             </Link>
           </div>
@@ -135,7 +136,7 @@ export default function OnboardingProfile() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700">
-                      <span className="material-symbols-outlined text-lg">groups</span>
+                      <Users size={18} />
                     </div>
                     <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
                       mode === 'passenger' ? 'border-emerald-500' : 'border-slate-300'
@@ -182,7 +183,7 @@ export default function OnboardingProfile() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700">
-                      <span className="material-symbols-outlined text-lg">directions_car</span>
+                      <Car size={18} />
                     </div>
                     <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
                       mode === 'driver' ? 'border-emerald-500' : 'border-slate-300'
@@ -234,7 +235,7 @@ export default function OnboardingProfile() {
                 <div>
                   <div className="flex items-center justify-between mb-4 mt-1">
                     <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-                      <span className="material-symbols-outlined text-lg">sync_alt</span>
+                      <ArrowLeftRight size={18} />
                     </div>
                     <div className="w-5 h-5 rounded-full border-2 border-emerald-500 flex items-center justify-center">
                       {mode === 'both' && <div className="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>}
@@ -277,7 +278,7 @@ export default function OnboardingProfile() {
           {/* COMMUTE WINDOWS SECTION */}
           <div className="p-6 bg-slate-50/70 border border-slate-200 rounded-2xl mb-8">
             <div className="flex items-center gap-2 text-navy-900 font-bold text-sm mb-1">
-              <span className="material-symbols-outlined text-base text-emerald-600">schedule</span>
+              <Clock className="text-emerald-600" size={16} />
               <span>Your Usual Commute Windows</span>
             </div>
             <p className="text-xs text-slate-500 mb-4">
@@ -334,7 +335,7 @@ export default function OnboardingProfile() {
             </div>
 
             <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center gap-2 text-slate-500 text-[11px]">
-              <span className="material-symbols-outlined text-sm text-slate-400">lock</span>
+              <Lock className="text-slate-400" size={14} />
               <span>Privacy Protected: No precise home address or continuous GPS logging is ever asked or stored.</span>
             </div>
           </div>
@@ -448,7 +449,7 @@ export default function OnboardingProfile() {
                 to="/onboarding/community"
                 className="px-4 py-3 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-semibold transition-colors flex items-center gap-1.5"
               >
-                <span className="material-symbols-outlined text-sm">arrow_back</span>
+                <ArrowLeft size={14} />
                 <span>Back to Community</span>
               </Link>
               <button
@@ -457,7 +458,7 @@ export default function OnboardingProfile() {
                 type="button"
               >
                 <span>Enter FellaRide</span>
-                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                <ArrowRight size={14} />
               </button>
             </div>
           </div>

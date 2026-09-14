@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Armchair, ArrowLeftRight, ArrowRight, BadgeCheck, Car, Check, CheckCircle2, Clock, Flame, GitBranch, Globe, PlusCircle, Radio, RotateCcw, Search, ShieldCheck, Star, Train, User, UserPlus, Users, X, Zap } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
 
@@ -41,16 +42,16 @@ export default function CommunityView() {
 <span>{isActivated ? 'Active' : 'Cold-Start'}</span>
 </div>
 <div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface font-label-md text-label-md">
-<span className="material-symbols-outlined text-sm text-secondary">groups</span>
+<Users className="text-sm text-secondary" />
 <span>{community.state.activeMembers} members</span>
 </div>
 <button className="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-<span className="material-symbols-outlined text-base text-secondary">person_add</span>
+<UserPlus className="text-base text-secondary" />
 <span>Invite</span>
 </button>
 <Link className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg text-secondary font-label-md text-label-md hover:bg-secondary-container/20 transition-colors" to="/app/community-health">
 <span>Health</span>
-<span className="material-symbols-outlined text-base">arrow_forward</span>
+<ArrowRight className="text-base" />
 </Link>
 </div>
 </div>
@@ -67,7 +68,7 @@ export default function CommunityView() {
 <div className="flex flex-wrap items-center gap-space-sm">
 <span className="font-headline-md text-headline-md text-on-surface">Northside Community</span>
 <span className="px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
-<span className="material-symbols-outlined text-xs">sync_alt</span> Route 44 · Northside ⇄ Central District
+<ArrowLeftRight className="text-xs" /> Route 44 · Northside ⇄ Central District
             </span>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant max-w-xl">
@@ -109,7 +110,7 @@ export default function CommunityView() {
 <div className="grid grid-cols-2 md:grid-cols-4 gap-space-md pt-space-lg mt-space-lg bg-surface-container-low/50 rounded-lg p-space-md">
 <div className="flex items-center gap-space-sm">
 <div className="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center shrink-0">
-<span className="material-symbols-outlined text-base">directions_car</span>
+<Car className="text-base" />
 </div>
 <div className="flex flex-col">
 <span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.drivers} Drivers</span>
@@ -118,7 +119,7 @@ export default function CommunityView() {
 </div>
 <div className="flex items-center gap-space-sm">
 <div className="w-10 h-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center shrink-0">
-<span className="material-symbols-outlined text-base text-secondary">person</span>
+<User className="text-base text-secondary" />
 </div>
 <div className="flex flex-col">
 <span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.passengers} Passengers</span>
@@ -127,7 +128,7 @@ export default function CommunityView() {
 </div>
 <div className="flex items-center gap-space-sm">
 <div className="w-10 h-10 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center shrink-0">
-<span className="material-symbols-outlined text-base text-secondary">alt_route</span>
+<GitBranch className="text-base text-secondary" />
 </div>
 <div className="flex flex-col">
 <span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.rides} Rides</span>
@@ -136,7 +137,7 @@ export default function CommunityView() {
 </div>
 <div className="flex items-center gap-space-sm">
 <div className="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
-<span className="material-symbols-outlined text-base">replay</span>
+<RotateCcw className="text-base" />
 </div>
 <div className="flex flex-col">
 <span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.health.repeatUsage}% Retention</span>
@@ -156,14 +157,14 @@ export default function CommunityView() {
 <div className="flex flex-col gap-space-xs">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface font-bold flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary">commute</span> Find a Ride
+<Train className="text-secondary" /> Find a Ride
               </span>
 <span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Rider</span>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Northside → Central District around 6 PM.</p>
 </div>
 <button className="w-full flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg hover:bg-secondary/90 transition-all shadow-sm" onClick={() => navigate('/app/find-ride')}>
-<span className="material-symbols-outlined text-base">travel_explore</span>
+<Globe className="text-base" />
 <span>Find a Ride</span>
 </button>
 </div>
@@ -172,14 +173,14 @@ export default function CommunityView() {
 <div className="flex flex-col gap-space-xs">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface font-bold flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-primary">directions_car</span> Offer a Ride
+<Car className="text-primary" /> Offer a Ride
               </span>
 <span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Driver</span>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Share empty seats on Route 44. ₹0 fee.</p>
 </div>
 <button className="w-full flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary/90 transition-all shadow-sm" onClick={() => navigate('/app/offer-ride')}>
-<span className="material-symbols-outlined text-base">add_circle</span>
+<PlusCircle className="text-base" />
 <span>Offer a Ride</span>
 </button>
 </div>
@@ -211,7 +212,7 @@ export default function CommunityView() {
       <div className="flex flex-wrap items-center justify-between gap-space-xs">
         <div className="flex items-center gap-space-xs">
           <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{ride.origin?.split(' ')[0] || 'Northside'}</span>
-          <span className="material-symbols-outlined text-sm text-outline">arrow_forward</span>
+          <ArrowRight className="text-sm text-outline" />
           <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{ride.destination}</span>
           <span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">
             {isPriya ? 'Tomorrow · ' : 'Today · '}{ride.departureTime}
@@ -219,7 +220,7 @@ export default function CommunityView() {
         </div>
         {isAlex ? (
           <span className="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
-            <span className="material-symbols-outlined text-xs">verified</span> {ride.matchScore || 96}% Match
+            <BadgeCheck className="text-xs" /> {ride.matchScore || 96}% Match
           </span>
         ) : isPriya ? (
           <span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm">
@@ -227,7 +228,7 @@ export default function CommunityView() {
           </span>
         ) : (
           <span className="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
-            <span className="material-symbols-outlined text-xs">schedule</span> In 45m
+            <Clock className="text-xs" /> In 45m
           </span>
         )}
       </div>
@@ -245,7 +246,7 @@ export default function CommunityView() {
               <span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface font-semibold">{ride.driverRole || 'Driver'}</span>
             </div>
             <div className="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
-              <span className="material-symbols-outlined text-xs text-secondary fill-current">star</span>
+              <Star className="text-xs text-secondary fill-current" />
               <span className="font-semibold text-on-surface">{isAlex ? '5.0' : isPriya ? '4.8' : '4.9'}</span>
               <span>· {ride.vehicle || 'Toyota RAV4'}</span>
             </div>
@@ -273,7 +274,7 @@ export default function CommunityView() {
             disabled={isFull}
             onClick={() => handleJoin(ride.id)}
           >
-            {isAlex && <span className="material-symbols-outlined text-sm">airline_seat_recline_normal</span>}
+            {isAlex && <Armchair className="text-sm" />}
             <span>{isFull ? 'Full' : 'Join Ride'}</span>
           </button>
         </div>
@@ -284,7 +285,7 @@ export default function CommunityView() {
 </div>
 {/*  Integrity Guarantee Notice  */}
 <div className="flex items-center gap-space-sm p-space-sm bg-surface-container-low rounded-lg text-on-surface-variant font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-secondary text-base shrink-0">shield_lock</span>
+<ShieldCheck className="text-secondary text-base shrink-0" />
 <span>Verified neighbor rides. Direct fuel contribution with ₹0 platform fee.</span>
 </div>
 </div>
@@ -295,7 +296,7 @@ export default function CommunityView() {
 <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary text-lg">flare</span>
+<Flame className="text-secondary text-lg" />
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Community Growth</h3>
 </div>
 <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">{isActivated ? 'Active' : 'Cold-Start'}</span>
@@ -328,7 +329,7 @@ export default function CommunityView() {
 <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Members ({community.state.activeMembers})</h3>
-<span className="material-symbols-outlined text-outline text-base hover:text-on-surface cursor-pointer">search</span>
+<Search className="text-outline text-base hover:text-on-surface cursor-pointer" />
 </div>
 <div className="flex flex-col gap-space-xs max-h-72 overflow-y-auto pr-1">
 {/*  Member 1: Alex Morgan  */}
@@ -403,7 +404,7 @@ export default function CommunityView() {
 <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary text-base">sensors</span>
+<Radio className="text-secondary text-base" />
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h3>
 </div>
 <span className="font-mono text-[11px] text-outline">Recent</span>
@@ -411,7 +412,7 @@ export default function CommunityView() {
 <div className="flex flex-col gap-space-sm">
 <div className="flex items-start gap-space-sm">
 <div className="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 mt-0.5">
-<span className="material-symbols-outlined text-xs">bolt</span>
+<Zap className="text-xs" />
 </div>
 <div className="flex flex-col">
 <p className="font-body-sm text-body-sm text-on-surface"><strong>Alex</strong> activated Northside network</p>
@@ -420,7 +421,7 @@ export default function CommunityView() {
 </div>
 <div className="flex items-start gap-space-sm">
 <div className="w-6 h-6 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-0.5">
-<span className="material-symbols-outlined text-xs">directions_car</span>
+<Car className="text-xs" />
 </div>
 <div className="flex flex-col">
 <p className="font-body-sm text-body-sm text-on-surface"><strong>Sam</strong> offered a ride (3 seats)</p>
@@ -429,7 +430,7 @@ export default function CommunityView() {
 </div>
 <div className="flex items-start gap-space-sm">
 <div className="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 mt-0.5">
-<span className="material-symbols-outlined text-xs">check</span>
+<Check className="text-xs" />
 </div>
 <div className="flex flex-col">
 <p className="font-body-sm text-body-sm text-on-surface"><strong>Priya</strong> reserved Seat 1</p>
@@ -438,7 +439,7 @@ export default function CommunityView() {
 </div>
 <div className="flex items-start gap-space-sm">
 <div className="w-6 h-6 rounded-full bg-surface-container text-on-surface flex items-center justify-center shrink-0 mt-0.5">
-<span className="material-symbols-outlined text-xs">group_add</span>
+<UserPlus className="text-xs" />
 </div>
 <div className="flex flex-col">
 <p className="font-body-sm text-body-sm text-on-surface"><strong>Kiran</strong> invited 2 neighbors</p>
@@ -450,23 +451,23 @@ export default function CommunityView() {
 {/*  4. Trust & Safety  */}
 <div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-sm">
 <h3 className="font-headline-sm text-headline-sm text-on-surface flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary">verified_user</span> Trust & Safety
+<ShieldCheck className="text-secondary" /> Trust & Safety
         </h3>
 <div className="flex flex-col gap-space-xs pt-space-xs">
 <div className="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<CheckCircle2 className="text-sm text-secondary" />
 <span>Invite-only private network</span>
 </div>
 <div className="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<CheckCircle2 className="text-sm text-secondary" />
 <span>Verified Northside members</span>
 </div>
 <div className="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<CheckCircle2 className="text-sm text-secondary" />
 <span>Matching routes & departure times</span>
 </div>
 <div className="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<CheckCircle2 className="text-sm text-secondary" />
 <span>₹0 platform markup</span>
 </div>
 </div>
@@ -498,11 +499,11 @@ export default function CommunityView() {
 <div className="w-full max-w-md bg-surface-container-lowest rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary">person_add</span>
+<UserPlus className="text-secondary" />
 <h4 className="font-headline-sm text-headline-sm text-on-surface">Invite to Northside</h4>
 </div>
 <button className="text-outline hover:text-on-surface">
-<span className="material-symbols-outlined">close</span>
+<X />
 </button>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant">Share this link with verified neighbors.</p>
@@ -520,11 +521,11 @@ export default function CommunityView() {
 <div className="w-full max-w-md bg-surface-container-lowest rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary">travel_explore</span>
+<Globe className="text-secondary" />
 <h4 className="font-headline-sm text-headline-sm text-on-surface">Find a Ride</h4>
 </div>
 <button className="text-outline hover:text-on-surface">
-<span className="material-symbols-outlined">close</span>
+<X />
 </button>
 </div>
 <div className="flex flex-col gap-space-sm">
@@ -552,11 +553,11 @@ export default function CommunityView() {
 <div className="w-full max-w-md bg-surface-container-lowest rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-primary">directions_car</span>
+<Car className="text-primary" />
 <h4 className="font-headline-sm text-headline-sm text-on-surface">Offer a Ride</h4>
 </div>
 <button className="text-outline hover:text-on-surface">
-<span className="material-symbols-outlined">close</span>
+<X />
 </button>
 </div>
 <div className="flex flex-col gap-space-sm">

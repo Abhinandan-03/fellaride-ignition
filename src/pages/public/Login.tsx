@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
+import { Share2, ArrowLeft, Eye, EyeOff, ArrowRight, Zap, ShieldCheck, RotateCcw } from 'lucide-react';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function Login() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group focus:outline-none">
             <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform duration-200 border border-slate-700/50">
-              <span className="material-symbols-outlined text-emerald-400 text-xl">share</span>
+              <Share2 className="text-emerald-400" size={20} />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-extrabold tracking-tight text-navy-900 leading-none">FellaRide</span>
@@ -62,7 +63,7 @@ export default function Login() {
               to="/"
               className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-700 hover:text-navy-900 transition-all shadow-xs"
             >
-              <span className="material-symbols-outlined text-sm">arrow_back</span>
+              <ArrowLeft size={14} />
               <span>Back to Home</span>
             </Link>
           </div>
@@ -236,9 +237,7 @@ export default function Login() {
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                     >
-                      <span className="material-symbols-outlined text-lg leading-none">
-                        {showPassword ? 'visibility_off' : 'visibility'}
-                      </span>
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                   </div>
                 </div>
@@ -263,7 +262,7 @@ export default function Login() {
                   type="submit"
                 >
                   <span>Log In</span>
-                  <span className="material-symbols-outlined text-base">arrow_forward</span>
+                  <ArrowRight size={16} />
                 </button>
               </form>
 
@@ -304,7 +303,7 @@ export default function Login() {
                   <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800">
                     HACKATHON DEMO
                   </span>
-                  <span className="material-symbols-outlined text-sm text-emerald-600">bolt</span>
+                  <Zap className="text-emerald-600" size={14} />
                 </div>
                 <h3 className="text-xs font-bold text-navy-900">Explore without an account</h3>
                 <p className="text-[11px] text-slate-600 mt-1 leading-normal">
@@ -316,13 +315,13 @@ export default function Login() {
                   onClick={handleDemoAccess}
                 >
                   <span>Enter Demo</span>
-                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  <ArrowRight size={14} />
                 </button>
               </div>
 
               {/* Trust Note */}
               <div className="mt-4 pt-3 border-t border-slate-100 flex items-start gap-2 text-slate-400">
-                <span className="material-symbols-outlined text-sm shrink-0 text-slate-400 mt-0.5">verified_user</span>
+                <ShieldCheck className="shrink-0 text-slate-400 mt-0.5" size={14} />
                 <p className="text-[11px] leading-relaxed text-slate-500">
                   Your community experience stays focused on the people, routes, and rides that matter to you.
                 </p>
@@ -337,7 +336,7 @@ export default function Login() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/40 backdrop-blur-sm p-4">
           <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 fade-enter">
             <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center mb-3">
-              <span className="material-symbols-outlined text-xl">lock_reset</span>
+              <RotateCcw size={20} />
             </div>
             <h3 className="text-lg font-bold text-navy-900">Reset your password</h3>
             <p className="text-xs text-slate-500 mt-1 mb-4">

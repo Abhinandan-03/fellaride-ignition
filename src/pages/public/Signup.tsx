@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Share2, ArrowLeft, User, Mail, ArrowRight, BadgeCheck } from 'lucide-react';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Signup() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group focus:outline-none">
             <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform duration-200 border border-slate-700/50">
-              <span className="material-symbols-outlined text-emerald-400 text-xl">share</span>
+              <Share2 className="text-emerald-400" size={20} />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-extrabold tracking-tight text-navy-900 leading-none">FellaRide</span>
@@ -43,7 +44,7 @@ export default function Signup() {
               to="/login"
               className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-200 hover:border-slate-300 bg-white text-slate-700 hover:text-navy-900 transition-all shadow-xs"
             >
-              <span className="material-symbols-outlined text-sm">arrow_back</span>
+              <ArrowLeft size={14} />
               <span>Back to Login</span>
             </Link>
           </div>
@@ -123,7 +124,7 @@ export default function Signup() {
                   className="w-full px-4 py-3.5 pr-11 rounded-xl border border-slate-200 text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all bg-slate-50/40 hover:bg-white text-sm"
                 />
                 <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                  <span className="material-symbols-outlined text-xl">person</span>
+                  <User size={20} />
                 </div>
               </div>
             </div>
@@ -143,7 +144,7 @@ export default function Signup() {
                   className="w-full px-4 py-3.5 pr-11 rounded-xl border border-slate-200 text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition-all bg-slate-50/40 hover:bg-white text-sm"
                 />
                 <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                  <span className="material-symbols-outlined text-xl">mail</span>
+                  <Mail size={20} />
                 </div>
               </div>
             </div>
@@ -208,7 +209,7 @@ export default function Signup() {
                 className="w-full py-4 px-6 rounded-xl bg-navy-900 hover:bg-navy-850 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all active:scale-[0.99] disabled:opacity-50"
               >
                 <span>Continue to Choose Community</span>
-                <span className="material-symbols-outlined text-base">arrow_forward</span>
+                <ArrowRight size={16} />
               </button>
             </div>
 
@@ -228,7 +229,7 @@ export default function Signup() {
       {/* 3. TRUST STRIP FOOTER */}
       <footer className="py-8 text-center text-xs text-slate-500 flex items-center justify-center gap-4 sm:gap-6 flex-wrap">
         <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-          <span className="material-symbols-outlined text-emerald-500 text-base">verified</span>
+          <BadgeCheck className="text-emerald-500" size={16} />
           Non-commercial cost sharing
         </span>
         <span className="text-slate-300">•</span>

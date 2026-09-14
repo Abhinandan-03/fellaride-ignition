@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { AlertTriangle, Armchair, BadgeCheck, Brain, Clock, FileUser, GitBranch, Grid2x2, Network, RefreshCw, SlidersHorizontal, TrendingUp, Users, Zap } from 'lucide-react';
 
 export default function GhostDemand() {
   const navigate = useNavigate();
@@ -21,11 +22,11 @@ export default function GhostDemand() {
               </div>
               <div className="flex items-center gap-space-sm self-stretch lg:self-auto">
                 <button className="flex-1 lg:flex-none flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md">
-                  <span className="material-symbols-outlined text-base">tune</span>
+                  <SlidersHorizontal className="text-base" />
                   <span>Filter</span>
                 </button>
                 <button className="flex-1 lg:flex-none flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-all font-label-md text-label-md shadow-sm">
-                  <span className="material-symbols-outlined text-base text-secondary-fixed">sync</span>
+                  <RefreshCw className="text-base text-secondary-fixed" />
                   <span>Refresh</span>
                 </button>
               </div>
@@ -36,12 +37,12 @@ export default function GhostDemand() {
               <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
                 <div className="flex items-center justify-between text-on-surface-variant mb-space-sm">
                   <span className="font-label-md text-label-md uppercase tracking-wider text-outline">Opportunities</span>
-                  <span className="material-symbols-outlined text-secondary text-lg">electric_bolt</span>
+                  <Zap className="text-secondary text-lg" />
                 </div>
                 <div className="flex items-baseline gap-space-sm">
                   <span className="font-headline-lg text-headline-lg font-bold text-on-surface">12</span>
                   <span className="inline-flex items-center text-secondary font-label-sm text-label-sm font-semibold">
-                    <span className="material-symbols-outlined text-sm">trending_up</span>+3 this week
+                    <TrendingUp className="text-sm" />+3 this week
                   </span>
                 </div>
                 <div className="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
@@ -53,7 +54,7 @@ export default function GhostDemand() {
               <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
                 <div className="flex items-center justify-between text-on-surface-variant mb-space-sm">
                   <span className="font-label-md text-label-md uppercase tracking-wider text-outline">High Confidence</span>
-                  <span className="material-symbols-outlined text-secondary text-lg">verified</span>
+                  <BadgeCheck className="text-secondary text-lg" />
                 </div>
                 <div className="flex items-baseline gap-space-sm">
                   <span className="font-headline-lg text-headline-lg font-bold text-on-surface">7</span>
@@ -70,7 +71,7 @@ export default function GhostDemand() {
               <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
                 <div className="flex items-center justify-between text-on-surface-variant mb-space-sm">
                   <span className="font-label-md text-label-md uppercase tracking-wider text-outline">Predicted Passengers</span>
-                  <span className="material-symbols-outlined text-on-surface text-lg">group</span>
+                  <Users className="text-on-surface text-lg" />
                 </div>
                 <div className="flex items-baseline gap-space-sm">
                   <span className="font-headline-lg text-headline-lg font-bold text-on-surface">184</span>
@@ -106,7 +107,7 @@ export default function GhostDemand() {
                 <div className="rounded-xl bg-surface-container-lowest shadow-md overflow-hidden">
                   <div className="bg-tertiary-fixed px-space-md py-2 flex items-center justify-between text-on-tertiary-fixed">
                     <div className="flex items-center gap-space-xs font-label-sm text-label-sm font-bold tracking-wider uppercase">
-                      <span className="material-symbols-outlined text-base">warning</span>
+                      <AlertTriangle className="text-base" />
                       <span>Predicted Shortage · Saturday 6:00 PM</span>
                     </div>
                     <span className="font-mono text-mono font-semibold bg-tertiary-container text-on-tertiary px-2 py-0.5 rounded">
@@ -120,11 +121,11 @@ export default function GhostDemand() {
                         <h2 className="font-headline-md text-headline-md font-bold text-on-surface">Northside Sports Festival</h2>
                         <div className="flex flex-wrap items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm">
                           <span className="flex items-center gap-1 font-semibold text-on-surface">
-                            <span className="material-symbols-outlined text-base text-secondary">alt_route</span>
+                            <GitBranch className="text-base text-secondary" />
                             Northside Community ⇄ Central District
                           </span>
                           <span className="flex items-center gap-1">
-                            <span className="material-symbols-outlined text-base text-outline">schedule</span>
+                            <Clock className="text-base text-outline" />
                             Saturday · 6:00 PM (Surge: 5:15 PM – 7:30 PM)
                           </span>
                         </div>
@@ -173,7 +174,7 @@ export default function GhostDemand() {
 
                     {/* Short Reason Box */}
                     <div className="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-sm">
-                      <span className="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5">psychology</span>
+                      <Brain className="text-secondary text-xl shrink-0 mt-0.5" />
                       <div className="flex flex-col gap-0.5">
                         <span className="font-label-md text-label-md text-on-surface font-semibold">Why this demand?</span>
                         <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
@@ -244,7 +245,7 @@ export default function GhostDemand() {
                   </div>
                   <div className="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
                     <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-base text-secondary">insights</span>
+                      <TrendingUp className="text-base text-secondary" />
                       Updated every 15 minutes.
                     </span>
                     <span className="font-mono text-mono text-outline">Confidence: 87%</span>
@@ -255,7 +256,7 @@ export default function GhostDemand() {
                 <div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-space-xs">
-                      <span className="material-symbols-outlined text-secondary text-lg">schema</span>
+                      <Grid2x2 className="text-secondary text-lg" />
                       <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">Signal Pipeline</h3>
                     </div>
                     <span className="px-space-xs py-0.5 rounded bg-surface-container font-mono text-mono text-on-surface-variant">
@@ -336,14 +337,14 @@ export default function GhostDemand() {
                     <span className="font-label-sm text-label-sm uppercase font-bold text-on-surface tracking-wider">Expected Yield</span>
                     <div className="flex items-center justify-between text-body-sm font-body-sm">
                       <span className="flex items-center gap-1.5 text-on-surface">
-                        <span className="material-symbols-outlined text-secondary text-base">airline_seat_recline_normal</span>
+                        <Armchair className="text-secondary text-base" />
                         Mobilize +8 Drivers
                       </span>
                       <span className="font-mono text-mono font-semibold text-secondary">+16 seats</span>
                     </div>
                     <div className="flex items-center justify-between text-body-sm font-body-sm">
                       <span className="flex items-center gap-1.5 text-on-surface">
-                        <span className="material-symbols-outlined text-secondary text-base">hub</span>
+                        <Network className="text-secondary text-base" />
                         Consolidate +15 Passengers
                       </span>
                       <span className="font-mono text-mono font-semibold text-on-surface">Carpools</span>
@@ -356,11 +357,11 @@ export default function GhostDemand() {
 
                   <div className="flex flex-col gap-space-xs">
                     <button className="w-full py-2.5 px-space-md rounded-lg bg-secondary text-on-secondary hover:bg-secondary/90 transition-all font-label-lg text-label-lg font-bold flex items-center justify-center gap-space-xs shadow-sm" onClick={() => navigate('/app/activation')}>
-                      <span className="material-symbols-outlined text-lg">bolt</span>
+                      <Zap className="text-lg" />
                       <span>Activate Community</span>
                     </button>
                     <button className="w-full py-2 px-space-md rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center justify-center gap-space-xs" onClick={() => navigate('/app/connectors')}>
-                      <span className="material-symbols-outlined text-base">contact_page</span>
+                      <FileUser className="text-base" />
                       <span>View Connector</span>
                     </button>
                   </div>
@@ -390,7 +391,7 @@ export default function GhostDemand() {
                       <text fill="#dae2fd" fontFamily="Inter" fontSize="10" fontWeight="700" x="240" y="80">Central Hub</text>
                     </svg>
                     <div className="mt-space-xs p-space-xs rounded bg-inverse-surface text-inverse-on-surface text-body-sm font-body-sm flex items-start gap-space-xs">
-                      <span className="material-symbols-outlined text-secondary-fixed text-base shrink-0 mt-0.5">alt_route</span>
+                      <GitBranch className="text-secondary-fixed text-base shrink-0 mt-0.5" />
                       <span><strong>Re-routing tip:</strong> 2 Eastview drivers covers 8 Northside seats.</span>
                     </div>
                   </div>

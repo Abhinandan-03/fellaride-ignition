@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { AlertTriangle, ArrowLeftRight, ArrowRight, Building2, Bus, CalendarDays, CircleDollarSign, Dumbbell, FileText, Flame, MapPin, Network, Radar, Route, Search, Send, SlidersHorizontal, TrendingUp, Wand2, Zap } from 'lucide-react';
 import { useApp } from '../../store/AppContext';
 
 export default function CommandCenter() {
@@ -23,15 +24,15 @@ export default function CommandCenter() {
               </div>
               <div className="flex items-center flex-wrap gap-space-sm">
                 <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <span className="material-symbols-outlined text-[18px] text-on-surface-variant">tune</span>
+                  <SlidersHorizontal className="text-[18px] text-on-surface-variant" />
                   Filter
                 </button>
                 <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <span className="material-symbols-outlined text-[18px] text-on-surface-variant">description</span>
+                  <FileText className="text-[18px] text-on-surface-variant" />
                   Export
                 </button>
                 <button className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-surface-container-highest hover:text-on-surface transition-all" onClick={() => navigate('/app/ghost-demand')}>
-                  <span className="material-symbols-outlined text-[18px] text-secondary-fixed">radar</span>
+                  <Radar className="text-[18px] text-secondary-fixed" />
                   Scan Demand
                 </button>
               </div>
@@ -129,7 +130,7 @@ export default function CommandCenter() {
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-sm z-10">
                 <div className="flex items-center gap-space-sm">
                   <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center">
-                    <span className="material-symbols-outlined text-secondary text-base">hub</span>
+                    <Network className="text-secondary text-base" />
                   </div>
                   <div>
                     <h2 className="font-headline-sm text-headline-sm text-on-surface">Community Map</h2>
@@ -172,7 +173,7 @@ export default function CommandCenter() {
                 {/* Pin: Central Tech Hub */}
                 <div className="absolute top-[230px] left-[500px] flex flex-col items-center pointer-events-none">
                   <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-md">
-                    <span className="material-symbols-outlined text-[13px]">apartment</span>
+                    <Building2 className="text-[13px]" />
                   </div>
                   <span className="mt-1 px-2 py-0.5 rounded bg-primary text-on-primary font-mono text-[10px] tracking-wide">
                     CENTRAL TECH HUB
@@ -215,7 +216,7 @@ export default function CommandCenter() {
                 {/* Node: Northside (Priority #1) */}
                 <div className="absolute top-[80px] left-[250px] flex flex-col items-center">
                   <div className="w-7 h-7 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-md ring-4 ring-secondary-container">
-                    <span className="material-symbols-outlined text-[15px]">flash_on</span>
+                    <Zap className="text-[15px]" />
                   </div>
                   <div className="mt-1 px-2 py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
                     Northside Heights
@@ -256,7 +257,7 @@ export default function CommandCenter() {
                     <span>Ghost Demand</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[14px] text-secondary">flare</span>
+                    <Flame className="text-[14px] text-secondary" />
                     <span>Connector</span>
                   </div>
                 </div>
@@ -273,7 +274,7 @@ export default function CommandCenter() {
                     <span className="font-body-sm text-body-sm text-on-surface-variant">Sorted by potential</span>
                   </div>
                   <div className="relative w-full sm:w-64">
-                    <span className="material-symbols-outlined absolute left-2.5 top-2 text-outline text-[18px]">search</span>
+                    <Search className="absolute left-2.5 top-2 text-outline text-[18px]" />
                     <input className="w-full h-8 pl-8 pr-3 rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none shadow-sm" placeholder="Filter by name, score, corridor..." type="text" />
                   </div>
                 </div>
@@ -311,13 +312,13 @@ export default function CommandCenter() {
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
-                            <span className="material-symbols-outlined text-[16px] text-secondary">trending_up</span>
+                            <TrendingUp className="text-[16px] text-secondary" />
                             Northside Heights → Central Tech Hub (8:05 AM Peak · 94% match)
                           </div>
                         </div>
                       </div>
                       <button className="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shrink-0" onClick={() => navigate('/app/communities')}>
-                        Analyze <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        Analyze <ArrowRight className="text-[16px]" />
                       </button>
                     </div>
                     <div className="grid grid-cols-4 gap-2 pt-2 bg-surface-container-low/60 p-2.5 rounded-lg">
@@ -368,13 +369,13 @@ export default function CommandCenter() {
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
-                            <span className="material-symbols-outlined text-[16px]">route</span>
+                            <Route className="text-[16px]" />
                             Eastview Civic Hub → Metro Medical Center
                           </div>
                         </div>
                       </div>
                       <button className="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shrink-0">
-                        Analyze <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        Analyze <ArrowRight className="text-[16px]" />
                       </button>
                     </div>
                     <div className="grid grid-cols-4 gap-2 pt-2 bg-surface-container-low/60 p-2.5 rounded-lg">
@@ -423,13 +424,13 @@ export default function CommandCenter() {
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
-                            <span className="material-symbols-outlined text-[16px]">route</span>
+                            <Route className="text-[16px]" />
                             Lakeside Marina → Downtown Financial Core
                           </div>
                         </div>
                       </div>
                       <button className="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shrink-0">
-                        Analyze <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        Analyze <ArrowRight className="text-[16px]" />
                       </button>
                     </div>
                     <div className="grid grid-cols-4 gap-2 pt-2 bg-surface-container-low/60 p-2.5 rounded-lg">
@@ -467,13 +468,13 @@ export default function CommandCenter() {
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
-                            <span className="material-symbols-outlined text-[16px]">route</span>
+                            <Route className="text-[16px]" />
                             West End Arena → University Station
                           </div>
                         </div>
                       </div>
                       <button className="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all flex items-center gap-1 shrink-0">
-                        Analyze <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        Analyze <ArrowRight className="text-[16px]" />
                       </button>
                     </div>
                     <div className="grid grid-cols-4 gap-2 pt-2 bg-surface-container-low/60 p-2.5 rounded-lg">
@@ -516,7 +517,7 @@ export default function CommandCenter() {
                   <div>
                     <h3 className="font-headline-md text-headline-md text-on-surface">Northside Sports Festival</h3>
                     <div className="flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface-variant mt-1">
-                      <span className="material-symbols-outlined text-[16px] text-on-tertiary-container">location_on</span>
+                      <MapPin className="text-[16px] text-on-tertiary-container" />
                       <span>Northside Park ⇄ West Arena · Saturday 7:45 AM</span>
                     </div>
                   </div>
@@ -535,7 +536,7 @@ export default function CommandCenter() {
                     </div>
                     <div className="col-span-2 p-3 rounded-lg bg-error-container/40 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-error text-[20px]">warning</span>
+                        <AlertTriangle className="text-error text-[20px]" />
                         <div>
                           <div className="font-label-sm text-label-sm font-bold text-error uppercase">Seat Shortage</div>
                           <div className="font-body-sm text-body-sm text-on-surface-variant">25 unassigned passengers expected</div>
@@ -552,7 +553,7 @@ export default function CommandCenter() {
                     <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Contributing Signals:</span>
                     <div className="flex items-center justify-between text-body-sm">
                       <span className="text-on-surface flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[15px] text-secondary">event</span>
+                        <CalendarDays className="text-[15px] text-secondary" />
                         Event Schedule Sync
                       </span>
                       <span className="font-mono text-label-sm text-on-surface font-bold">92%</span>
@@ -562,7 +563,7 @@ export default function CommandCenter() {
                     </div>
                     <div className="flex items-center justify-between text-body-sm mt-1">
                       <span className="text-on-surface flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[15px] text-secondary">fitness_center</span>
+                        <Dumbbell className="text-[15px] text-secondary" />
                         Athletic Club Patterns
                       </span>
                       <span className="font-mono text-label-sm text-on-surface font-bold">89%</span>
@@ -572,7 +573,7 @@ export default function CommandCenter() {
                     </div>
                     <div className="flex items-center justify-between text-body-sm mt-1">
                       <span className="text-on-surface flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[15px] text-outline">directions_bus</span>
+                        <Bus className="text-[15px] text-outline" />
                         Weekend Transit Shift
                       </span>
                       <span className="font-mono text-label-sm text-on-surface font-bold">78%</span>
@@ -588,7 +589,7 @@ export default function CommandCenter() {
                       View Opportunity
                     </button>
                     <button className="flex-1 py-2.5 px-4 rounded-xl bg-secondary text-on-secondary font-label-md text-label-md text-center shadow-sm hover:bg-secondary/90 transition-all flex items-center justify-center gap-1.5" onClick={() => navigate('/app/activation')}>
-                      <span className="material-symbols-outlined text-[18px]">bolt</span>
+                      <Zap className="text-[18px]" />
                       Mobilize Connectors
                     </button>
                   </div>
@@ -598,7 +599,7 @@ export default function CommandCenter() {
                 <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-secondary text-[20px]">auto_fix_high</span>
+                      <Wand2 className="text-secondary text-[20px]" />
                       <h3 className="font-headline-sm text-headline-sm text-on-surface">Recommended Interventions</h3>
                     </div>
                     <span className="font-mono text-label-sm text-outline">NEXT ACTIONS</span>
@@ -607,7 +608,7 @@ export default function CommandCenter() {
                   {/* Action 1 */}
                   <div className="p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-3">
                     <div className="w-7 h-7 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0 mt-0.5">
-                      <span className="material-symbols-outlined text-[16px]">send</span>
+                      <Send className="text-[16px]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
@@ -626,7 +627,7 @@ export default function CommandCenter() {
                   {/* Action 2 */}
                   <div className="p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-3">
                     <div className="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 mt-0.5">
-                      <span className="material-symbols-outlined text-[16px]">toll</span>
+                      <CircleDollarSign className="text-[16px]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
@@ -645,7 +646,7 @@ export default function CommandCenter() {
                   {/* Action 3 */}
                   <div className="p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-3">
                     <div className="w-7 h-7 rounded-full bg-surface-tint text-on-primary flex items-center justify-center shrink-0 mt-0.5">
-                      <span className="material-symbols-outlined text-[16px]">sync_alt</span>
+                      <ArrowLeftRight className="text-[16px]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">

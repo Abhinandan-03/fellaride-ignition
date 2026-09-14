@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Car, ArrowDown, X, Zap, ArrowUpRight, User, ArrowLeftRight, Users } from 'lucide-react';
 
 export default function Landing() {
   return (
@@ -9,7 +10,7 @@ export default function Landing() {
           {/* Brand Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-emerald-400 font-bold text-lg shadow-sm border border-slate-700/50 group-hover:scale-105 transition-transform">
-              <span className="material-symbols-outlined text-emerald-400 text-xl">electric_car</span>
+              <Car className="text-emerald-400" size={20} />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-extrabold tracking-tight text-navy-900 leading-tight">FellaRide</span>
@@ -128,7 +129,7 @@ export default function Landing() {
 
                   {/* Connecting Branch Indicator */}
                   <div className="flex items-center justify-center -my-2 text-slate-300">
-                    <span className="material-symbols-outlined text-emerald-500 text-base animate-bounce">arrow_downward</span>
+                    <ArrowDown className="text-emerald-500 animate-bounce" size={16} />
                   </div>
 
                   {/* Step 2: 3 Members */}
@@ -254,7 +255,7 @@ export default function Landing() {
             <div className="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm relative flex flex-col justify-between">
               <div>
                 <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 font-bold mb-5">
-                  <span className="material-symbols-outlined text-slate-600 text-lg">close</span>
+                  <X className="text-slate-600" size={18} />
                 </div>
                 <h4 className="text-lg font-bold text-navy-900 mb-2">A Passenger Alone</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -270,7 +271,7 @@ export default function Landing() {
             <div className="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm relative flex flex-col justify-between">
               <div>
                 <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 font-bold mb-5">
-                  <span className="material-symbols-outlined text-slate-600 text-lg">close</span>
+                  <X className="text-slate-600" size={18} />
                 </div>
                 <h4 className="text-lg font-bold text-navy-900 mb-2">A Driver Alone</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -286,7 +287,7 @@ export default function Landing() {
             <div className="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm relative flex flex-col justify-between">
               <div>
                 <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 font-bold mb-5">
-                  <span className="material-symbols-outlined text-slate-600 text-lg">close</span>
+                  <X className="text-slate-600" size={18} />
                 </div>
                 <h4 className="text-lg font-bold text-navy-900 mb-2">1,000 Disconnected Users</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -549,7 +550,7 @@ export default function Landing() {
           <div className="bg-navy-900/60 p-6 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
-                <span className="material-symbols-outlined text-emerald-400 text-base">bolt</span>
+                <Zap className="text-emerald-400" size={16} />
               </div>
               <div className="text-sm">
                 <span className="text-slate-400">The Connected Loop:</span>
@@ -559,7 +560,7 @@ export default function Landing() {
               </div>
             </div>
             <Link to="/app" className="text-xs font-bold text-emerald-400 hover:text-emerald-300 uppercase tracking-wider flex items-center gap-1">
-              EXPLORE SYSTEM DOCS <span className="material-symbols-outlined text-sm">arrow_outward</span>
+              EXPLORE SYSTEM DOCS <ArrowUpRight size={14} />
             </Link>
           </div>
         </div>
@@ -766,7 +767,7 @@ export default function Landing() {
             <div className="p-7 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 text-emerald-600 font-bold flex items-center justify-center text-lg mb-6 shadow-sm">
-                  <span className="material-symbols-outlined text-emerald-600 text-2xl">person</span>
+                  <User className="text-emerald-600" size={24} />
                 </div>
                 <h4 className="text-xl font-bold text-navy-900 mb-2">Need a ride?</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -779,7 +780,7 @@ export default function Landing() {
             <div className="p-7 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 text-emerald-600 font-bold flex items-center justify-center text-lg mb-6 shadow-sm">
-                  <span className="material-symbols-outlined text-emerald-600 text-2xl">swap_horiz</span>
+                  <ArrowLeftRight className="text-emerald-600" size={24} />
                 </div>
                 <h4 className="text-xl font-bold text-navy-900 mb-2">Have a car?</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -792,7 +793,7 @@ export default function Landing() {
             <div className="p-7 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 text-emerald-600 font-bold flex items-center justify-center text-lg mb-6 shadow-sm">
-                  <span className="material-symbols-outlined text-emerald-600 text-2xl">groups</span>
+                  <Users className="text-emerald-600" size={24} />
                 </div>
                 <h4 className="text-xl font-bold text-navy-900 mb-2">Grow the network.</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
@@ -985,7 +986,7 @@ export default function Landing() {
             <div className="md:col-span-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-navy-800 flex items-center justify-center text-emerald-400 font-bold">
-                  <span className="material-symbols-outlined text-emerald-400 text-lg">electric_car</span>
+                  <Car className="text-emerald-400" size={18} />
                 </div>
                 <span className="text-lg font-extrabold text-white">FellaRide</span>
               </div>

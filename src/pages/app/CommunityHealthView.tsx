@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AlertTriangle, ArrowRight, ArrowRightLeft, BadgeCheck, CalendarDays, Car, Check, CheckCircle2, Flame, Hourglass, Network, Repeat, ShieldCheck, TrendingUp, UserX, Users, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
 
@@ -56,12 +57,12 @@ export default function CommunityHealthView() {
 </div>
 {/*  Butterfly Effect CTA  */}
 <Link to="/app/butterfly-effect" className="flex items-center gap-1.5 px-space-md py-2 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded-lg transition-all shadow-sm">
-<span className="material-symbols-outlined text-secondary text-base">flare</span>
+<Flame className="text-secondary text-base" />
 <span>View Growth</span>
 </Link>
 {/*  Status Badge  */}
 <span className="px-space-md py-2 bg-secondary text-on-secondary font-label-md text-label-md rounded-lg shadow-sm flex items-center gap-1.5">
-<span className="material-symbols-outlined text-base">verified</span>
+<BadgeCheck className="text-base" />
 <span>{statusText}</span>
 </span>
 </div>
@@ -145,7 +146,7 @@ export default function CommunityHealthView() {
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
 <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-<span className="material-symbols-outlined text-lg">groups</span>
+<Users className="text-lg" />
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface">Participation</span>
 </div>
@@ -159,7 +160,7 @@ export default function CommunityHealthView() {
 <div className="bg-secondary h-full rounded-full" style={{ width: '88%' }}></div>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
-<span className="material-symbols-outlined text-secondary text-sm">trending_up</span>
+<TrendingUp className="text-secondary text-sm" />
 <span>Participation 88%</span>
 </p>
 </div>
@@ -168,7 +169,7 @@ export default function CommunityHealthView() {
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
 <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-<span className="material-symbols-outlined text-lg">directions_car</span>
+<Car className="text-lg" />
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface">Driver Supply</span>
 </div>
@@ -182,7 +183,7 @@ export default function CommunityHealthView() {
 <div className="bg-secondary h-full rounded-full" style={{ width: '84%' }}></div>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
-<span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<CheckCircle2 className="text-secondary text-sm" />
 <span>Driver Supply 84%</span>
 </p>
 </div>
@@ -191,7 +192,7 @@ export default function CommunityHealthView() {
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
 <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-<span className="material-symbols-outlined text-lg">conversion_path</span>
+<ArrowRightLeft className="text-lg" />
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface">Ride Activity</span>
 </div>
@@ -205,7 +206,7 @@ export default function CommunityHealthView() {
 <div className="bg-secondary h-full rounded-full" style={{ width: '79%' }}></div>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
-<span className="material-symbols-outlined text-secondary text-sm">hub</span>
+<Network className="text-secondary text-sm" />
 <span>Ride Activity 79%</span>
 </p>
 </div>
@@ -214,7 +215,7 @@ export default function CommunityHealthView() {
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
 <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-<span className="material-symbols-outlined text-lg">repeat</span>
+<Repeat className="text-lg" />
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface">Repeat Usage</span>
 </div>
@@ -228,7 +229,7 @@ export default function CommunityHealthView() {
 <div className="bg-secondary h-full rounded-full" style={{ width: '78%' }}></div>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
-<span className="material-symbols-outlined text-secondary text-sm">verified_user</span>
+<ShieldCheck className="text-secondary text-sm" />
 <span>Repeat Usage 78%</span>
 </p>
 </div>
@@ -250,7 +251,7 @@ export default function CommunityHealthView() {
 <div className="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between space-y-2 opacity-80">
 <div className="flex items-center justify-between">
 <span className="font-mono text-[10px] text-outline">STAGE 01</span>
-<span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<CheckCircle2 className="text-secondary text-sm" />
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">Discovered</span>
@@ -262,7 +263,7 @@ export default function CommunityHealthView() {
 <div className="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between space-y-2 opacity-80">
 <div className="flex items-center justify-between">
 <span className="font-mono text-[10px] text-outline">STAGE 02</span>
-<span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<CheckCircle2 className="text-secondary text-sm" />
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">Predicted</span>
@@ -274,7 +275,7 @@ export default function CommunityHealthView() {
 <div className="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between space-y-2 opacity-80">
 <div className="flex items-center justify-between">
 <span className="font-mono text-[10px] text-outline">STAGE 03</span>
-<span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<CheckCircle2 className="text-secondary text-sm" />
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">Activated</span>
@@ -286,7 +287,7 @@ export default function CommunityHealthView() {
 <div className="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between space-y-2 opacity-80">
 <div className="flex items-center justify-between">
 <span className="font-mono text-[10px] text-outline">STAGE 04</span>
-<span className="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<CheckCircle2 className="text-secondary text-sm" />
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">First Rides</span>
@@ -311,7 +312,7 @@ export default function CommunityHealthView() {
 <div className="bg-surface-container p-space-sm rounded-lg flex flex-col justify-between space-y-2">
 <div className="flex items-center justify-between">
 <span className="font-mono text-[10px] text-outline">NEXT</span>
-<span className="material-symbols-outlined text-outline text-sm">hourglass_empty</span>
+<Hourglass className="text-outline text-sm" />
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-surface block">Self-Sustaining</span>
@@ -383,7 +384,7 @@ export default function CommunityHealthView() {
 </div>
 </div>
 <div className="pt-space-md flex flex-wrap items-center justify-between text-on-surface-variant font-mono text-mono border-t border-transparent">
-<span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-secondary text-sm">trending_up</span>+64 pts in 36 hours (18 → 82)</span>
+<span className="flex items-center gap-1.5"><TrendingUp className="text-secondary text-sm" />+64 pts in 36 hours (18 → 82)</span>
 <span>Key route: Northside → Central District</span>
 </div>
 </div>
@@ -442,7 +443,7 @@ export default function CommunityHealthView() {
 <div className="space-y-space-sm">
 {/*  Factor 1  */}
 <div className="p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-xl shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface">Driver Availability</span>
@@ -455,7 +456,7 @@ export default function CommunityHealthView() {
 </div>
 {/*  Factor 2  */}
 <div className="p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-xl shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface">Repeat Rides</span>
@@ -468,7 +469,7 @@ export default function CommunityHealthView() {
 </div>
 {/*  Factor 3  */}
 <div className="p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-xl shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface">Referrals</span>
@@ -481,7 +482,7 @@ export default function CommunityHealthView() {
 </div>
 {/*  Factor 4  */}
 <div className="p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-xl shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-xl shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface">Route Density</span>
@@ -506,7 +507,7 @@ export default function CommunityHealthView() {
 <div className="space-y-space-sm">
 {/*  Watch 1  */}
 <div className="p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-on-tertiary-container text-xl shrink-0 mt-0.5">warning</span>
+<AlertTriangle className="text-on-tertiary-container text-xl shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface">Evening Driver Supply</span>
@@ -519,7 +520,7 @@ export default function CommunityHealthView() {
 </div>
 {/*  Watch 2  */}
 <div className="p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-on-tertiary-container text-xl shrink-0 mt-0.5">crisis_alert</span>
+<AlertTriangle className="text-on-tertiary-container text-xl shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface">Route Concentration</span>
@@ -532,7 +533,7 @@ export default function CommunityHealthView() {
 </div>
 {/*  Watch 3  */}
 <div className="p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-on-tertiary-container text-xl shrink-0 mt-0.5">person_add_disabled</span>
+<UserX className="text-on-tertiary-container text-xl shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <div className="flex items-center justify-between">
 <span className="font-headline-sm text-headline-sm text-on-surface">New Member Activation</span>
@@ -552,7 +553,7 @@ export default function CommunityHealthView() {
 <div className="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col space-y-space-md relative overflow-hidden">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary text-xl">bolt</span>
+<Zap className="text-secondary text-xl" />
 <h3 className="font-headline-md text-headline-md text-on-surface">Recommended Action</h3>
 </div>
 <span className="font-mono text-mono text-secondary font-bold">Priority #1</span>
@@ -574,21 +575,21 @@ export default function CommunityHealthView() {
 </div>
 <div className="space-y-1.5 pt-1">
 <div className="flex items-start gap-2">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_small</span>
+<Check className="text-secondary text-base shrink-0 mt-0.5" />
 <span className="font-body-sm text-body-sm text-on-surface">Invite 3 vehicle owners along Route 44.</span>
 </div>
 <div className="flex items-start gap-2">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_small</span>
+<Check className="text-secondary text-base shrink-0 mt-0.5" />
 <span className="font-body-sm text-body-sm text-on-surface">Activate secondary connector David Kim (Score 89).</span>
 </div>
 </div>
 <div className="pt-space-sm flex flex-wrap items-center gap-space-sm">
 <button className="px-space-md py-2.5 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded-lg shadow transition-all flex items-center gap-2" onClick={() => improveCommunityHealth()}>
 <span>Improve Health</span>
-<span className="material-symbols-outlined text-base">arrow_forward</span>
+<ArrowRight className="text-base" />
 </button>
 <button onClick={() => setSyncScheduled(true)} className={`px-space-md py-2.5 ${syncScheduled ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container hover:bg-surface-container-high text-on-surface'} font-label-md text-label-md rounded-lg transition-colors flex items-center gap-1.5`}>
-<span className="material-symbols-outlined text-base">{syncScheduled ? 'check' : 'calendar_month'}</span>
+{syncScheduled ? <Check className="text-base" /> : <CalendarDays className="text-base" />}
 <span>{syncScheduled ? 'Sync Scheduled' : 'Schedule Sync'}</span>
 </button>
 </div>

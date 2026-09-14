@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Armchair, ArrowRight, BadgeCheck, Brain, Calendar, CheckCircle2, CircleDot, Clock, CreditCard, Leaf, MapPin, Plus, Radio, RefreshCw, Route, Share2, Shield, ShieldCheck, SlidersHorizontal, Star, Users } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
 
@@ -49,14 +50,14 @@ export default function FindRide() {
 {/*  Quick corridor indicators  */}
 <div className="flex items-center gap-space-sm self-start lg:self-center">
 <div className="flex items-center gap-2 px-space-md py-2 rounded-xl bg-surface-container-lowest shadow-sm">
-<span className="material-symbols-outlined text-secondary text-base">verified_user</span>
+<ShieldCheck className="text-secondary text-base" />
 <div className="flex flex-col">
 <span className="font-label-sm text-label-sm uppercase text-outline">Trust</span>
 <span className="font-mono text-mono text-on-surface font-semibold">Peer Verified</span>
 </div>
 </div>
 <div className="flex items-center gap-2 px-space-md py-2 rounded-xl bg-surface-container-lowest shadow-sm">
-<span className="material-symbols-outlined text-secondary text-base">payments</span>
+<CreditCard className="text-secondary text-base" />
 <div className="flex flex-col">
 <span className="font-label-sm text-label-sm uppercase text-outline">Markup</span>
 <span className="font-mono text-mono text-secondary font-semibold">₹0 Fee</span>
@@ -72,7 +73,7 @@ export default function FindRide() {
 <div className="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary text-lg">route</span>
+<Route className="text-secondary text-lg" />
 <h2 className="font-headline-sm text-headline-sm text-on-surface">Route & Schedule</h2>
 </div>
 <span className="font-label-sm text-label-sm text-secondary bg-secondary-container/40 px-2 py-0.5 rounded-full font-semibold">
@@ -83,7 +84,7 @@ export default function FindRide() {
 {/*  Origin  */}
 <div className="flex flex-col gap-1 p-space-sm bg-surface-container-low rounded-lg">
 <span className="font-label-sm text-label-sm text-outline uppercase flex items-center gap-1">
-<span className="material-symbols-outlined text-xs text-secondary">radio_button_checked</span>
+<CircleDot className="text-xs text-secondary" />
                 Origin
               </span>
 <div className="flex items-center gap-2 text-on-surface font-label-lg text-label-lg font-semibold">
@@ -93,7 +94,7 @@ export default function FindRide() {
 {/*  Destination  */}
 <div className="flex flex-col gap-1 p-space-sm bg-surface-container-low rounded-lg">
 <span className="font-label-sm text-label-sm text-outline uppercase flex items-center gap-1">
-<span className="material-symbols-outlined text-xs text-error">location_on</span>
+<MapPin className="text-xs text-error" />
                 Destination
               </span>
 <div className="flex items-center gap-2 text-on-surface font-label-lg text-label-lg font-semibold">
@@ -103,7 +104,7 @@ export default function FindRide() {
 {/*  Date  */}
 <div className="flex flex-col gap-1 p-space-sm bg-surface-container-low rounded-lg">
 <span className="font-label-sm text-label-sm text-outline uppercase flex items-center gap-1">
-<span className="material-symbols-outlined text-xs text-on-surface-variant">calendar_today</span>
+<Calendar className="text-xs text-on-surface-variant" />
                 Date
               </span>
 <div className="flex items-center justify-between">
@@ -114,7 +115,7 @@ export default function FindRide() {
 {/*  Time Target  */}
 <div className="flex flex-col gap-1 p-space-sm bg-surface-container-low rounded-lg">
 <span className="font-label-sm text-label-sm text-outline uppercase flex items-center gap-1">
-<span className="material-symbols-outlined text-xs text-on-surface-variant">schedule</span>
+<Clock className="text-xs text-on-surface-variant" />
                 Time
               </span>
 <div className="flex items-center justify-between">
@@ -125,7 +126,7 @@ export default function FindRide() {
 </div>
 <div className="flex items-center justify-between pt-1">
 <div className="flex items-center gap-2 text-outline font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-sm text-secondary">tune</span>
+<SlidersHorizontal className="text-sm text-secondary" />
 <span>Route 44 corridor · Minimal detour</span>
 </div>
 <button
@@ -133,7 +134,7 @@ export default function FindRide() {
   id="search-refresh-btn"
   onClick={handleRefresh}
 >
-  <span className={`material-symbols-outlined text-base ${isRefreshing ? 'animate-spin' : ''}`}>refresh</span>
+  <RefreshCw className={`text-base ${isRefreshing ? 'animate-spin' : ''}`} />
   Find Rides
 </button>
 </div>
@@ -167,7 +168,7 @@ export default function FindRide() {
 <div className="absolute top-0 left-0 right-0 h-1.5 bg-secondary"></div>
 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-1">
 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wider font-bold self-start">
-<span className="material-symbols-outlined text-sm">stars</span>
+<Star className="text-sm" />
               Best Match
             </div>
 <span className="font-mono text-mono text-secondary font-semibold">
@@ -182,7 +183,7 @@ export default function FindRide() {
                   AM
                 </div>
 <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-secondary flex items-center justify-center text-on-secondary">
-<span className="material-symbols-outlined text-xs">verified</span>
+<BadgeCheck className="text-xs" />
 </span>
 </div>
 <div className="flex flex-col">
@@ -248,11 +249,11 @@ export default function FindRide() {
   const isOpen = i < (featuredRide?.availableSeats ?? 0);
   return isOpen ? (
     <div key={i} className="w-6 h-6 rounded-md bg-surface-container-lowest border-2 border-dashed border-secondary flex items-center justify-center text-secondary" title={`Seat ${i + 1}: Open for You`}>
-      <span className="material-symbols-outlined text-xs">add</span>
+      <Plus className="text-xs" />
     </div>
   ) : (
     <div key={i} className="w-6 h-6 rounded-md bg-secondary flex items-center justify-center text-on-secondary" title={`Seat ${i + 1}: Occupied`}>
-      <span className="material-symbols-outlined text-xs">airline_seat_recline_normal</span>
+      <Armchair className="text-xs" />
     </div>
   );
 })}
@@ -279,7 +280,7 @@ export default function FindRide() {
 {/*  Card Actions  */}
 <div className="flex items-center justify-between pt-2">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary text-base">eco</span>
+<Leaf className="text-secondary text-base" />
 <span className="font-body-sm text-body-sm text-on-surface-variant">Saves 4.2 kg CO₂</span>
 </div>
 <button
@@ -288,7 +289,7 @@ export default function FindRide() {
   onClick={() => featuredRide && handleJoinRide(featuredRide.id)}
 >
 <span>{(!featuredRide || featuredRide.availableSeats <= 0) ? 'Full' : 'Join Ride'}</span>
-<span className="material-symbols-outlined text-base">arrow_forward</span>
+<ArrowRight className="text-base" />
 </button>
 </div>
 </div>
@@ -358,7 +359,7 @@ export default function FindRide() {
 {/*  Community Corridor Live Pulse Note  */}
 <div className="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary text-base">sensors</span>
+<Radio className="text-secondary text-base" />
 <span>4 more neighbors seeking rides to Central District between 6–7 PM.</span>
 </div>
 <Link to="/app/ghost-demand" className="text-secondary font-label-sm text-label-sm font-bold hover:underline shrink-0">View Demand</Link>
@@ -370,7 +371,7 @@ export default function FindRide() {
 <div className="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary text-xl">psychology</span>
+<Brain className="text-secondary text-xl" />
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Why Alex?</h3>
 </div>
 <span className="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-bold">
@@ -383,28 +384,28 @@ export default function FindRide() {
 {/*  Clear Explainable Signals  */}
 <div className="flex flex-col gap-2">
 <div className="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container-low">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <span className="font-label-md text-label-md text-on-surface font-bold">Same Community</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Both active in Northside.</span>
 </div>
 </div>
 <div className="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container-low">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <span className="font-label-md text-label-md text-on-surface font-bold">Exact Route</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Direct Central District dropoff.</span>
 </div>
 </div>
 <div className="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container-low">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <span className="font-label-md text-label-md text-on-surface font-bold">Departure Sync</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Leaves around 6:00 PM.</span>
 </div>
 </div>
 <div className="flex items-start gap-2.5 p-2 rounded-lg bg-surface-container-low">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <div className="flex flex-col">
 <span className="font-label-md text-label-md text-on-surface font-bold">96% Route Overlap</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Only 300m pickup walk along Route 44.</span>
@@ -438,7 +439,7 @@ export default function FindRide() {
 <div className="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary text-xl">shield</span>
+<Shield className="text-secondary text-xl" />
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Community Trust</h3>
 </div>
 <span className="font-mono text-mono text-secondary font-bold">Score 96/100</span>
@@ -463,7 +464,7 @@ export default function FindRide() {
 </div>
 </div>
 <div className="flex items-start gap-2 p-space-sm rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm">
-<span className="material-symbols-outlined text-secondary text-base shrink-0">groups</span>
+<Users className="text-secondary text-base shrink-0" />
 <p>
 <strong>Verified neighbors:</strong> Every ride is coordinated with peers from registered community hubs.
             </p>
@@ -500,7 +501,7 @@ export default function FindRide() {
 </div>
 {/*  Confirmed Alert State (Hidden by default, toggled upon confirm)  */}
 <div className="hidden p-space-sm rounded-lg bg-secondary/15 text-secondary flex items-center gap-2 font-label-md text-label-md" id="confirmed-state-msg">
-<span className="material-symbols-outlined text-base">check_circle</span>
+<CheckCircle2 className="text-base" />
 <span>Ride confirmed with {featuredRide?.driverName || 'Alex Morgan'}.</span>
 </div>
 {/*  Action Buttons  */}
@@ -512,11 +513,11 @@ export default function FindRide() {
   onClick={() => featuredRide && handleJoinRide(featuredRide.id)}
 >
 <span>{(!featuredRide || featuredRide.availableSeats <= 0) ? 'Full' : 'Join Ride'}</span>
-<span className="material-symbols-outlined text-base">arrow_forward</span>
+<ArrowRight className="text-base" />
 </button>
 {/*  Viral Growth Trigger  */}
 <button className="w-full py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
-<span className="material-symbols-outlined text-base text-secondary">share</span>
+<Share2 className="text-base text-secondary" />
 <span>Share with Neighbor</span>
 </button>
 </div>

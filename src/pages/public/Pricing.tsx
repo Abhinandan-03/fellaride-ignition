@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Share2, Users, LineChart, ArrowRight } from 'lucide-react';
 
 export default function Pricing() {
   const [audience, setAudience] = useState<'individuals' | 'organizations'>('individuals');
@@ -24,7 +25,7 @@ export default function Pricing() {
           {/* Brand Logo */}
           <Link to="/" className="flex items-center gap-3 group" data-purpose="brand-logo">
             <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-white shadow-sm transition group-hover:scale-105 border border-slate-700/50">
-              <span className="material-symbols-outlined text-emerald-400 text-xl">share</span>
+              <Share2 className="text-emerald-400" size={20} />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-extrabold tracking-tight text-navy-900 leading-none">FellaRide</span>
@@ -470,7 +471,7 @@ export default function Pricing() {
                 <div>
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600">
-                      <span className="material-symbols-outlined text-emerald-600 text-xl">groups</span>
+                      <Users className="text-emerald-600" size={20} />
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-navy-900">Free User Layer</h3>
@@ -510,7 +511,7 @@ export default function Pricing() {
                 <div>
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-emerald-400 text-xl">query_stats</span>
+                      <LineChart className="text-emerald-400" size={20} />
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-white">B2B Intelligence Layer</h3>
@@ -599,7 +600,7 @@ export default function Pricing() {
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-navy-900 text-white text-sm font-semibold hover:bg-navy-850 transition shadow-sm active:scale-95"
               >
                 <span>Explore Community Intelligence</span>
-                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                <ArrowRight size={14} />
               </Link>
             </div>
           </div>
@@ -754,7 +755,7 @@ export default function Pricing() {
             <div className="md:col-span-2 space-y-3">
               <div className="flex items-center gap-2.5 text-white">
                 <div className="w-8 h-8 rounded-lg bg-navy-800 flex items-center justify-center text-emerald-400 border border-slate-700">
-                  <span className="material-symbols-outlined text-emerald-400 text-base">share</span>
+                  <Share2 className="text-emerald-400" size={16} />
                 </div>
                 <span className="text-lg font-extrabold text-white tracking-tight">FellaRide</span>
               </div>

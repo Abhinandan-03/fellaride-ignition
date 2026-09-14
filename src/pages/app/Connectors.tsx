@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ArrowRight, BadgeCheck, Brain, Building, CheckCircle2, Crown, Flame, MapPin, Network, RefreshCw, Search, Send, SlidersHorizontal, UserPlus, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { CANONICAL_CONNECTOR } from '../../store/mockData';
 
@@ -170,11 +171,11 @@ export default function Connectors() {
               </div>
               <div className="flex items-center gap-space-sm self-start md:self-auto">
                 <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <span className="material-symbols-outlined text-base text-secondary">sync</span>
+                  <RefreshCw className="text-base text-secondary" />
                   <span>Refresh</span>
                 </button>
                 <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <span className="material-symbols-outlined text-base text-outline">tune</span>
+                  <SlidersHorizontal className="text-base text-outline" />
                   <span>Filter</span>
                 </button>
                 <div className="hidden sm:flex items-center px-space-sm py-2 rounded-lg bg-surface-container-high text-on-surface-variant font-mono text-mono">
@@ -191,7 +192,7 @@ export default function Connectors() {
                 <div className="flex items-center justify-between">
                   <span className="font-label-md text-label-md text-on-surface-variant">Connectors</span>
                   <span className="p-1.5 rounded-md bg-surface-container-low text-secondary">
-                    <span className="material-symbols-outlined text-[18px]">hub</span>
+                    <Network className="text-[18px]" />
                   </span>
                 </div>
                 <div className="flex items-baseline gap-space-sm">
@@ -208,7 +209,7 @@ export default function Connectors() {
                 <div className="flex items-center justify-between">
                   <span className="font-label-md text-label-md text-on-surface-variant">High Potential</span>
                   <span className="p-1.5 rounded-md bg-secondary text-on-secondary">
-                    <span className="material-symbols-outlined text-[18px]">workspace_premium</span>
+                    <Crown className="text-[18px]" />
                   </span>
                 </div>
                 <div className="flex items-baseline gap-space-sm">
@@ -225,7 +226,7 @@ export default function Connectors() {
                 <div className="flex items-center justify-between">
                   <span className="font-label-md text-label-md text-on-surface-variant">Average Reach</span>
                   <span className="p-1.5 rounded-md bg-surface-container-low text-on-surface">
-                    <span className="material-symbols-outlined text-[18px]">group_add</span>
+                    <UserPlus className="text-[18px]" />
                   </span>
                 </div>
                 <div className="flex items-baseline gap-space-sm">
@@ -242,7 +243,7 @@ export default function Connectors() {
                 <div className="flex items-center justify-between">
                   <span className="font-label-md text-label-md text-on-surface-variant">Ready to Start</span>
                   <span className="p-1.5 rounded-md bg-surface-container text-secondary">
-                    <span className="material-symbols-outlined text-[18px]">local_fire_department</span>
+                    <Flame className="text-[18px]" />
                   </span>
                 </div>
                 <div className="flex items-baseline gap-space-sm">
@@ -266,7 +267,7 @@ export default function Connectors() {
                     <span className="font-mono text-mono text-outline">Sorted by score</span>
                   </div>
                   <div className="relative w-full">
-                    <span className="material-symbols-outlined absolute left-3 top-2.5 text-outline text-base">search</span>
+                    <Search className="absolute left-3 top-2.5 text-outline text-base" />
                     <input className="w-full h-10 pl-9 pr-4 rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:bg-surface-container transition-all" placeholder="Search connectors or communities..." type="text" />
                   </div>
                   <div className="flex items-center gap-space-xs flex-wrap pt-1">
@@ -301,7 +302,7 @@ export default function Connectors() {
                               <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">Priority #1</span>
                             </div>
                             <div className="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
-                              <span className="material-symbols-outlined text-[15px] text-secondary">location_on</span>
+                              <MapPin className="text-[15px] text-secondary" />
                               <span>Northside Community</span>
                               <span className="text-outline">•</span>
                               <span className="truncate">Northside Heights → Central Tech Hub</span>
@@ -327,7 +328,7 @@ export default function Connectors() {
                       <div className="flex items-center justify-between pt-1 font-mono text-mono text-on-surface-variant">
                         <span>Why Alex? <strong className="text-on-surface font-semibold">Highly connected within Northside.</strong></span>
                         <button className="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-semibold hover:underline" onClick={(e) => { e.stopPropagation(); navigate('/app/activation'); }}>
-                          Activate Alex <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                          Activate Alex <ArrowRight className="text-sm" />
                         </button>
                       </div>
                     </div>
@@ -354,7 +355,7 @@ export default function Connectors() {
                               <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Hospital Anchor</span>
                             </div>
                             <div className="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
-                              <span className="material-symbols-outlined text-[15px] text-outline">location_on</span>
+                              <MapPin className="text-[15px] text-outline" />
                               <span>Eastview Community</span>
                               <span className="text-outline">•</span>
                               <span className="truncate">Eastview Civic Hub → Metro Medical</span>
@@ -380,7 +381,7 @@ export default function Connectors() {
                       <div className="flex items-center justify-between pt-1 font-mono text-mono text-on-surface-variant">
                         <span>Why Priya? <strong className="text-on-surface font-semibold">Connects 21 healthcare commuters.</strong></span>
                         <span className="flex items-center gap-1 text-on-surface hover:text-secondary font-label-sm text-label-sm font-semibold">
-                          View Candidate <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                          View Candidate <ArrowRight className="text-sm" />
                         </span>
                       </div>
                     </div>
@@ -407,7 +408,7 @@ export default function Connectors() {
                               <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Driver Anchor</span>
                             </div>
                             <div className="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
-                              <span className="material-symbols-outlined text-[15px] text-outline">location_on</span>
+                              <MapPin className="text-[15px] text-outline" />
                               <span>Northside Community</span>
                               <span className="text-outline">•</span>
                               <span className="truncate">Northside Loop → Central District</span>
@@ -432,7 +433,7 @@ export default function Connectors() {
                       <div className="flex items-center justify-between pt-1 font-mono text-mono text-on-surface-variant">
                         <span>Why Sam? <strong className="text-on-surface font-semibold">Immediate daily driver capacity.</strong></span>
                         <span className="flex items-center gap-1 text-on-surface hover:text-secondary font-label-sm text-label-sm font-semibold">
-                          View Candidate <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                          View Candidate <ArrowRight className="text-sm" />
                         </span>
                       </div>
                     </div>
@@ -459,7 +460,7 @@ export default function Connectors() {
                               <span className="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Tech Group</span>
                             </div>
                             <div className="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
-                              <span className="material-symbols-outlined text-[15px] text-outline">location_on</span>
+                              <MapPin className="text-[15px] text-outline" />
                               <span>Eastview Community</span>
                               <span className="text-outline">•</span>
                               <span className="truncate">Eastview → Innovation Corridor</span>
@@ -505,7 +506,7 @@ export default function Connectors() {
                               <span className="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Emerging</span>
                             </div>
                             <div className="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
-                              <span className="material-symbols-outlined text-[15px] text-outline">location_on</span>
+                              <MapPin className="text-[15px] text-outline" />
                               <span>West End Community</span>
                               <span className="text-outline">•</span>
                               <span className="truncate">West End Square → University Station</span>
@@ -539,7 +540,7 @@ export default function Connectors() {
                   <div className="flex flex-col gap-space-sm">
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-mono text-secondary uppercase font-semibold tracking-wider flex items-center gap-1">
-                        <span className="material-symbols-outlined text-sm">verified</span>
+                        <BadgeCheck className="text-sm" />
                         Connector Profile
                       </span>
                       <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold uppercase">
@@ -569,7 +570,7 @@ export default function Connectors() {
                   {/* Why Selected? */}
                   <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm">
                     <div className="flex items-center gap-space-xs">
-                      <span className="material-symbols-outlined text-secondary text-base">psychology</span>
+                      <Brain className="text-secondary text-base" />
                       <span className="font-headline-sm text-headline-sm text-on-surface">Why {selectedCandidate.name.split(' ')[0]}?</span>
                     </div>
                     <p className="font-body-sm text-body-sm text-on-surface font-medium">
@@ -578,7 +579,7 @@ export default function Connectors() {
                     <ul className="flex flex-col gap-1.5 font-body-sm text-body-sm text-on-surface-variant">
                       {selectedCandidate.bullets.map((b, idx) => (
                         <li key={idx} className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+                          <CheckCircle2 className="text-secondary text-[16px]" />
                           <span>{b}</span>
                         </li>
                       ))}
@@ -589,7 +590,7 @@ export default function Connectors() {
                   <div className="flex flex-col gap-space-xs">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-space-xs">
-                        <span className="material-symbols-outlined text-secondary text-base">flare</span>
+                        <Flame className="text-secondary text-base" />
                         <span className="font-headline-sm text-headline-sm text-on-surface">Network Reach</span>
                       </div>
                       <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
@@ -697,7 +698,7 @@ export default function Connectors() {
                   <div className="flex flex-col gap-space-xs pt-1">
                     {contacted === selectedCandidate.name ? (
                       <div className="w-full py-2.5 px-space-md rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold text-center flex items-center justify-center gap-2">
-                        <span className="material-symbols-outlined text-base text-secondary">check_circle</span>
+                        <CheckCircle2 className="text-base text-secondary" />
                         <span>Invite dispatched to {selectedCandidate.name}</span>
                       </div>
                     ) : (
@@ -705,16 +706,16 @@ export default function Connectors() {
                         className="w-full py-2.5 px-space-md rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs hover:bg-surface-container transition-all"
                         onClick={() => setContacted(selectedCandidate.name)}
                       >
-                        <span className="material-symbols-outlined text-base text-secondary">send</span>
+                        <Send className="text-base text-secondary" />
                         <span>Mobilize {selectedCandidate.name.split(' ')[0]}</span>
                       </button>
                     )}
                     <button className="w-full py-3 px-space-md rounded-lg bg-secondary text-on-secondary font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-xs shadow-md hover:bg-secondary/90 active:scale-[0.99] transition-all" onClick={() => navigate('/app/activation')}>
-                      <span className="material-symbols-outlined text-xl">bolt</span>
+                      <Zap className="text-xl" />
                       <span>Activate {selectedCandidate.name.split(' ')[0]}</span>
                     </button>
                     <button className="w-full py-2.5 px-space-md rounded-lg bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs hover:bg-surface-container-high transition-all" onClick={() => navigate('/app/communities')}>
-                      <span className="material-symbols-outlined text-base">domain</span>
+                      <Building className="text-base" />
                       <span>View Northside</span>
                     </button>
                   </div>

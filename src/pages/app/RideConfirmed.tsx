@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AlignLeft, Armchair, ArrowLeft, ArrowRight, BadgeCheck, CalendarPlus, Check, CheckCircle2, Compass, Copy, Flame, Leaf, Lock, Printer, Share2, ShieldCheck, UserPlus, X } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
 
@@ -52,7 +53,7 @@ export default function RideConfirmed() {
 </div>
 <div className="flex items-center gap-space-sm self-start lg:self-center">
 <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors shadow-sm" onClick={() => navigate('/app/communities')}>
-<span className="material-symbols-outlined text-base">arrow_back</span>
+<ArrowLeft className="text-base" />
         Back to Community
       </button>
 <button
@@ -60,7 +61,7 @@ export default function RideConfirmed() {
   id="addToCalBtn"
   onClick={handleCalendar}
 >
-<span className="material-symbols-outlined text-base text-secondary">calendar_add_on</span>
+<CalendarPlus className="text-base text-secondary" />
         Add to Calendar
       </button>
 <button
@@ -68,14 +69,14 @@ export default function RideConfirmed() {
   title="Print Transit Pass"
   onClick={() => window.print()}
 >
-<span className="material-symbols-outlined text-base">print</span>
+<Printer className="text-base" />
 </button>
 </div>
 </header>
 {/*  Calendar Added Toast (Hidden State)  */}
 <div className={`${showCalToast ? 'flex' : 'hidden'} transition-all duration-300 ease-out mb-space-md p-space-sm px-space-md rounded-xl bg-surface-container-lowest shadow-md items-center justify-between`} id="calToast">
 <div className="flex items-center gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-base">check_circle</span>
+<CheckCircle2 className="text-secondary text-base" />
 <span className="font-label-md text-label-md text-on-surface">Added: {origin} → {destination} · Today {departureTime}</span>
 </div>
 <span className="font-mono text-mono text-outline">Saved</span>
@@ -106,7 +107,7 @@ export default function RideConfirmed() {
 <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
                 {origin}
               </h2>
-<span className="material-symbols-outlined text-secondary text-xl">arrow_forward</span>
+<ArrowRight className="text-secondary text-xl" />
 <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
                 {destination}
               </h2>
@@ -128,7 +129,7 @@ export default function RideConfirmed() {
                   {initials}
                 </div>
 <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center" title="Identity & Address Verified">
-<span className="material-symbols-outlined text-[13px]">verified</span>
+<BadgeCheck className="text-[13px]" />
 </span>
 </div>
 <div className="flex flex-col min-w-0">
@@ -141,7 +142,7 @@ export default function RideConfirmed() {
                   Northside Community
                 </span>
 <span className="font-mono text-mono text-secondary mt-1 flex items-center gap-1">
-<span className="material-symbols-outlined text-xs">format_image_left</span>
+<AlignLeft className="text-xs" />
                   14 rides completed · 100% on-time
                 </span>
 </div>
@@ -204,7 +205,7 @@ export default function RideConfirmed() {
 <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
 <div className="flex items-center justify-between">
 <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Reserved Seat</span>
-<span className="material-symbols-outlined text-secondary text-base">airline_seat_recline_normal</span>
+<Armchair className="text-secondary text-base" />
 </div>
 <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Seat 1 · Window</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Confirmed passenger: You</span>
@@ -228,7 +229,7 @@ export default function RideConfirmed() {
 <div className="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
 <div className="relative z-10 flex items-center justify-between w-full text-surface-bright">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary-fixed text-lg">explore</span>
+<Compass className="text-secondary-fixed text-lg" />
 <span className="font-label-md text-label-md">Direct Route 44 Navigation</span>
 </div>
 <span className="font-mono text-mono bg-inverse-surface/70 px-2 py-0.5 rounded backdrop-blur-sm">
@@ -242,7 +243,7 @@ export default function RideConfirmed() {
 <section className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary text-xl">verified_user</span>
+<ShieldCheck className="text-secondary text-xl" />
 <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">
               Why This Match Works
             </h3>
@@ -254,28 +255,28 @@ export default function RideConfirmed() {
         </p>
 <div className="grid grid-cols-1 md:grid-cols-2 gap-space-sm pt-space-xs">
 <div className="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <div>
 <span className="font-label-md text-label-md text-on-surface block font-semibold">Same Community</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Both active in Northside.</span>
 </div>
 </div>
 <div className="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <div>
 <span className="font-label-md text-label-md text-on-surface block font-semibold">Exact Route</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Route 44 · 14.2 km shared.</span>
 </div>
 </div>
 <div className="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <div>
 <span className="font-label-md text-label-md text-on-surface block font-semibold">Departure Sync</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Departs 6:00 PM · Zero wait.</span>
 </div>
 </div>
 <div className="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">check_circle</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <div>
 <span className="font-label-md text-label-md text-on-surface block font-semibold">Verified Neighbors</span>
 <span className="font-body-sm text-body-sm text-on-surface-variant">Verified profiles and trust score.</span>
@@ -300,7 +301,7 @@ export default function RideConfirmed() {
 {/*  Environmental Metric Badge  */}
 <div className="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md">
 <div className="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
-<span className="material-symbols-outlined text-2xl">eco</span>
+<Leaf className="text-2xl" />
 </div>
 <div className="flex flex-col">
 <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">2.4 kg CO₂ Saved</span>
@@ -342,7 +343,7 @@ export default function RideConfirmed() {
 <div className="absolute -right-12 -top-12 w-48 h-48 rounded-full bg-secondary/20 blur-3xl pointer-events-none"></div>
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary-fixed text-lg">flare</span>
+<Flame className="text-secondary-fixed text-lg" />
 <span className="font-label-sm text-label-sm uppercase tracking-widest text-secondary-fixed font-bold">Share</span>
 </div>
 <span className="font-mono text-mono text-primary-fixed-dim">Northside</span>
@@ -370,7 +371,7 @@ export default function RideConfirmed() {
   id="copyLinkBtn"
   onClick={handleCopy}
 >
-  <span className="material-symbols-outlined text-sm">{isCopied ? 'check' : 'content_copy'}</span>
+  {isCopied ? <Check className="text-sm" /> : <Copy className="text-sm" />}
   <span id="copyBtnLabel">{isCopied ? 'Copied!' : 'Copy'}</span>
 </button>
 </div>
@@ -378,7 +379,7 @@ export default function RideConfirmed() {
 {/*  Action Matrix  */}
 <div className="flex flex-col gap-space-xs pt-space-xs">
 <button className="w-full py-2.5 px-space-md rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-semibold hover:bg-secondary/90 transition-all flex items-center justify-center gap-space-xs shadow-md">
-<span className="material-symbols-outlined text-base">person_add</span>
+<UserPlus className="text-base" />
             Invite Neighbor
           </button>
 <Link to="/app/communities" className="w-full py-2 px-space-md rounded-lg bg-transparent hover:bg-primary-container text-surface-bright font-label-md text-label-md text-center transition-colors">
@@ -388,7 +389,7 @@ export default function RideConfirmed() {
 </section>
 {/*  Safety Note  */}
 <div className="p-space-md rounded-xl bg-surface-container flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-on-surface-variant text-lg shrink-0 mt-0.5">lock</span>
+<Lock className="text-on-surface-variant text-lg shrink-0 mt-0.5" />
 <div className="flex flex-col gap-0.5">
 <span className="font-label-sm text-label-sm font-semibold text-on-surface uppercase">Verified Neighbors</span>
 <p className="font-body-sm text-body-sm text-on-surface-variant">
@@ -403,11 +404,11 @@ export default function RideConfirmed() {
 <div className="bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-lg shadow-xl flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-secondary">share</span>
+<Share2 className="text-secondary" />
 <h4 className="font-headline-sm text-headline-sm text-on-surface font-bold">Invite a Neighbor</h4>
 </div>
 <button className="text-on-surface-variant hover:text-on-surface">
-<span className="material-symbols-outlined">close</span>
+<X />
 </button>
 </div>
 <p className="font-body-md text-body-md text-on-surface-variant">

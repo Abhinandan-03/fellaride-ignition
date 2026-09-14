@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ArrowLeft, Armchair, BadgeCheck, Calendar, Car, Check, CheckCircle2, CircleDot, Clock, Eye, GitBranch, Info, Leaf, MapPin, Minus, Network, Plus, Radar, RefreshCw, ShieldCheck, Sparkles, TrendingUp, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
 
@@ -59,11 +60,11 @@ export default function OfferRide() {
 </div>
 <div className="flex items-center gap-space-md">
 <div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-mono text-mono">
-<span className="material-symbols-outlined text-secondary text-base">hub</span>
+<Network className="text-secondary text-base" />
 <span>Supply: <strong className="font-semibold text-on-surface">{community.state.drivers} Drivers · {community.state.rides} Rides</strong></span>
 </div>
 <button className="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" onClick={() => navigate('/app/communities')}>
-<span className="material-symbols-outlined text-base">arrow_back</span>
+<ArrowLeft className="text-base" />
         Back to Community
       </button>
 </div>
@@ -88,7 +89,7 @@ export default function OfferRide() {
 </div>
 </div>
 <div className="px-space-sm py-space-xs rounded-xl bg-surface-container-lowest shadow-sm flex items-center gap-space-sm">
-<span className="material-symbols-outlined text-base text-secondary">verified</span>
+<BadgeCheck className="text-base text-secondary" />
 <div className="flex flex-col">
 <span className="font-label-sm text-label-sm text-outline uppercase">Community</span>
 <span className="font-label-md text-label-md text-on-surface font-semibold">Northside</span>
@@ -127,7 +128,7 @@ export default function OfferRide() {
 {/*  Origin Node  */}
 <div className="relative flex items-start gap-space-md">
 <div className="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 z-10 shadow-xs">
-<span className="material-symbols-outlined text-[16px]">trip_origin</span>
+<CircleDot className="text-[16px]" />
 </div>
 <div className="flex-1 min-w-0">
 <label className="font-label-sm text-label-sm text-outline uppercase block mb-0.5">Origin</label>
@@ -143,14 +144,14 @@ export default function OfferRide() {
 {/*  Route Spec Meta Pill  */}
 <div className="ml-11 flex items-center gap-space-sm py-0.5">
 <span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono text-label-sm flex items-center gap-1.5">
-<span className="material-symbols-outlined text-xs text-secondary">alt_route</span>
+<GitBranch className="text-xs text-secondary" />
               Route 44 · 14.2 km · Direct Path
             </span>
 </div>
 {/*  Destination Node  */}
 <div className="relative flex items-start gap-space-md">
 <div className="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 z-10 shadow-xs">
-<span className="material-symbols-outlined text-[16px]">location_on</span>
+<MapPin className="text-[16px]" />
 </div>
 <div className="flex-1 min-w-0">
 <label className="font-label-sm text-label-sm text-outline uppercase block mb-0.5">Destination</label>
@@ -166,7 +167,7 @@ export default function OfferRide() {
 </div>
 <div className="mt-space-md pt-space-sm border-t border-surface-container-low flex items-center justify-between text-body-sm text-on-surface-variant">
 <span className="flex items-center gap-1">
-<span className="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<CheckCircle2 className="text-sm text-secondary" />
             High route overlap with 14 passenger requests
           </span>
 <button className="text-secondary font-label-sm text-label-sm hover:underline font-semibold" type="button">Stops</button>
@@ -187,7 +188,7 @@ export default function OfferRide() {
 <label className="font-label-sm text-label-sm text-outline uppercase mb-space-xs">Date</label>
 <div className="px-space-md py-2.5 rounded-lg bg-surface-container-low flex items-center justify-between">
 <div className="flex items-center gap-space-sm">
-<span className="material-symbols-outlined text-on-surface-variant text-lg">calendar_today</span>
+<Calendar className="text-on-surface-variant text-lg" />
 <span className="font-label-lg text-label-lg text-on-surface font-semibold">Today (Oct 24)</span>
 </div>
 <span className="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase font-bold">Today</span>
@@ -198,7 +199,7 @@ export default function OfferRide() {
 <label className="font-label-sm text-label-sm text-outline uppercase mb-space-xs">Departure Time</label>
 <div className="px-space-md py-2 rounded-lg bg-surface-container-low flex items-center justify-between">
 <div className="flex items-center gap-space-sm">
-<span className="material-symbols-outlined text-on-surface-variant text-lg">schedule</span>
+<Clock className="text-on-surface-variant text-lg" />
 <input
   className="font-headline-sm text-headline-sm text-on-surface font-bold bg-transparent w-24 focus:outline-none"
   id="departure-input"
@@ -215,7 +216,7 @@ export default function OfferRide() {
 <div className="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-space-sm relative overflow-hidden">
 <div className="flex items-start justify-between gap-space-sm">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary text-base">auto_awesome</span>
+<Sparkles className="text-secondary text-base" />
 <span className="font-label-md text-label-md font-bold text-on-surface">Peak Demand · 6:00 PM</span>
 </div>
 <span className="px-space-xs py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold uppercase tracking-wider">
@@ -244,11 +245,11 @@ export default function OfferRide() {
 >
   {isSuggestedTimeApplied ? (
     <>
-      <span className="material-symbols-outlined text-xs text-secondary">check</span> Applied Peak Sync
+      <Check className="text-xs text-secondary" /> Applied Peak Sync
     </>
   ) : (
     <>
-      <span className="material-symbols-outlined text-xs text-secondary">bolt</span> Use Peak (6:00 PM)
+      <Zap className="text-xs text-secondary" /> Use Peak (6:00 PM)
     </>
   )}
 </button>
@@ -288,7 +289,7 @@ export default function OfferRide() {
 <div className="mt-space-md p-space-md rounded-lg bg-surface-container-low flex items-center justify-between flex-wrap gap-space-md">
 <div className="flex items-center gap-space-md">
 <div className="flex flex-col items-center">
-<span className="material-symbols-outlined text-on-surface text-xl">airline_seat_recline_normal</span>
+<Armchair className="text-on-surface text-xl" />
 <span className="font-label-sm text-label-sm text-outline mt-0.5">Driver (You)</span>
 </div>
 <div className="w-px h-8 bg-surface-container-high"></div>
@@ -297,7 +298,7 @@ export default function OfferRide() {
     const active = num <= seats;
     return (
       <div key={num} className={`flex flex-col items-center seat-token ${active ? 'active' : ''}`} style={{ opacity: active ? 1 : 0.35 }}>
-        <span className={`material-symbols-outlined ${active ? 'text-secondary' : 'text-outline'} text-xl`}>event_seat</span>
+        <Armchair className={`${active ? 'text-secondary' : 'text-outline'} text-xl`} />
         <span className={`font-label-sm text-label-sm ${active ? 'text-secondary font-bold' : 'text-outline'} mt-0.5`}>Seat {num}</span>
       </div>
     );
@@ -305,7 +306,7 @@ export default function OfferRide() {
 </div>
 </div>
 <span className="font-mono text-mono text-secondary font-semibold flex items-center gap-1">
-<span className="material-symbols-outlined text-sm">verified_user</span>
+<ShieldCheck className="text-sm" />
             Verified
           </span>
 </div>
@@ -335,7 +336,7 @@ export default function OfferRide() {
   type="button"
   onClick={() => setPrice(p => Math.max(20, p - 10))}
 >
-<span className="material-symbols-outlined text-lg">remove</span>
+<Minus className="text-lg" />
 </button>
 <button
   className="w-9 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface flex items-center justify-center transition-colors"
@@ -343,7 +344,7 @@ export default function OfferRide() {
   type="button"
   onClick={() => setPrice(p => Math.min(150, p + 10))}
 >
-<span className="material-symbols-outlined text-lg">add</span>
+<Plus className="text-lg" />
 </button>
 <button
   className="text-secondary hover:underline font-label-sm text-label-sm font-semibold ml-space-xs"
@@ -358,7 +359,7 @@ export default function OfferRide() {
 {/*  Municipal Transparency Notice  */}
 <div className="p-space-md rounded-lg bg-surface-container-low text-body-sm text-on-surface-variant flex flex-col gap-space-xs">
 <div className="flex items-center gap-1.5 font-label-md text-label-md text-on-surface font-semibold">
-<span className="material-symbols-outlined text-base text-secondary">info</span>
+<Info className="text-base text-secondary" />
             Cost Sharing
           </div>
 <p>
@@ -390,15 +391,15 @@ export default function OfferRide() {
 >
   {isPublishing ? (
     <>
-      <span className="material-symbols-outlined text-lg animate-spin">sync</span> Publishing...
+      <RefreshCw className="text-lg animate-spin" /> Publishing...
     </>
   ) : isPublished ? (
     <>
-      <span className="material-symbols-outlined text-lg">check</span> Ride Published
+      <Check className="text-lg" /> Ride Published
     </>
   ) : (
     <>
-      <span className="material-symbols-outlined text-lg">directions_car</span> Publish Ride
+      <Car className="text-lg" /> Publish Ride
     </>
   )}
 </button>
@@ -421,7 +422,7 @@ export default function OfferRide() {
 <section className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
 <div className="flex items-center justify-between mb-space-sm">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary text-base">preview</span>
+<Eye className="text-secondary text-base" />
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Ride Preview</h3>
 </div>
 <span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold uppercase">
@@ -442,7 +443,7 @@ export default function OfferRide() {
 <div className="flex flex-col">
 <div className="flex items-center gap-1">
 <span className="font-label-lg text-label-lg font-bold text-on-surface">Sarah Chen</span>
-<span className="material-symbols-outlined text-secondary text-sm">verified</span>
+<BadgeCheck className="text-secondary text-sm" />
 </div>
 <span className="font-mono text-label-sm text-on-surface-variant">Northside · 4.98 ★</span>
 </div>
@@ -477,7 +478,7 @@ export default function OfferRide() {
 {/*  Corridor Route Fit & Pickup note  */}
 <div className="px-space-sm py-1 rounded bg-surface-container-low flex items-center justify-between text-body-sm text-on-surface-variant font-mono">
 <span className="flex items-center gap-1 text-secondary font-semibold">
-<span className="material-symbols-outlined text-xs">sync</span>
+<RefreshCw className="text-xs" />
               100% Route Overlap
             </span>
 <span>Pickup: Civic Garden</span>
@@ -488,7 +489,7 @@ export default function OfferRide() {
 <section className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-sm">
 <div className="flex items-center justify-between">
 <div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary text-base">radar</span>
+<Radar className="text-secondary text-base" />
 <h3 className="font-headline-sm text-headline-sm text-on-surface">Corridor Demand</h3>
 </div>
 <span className="font-mono text-label-sm text-secondary font-bold">RT-44</span>
@@ -518,30 +519,30 @@ export default function OfferRide() {
 <span className="font-body-sm text-body-sm text-on-surface-variant">Match time &lt; 4 mins</span>
 </div>
 </div>
-<span className="material-symbols-outlined text-secondary text-lg">trending_up</span>
+<TrendingUp className="text-secondary text-lg" />
 </div>
 </section>
 {/*  3. Community Impact Card  */}
 <section className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-sm">
 <h3 className="font-headline-sm text-headline-sm text-on-surface flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-secondary text-base">eco</span>
+<Leaf className="text-secondary text-base" />
           Community Impact
         </h3>
 <ul className="space-y-space-xs pt-space-xs font-body-sm text-body-sm text-on-surface">
 <li className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">task_alt</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <span>Helps <strong>3 neighbors</strong> commute easily.</span>
 </li>
 <li className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">task_alt</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <span>Fills empty seats on Route 44.</span>
 </li>
 <li className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">task_alt</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <span>Community Health increases <strong>81 → 84/100</strong>.</span>
 </li>
 <li className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">task_alt</span>
+<CheckCircle2 className="text-secondary text-base shrink-0 mt-0.5" />
 <span><strong>7.2 kg CO₂</strong> saved.</span>
 </li>
 </ul>
@@ -549,7 +550,7 @@ export default function OfferRide() {
 {/*  Dynamic Micro Feedback Notice / Banner  */}
 <div className={`${showToast ? 'block' : 'hidden'} rounded-xl bg-primary text-on-primary p-space-md shadow-lg transition-all duration-300`} id="publish-toast">
 <div className="flex items-center gap-space-sm">
-<span className="material-symbols-outlined text-secondary-fixed text-xl">check_circle</span>
+<CheckCircle2 className="text-secondary-fixed text-xl" />
 <div className="flex flex-col">
 <span className="font-label-lg text-label-lg font-bold">Ride Published</span>
 <span className="font-body-sm text-body-sm text-on-primary-container">3 seats now open to Northside neighbors.</span>
