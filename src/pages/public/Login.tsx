@@ -1,28 +1,54 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
-import { Share2, ArrowLeft, Eye, EyeOff, ArrowRight, Zap, ShieldCheck, RotateCcw } from 'lucide-react';
+import { getGoogleAuthStatus } from '../../services/auth';
+import { storage } from '../../services/storage';
+import type { User } from '../../models/types';
+import { Share2, ArrowLeft, Eye, EyeOff, ArrowRight, ShieldCheck, RotateCcw, AlertCircle, Info, X, Users } from 'lucide-react';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useApp();
+  const { login, loginAsUser } = useApp();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [showForgotModal, setShowForgotModal] = useState(false);
+  const [showGoogleModal, setShowGoogleModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const testAccounts = storage.getUsers();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login();
+    setErrorMessage(null);
+
+    if (!email || !password) {
+      setErrorMessage('Please enter both email and password.');
+      return;
+    }
+
+    const res = login(email.trim().toLowerCase());
+    if (!res.success) {
+      setErrorMessage(res.error || 'No account found for this email. Please verify your email or sign up.');
+      return;
+    }
+
     navigate('/app');
   };
 
-  const handleDemoAccess = () => {
-    login();
+  const handleTestAccountLogin = (user: User) => {
+    loginAsUser(user.id);
     navigate('/app');
+  };
+
+  const handleGoogleClick = () => {
+    const status = getGoogleAuthStatus();
+    if (!status.isConfigured) {
+      setShowGoogleModal(true);
+    }
   };
 
   const handleResetPassword = (e: React.FormEvent) => {
@@ -189,6 +215,17 @@ export default function Login() {
                 </p>
               </div>
 
+              {/* Error Banner */}
+              {errorMessage && (
+                <div className="mb-5 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2.5 animate-in fade-in">
+                  <AlertCircle size={16} className="shrink-0 mt-0.5 text-red-600" />
+                  <div>
+                    <p className="font-bold">Authentication failed</p>
+                    <p className="mt-0.5">{errorMessage}</p>
+                  </div>
+                </div>
+              )}
+
               {/* Main Login Form */}
               <form className="space-y-4" onSubmit={handleSubmit}>
                 {/* Email Field */}
@@ -258,7 +295,7 @@ export default function Login() {
 
                 {/* Primary Action Button */}
                 <button
-                  className="w-full py-3.5 px-4 rounded-xl bg-navy-900 hover:bg-navy-850 text-white font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition-all duration-150 shadow-sm active:scale-[0.99] focus:outline-none"
+                  className="w-full py-3.5 px-4 rounded-xl bg-navy-900 hover:bg-navy-850 text-white font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition-all duration-150 shadow-sm active:scale-[0.99] focus:outline-none cursor-pointer"
                   type="submit"
                 >
                   <span>Log In</span>
@@ -276,9 +313,9 @@ export default function Login() {
 
               {/* Social Button (Google) */}
               <button
-                className="w-full py-3 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-semibold flex items-center justify-center gap-2.5 transition-colors focus:outline-none shadow-2xs"
+                className="w-full py-3 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-semibold flex items-center justify-center gap-2.5 transition-colors focus:outline-none shadow-2xs cursor-pointer"
                 type="button"
-                onClick={handleSubmit}
+                onClick={handleGoogleClick}
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
@@ -297,26 +334,43 @@ export default function Login() {
                 </Link>
               </div>
 
-              {/* DEMO ACCESS BOX (Hackathon Demo) */}
-              <div className="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 relative">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800">
-                    HACKATHON DEMO
+              {/* TEST & PERSONA SEED ACCOUNTS */}
+              <div className="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider bg-slate-200 text-slate-800">
+                    <Users size={12} />
+                    SEEDED TEST ACCOUNTS
                   </span>
-                  <Zap className="text-emerald-600" size={14} />
+                  <span className="text-[10px] text-slate-400 font-mono">1-CLICK LOGIN</span>
                 </div>
-                <h3 className="text-xs font-bold text-navy-900">Explore without an account</h3>
-                <p className="text-[11px] text-slate-600 mt-1 leading-normal">
-                  Enter the Northside Community demo directly and explore the FellaRide experience.
+                <p className="text-[11px] text-slate-600 mb-3">
+                  Quickly test different permission personas and multi-community memberships:
                 </p>
-                <button
-                  className="mt-3 w-full py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-[0.99] focus:outline-none"
-                  type="button"
-                  onClick={handleDemoAccess}
-                >
-                  <span>Enter Demo</span>
-                  <ArrowRight size={14} />
-                </button>
+
+                <div className="space-y-2">
+                  {testAccounts.map((account) => (
+                    <button
+                      key={account.id}
+                      type="button"
+                      onClick={() => handleTestAccountLogin(account)}
+                      className="w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:border-emerald-400 hover:bg-emerald-50/40 text-left transition-all flex items-center justify-between group cursor-pointer"
+                    >
+                      <div className="min-w-0 pr-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-navy-900 group-hover:text-emerald-800">{account.name}</span>
+                          <span className={`px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase ${
+                            account.role === 'Both' ? 'bg-emerald-100 text-emerald-800' :
+                            account.role === 'Find' ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800'
+                          }`}>
+                            {account.role}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-slate-400 font-mono truncate">{account.email}</p>
+                      </div>
+                      <ArrowRight size={14} className="text-slate-400 group-hover:text-emerald-600 shrink-0" />
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Trust Note */}
@@ -373,6 +427,42 @@ export default function Login() {
                 </div>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: Google OAuth Configuration Boundary */}
+      {showGoogleModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/40 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-200 relative">
+            <button
+              onClick={() => setShowGoogleModal(false)}
+              className="absolute right-5 top-5 p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
+              <Info size={24} />
+            </div>
+            <h3 className="text-xl font-bold text-navy-900">Google Sign-In Setup</h3>
+            <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+              Google OAuth requires an active client ID configuration in your environment:
+            </p>
+            <div className="mt-3 p-3 bg-slate-50 border border-slate-200 rounded-xl font-mono text-[11px] text-slate-700 select-all">
+              VITE_GOOGLE_CLIENT_ID=your-google-oauth-client-id
+            </div>
+            <p className="text-[11px] text-slate-500 mt-2 leading-relaxed">
+              FellaRide enforces honest integration boundaries. No fake or bypassed Google credentials are generated without valid OAuth configuration.
+            </p>
+            <div className="mt-5 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setShowGoogleModal(false)}
+                className="w-full py-3 px-4 rounded-xl bg-navy-900 text-white font-bold text-xs hover:bg-navy-850 transition-colors cursor-pointer"
+              >
+                Continue with Email Login
+              </button>
+            </div>
           </div>
         </div>
       )}

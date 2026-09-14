@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
 
 export default function CommunityHealthView() {
-  const { community, isActivated, improveCommunityHealth } = useApp();
+  const { selectedCommunity, community, isActivated, improveCommunityHealth } = useApp();
+  const communityName = selectedCommunity?.name || community?.name || 'Community';
+  const communityShort = communityName.replace(/ Community.*$/i, '');
   const [sortBy, setSortBy] = useState<'health' | 'rides' | 'repeat'>('health');
   const [syncScheduled, setSyncScheduled] = useState(false);
 
@@ -13,7 +15,7 @@ export default function CommunityHealthView() {
 
   const peerClusters = [
     {
-      name: 'Northside',
+      name: communityShort,
       score: healthScore,
       drivers: community.state.drivers,
       rides: community.state.rides,
@@ -45,14 +47,14 @@ export default function CommunityHealthView() {
 </div>
 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Community Health</h1>
 <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl">
-        Northside Community · Track the transition from activation to self-sustaining rides.
+        {communityName} · Track the transition from activation to self-sustaining rides.
       </p>
 </div>
 <div className="flex flex-wrap items-center gap-space-sm">
 {/*  Selector Pill  */}
 <div className="flex items-center gap-2 bg-surface-container px-space-md py-2 rounded-lg shadow-sm">
 <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
-<span className="font-label-md text-label-md text-on-surface font-semibold">Northside Community</span>
+<span className="font-label-md text-label-md text-on-surface font-semibold">{communityName}</span>
 <span className="font-mono text-mono text-secondary bg-secondary-container/40 px-1.5 py-0.5 rounded font-bold">{healthScore}/100</span>
 </div>
 {/*  Butterfly Effect CTA  */}
@@ -76,7 +78,7 @@ export default function CommunityHealthView() {
 {/*  Left 7 cols: Community info & score display  */}
 <div className="xl:col-span-7 flex flex-col space-y-space-md">
 <div className="flex flex-wrap items-center gap-space-sm">
-<span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono text-mono">Northside Pilot</span>
+<span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono text-mono">{communityShort} Cluster</span>
 <span className="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold tracking-wide uppercase">{statusText}</span>
 <span className="font-mono text-mono text-on-surface-variant">Updated 2m ago</span>
 </div>
@@ -84,7 +86,7 @@ export default function CommunityHealthView() {
           Northside Community
 </h2>
 <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-          {isActivated ? 'Northside has crossed the self-sustaining threshold. Repeat rides and neighbor referrals now sustain daily liquidity without subsidies.' : 'Northside is in cold-start baseline phase. Mobilizing connectors will drive initial density.'}
+          {isActivated ? `${communityShort} has crossed the self-sustaining threshold. Repeat rides and neighbor referrals now sustain daily liquidity without subsidies.` : `${communityShort} is in cold-start baseline phase. Mobilizing connectors will drive initial density.`}
         </p>
 {/*  Health State Band Visual  */}
 <div className="pt-space-xs">
@@ -242,7 +244,7 @@ export default function CommunityHealthView() {
 <p className="font-body-sm text-body-sm text-on-surface-variant">From cold start to self-sustaining mobility</p>
 </div>
 <div className="px-space-md py-1 bg-secondary-container text-on-secondary-container font-mono text-mono rounded-full font-bold self-start sm:self-auto">
-        Northside: Stage 4 · Repeat Usage
+        {communityShort}: Stage 4 · Repeat Usage
       </div>
 </div>
 {/*  Stepped Horizontal Flow  */}
@@ -304,7 +306,7 @@ export default function CommunityHealthView() {
 </div>
 <div>
 <span className="font-headline-sm text-headline-sm text-on-primary block">Repeat Usage</span>
-<span className="font-body-sm text-body-sm text-outline-variant">Northside</span>
+<span className="font-body-sm text-body-sm text-outline-variant">{communityShort}</span>
 </div>
 <span className="font-mono text-[11px] text-secondary-container font-semibold">18 Habitual pairs</span>
 </div>
@@ -385,7 +387,7 @@ export default function CommunityHealthView() {
 </div>
 <div className="pt-space-md flex flex-wrap items-center justify-between text-on-surface-variant font-mono text-mono border-t border-transparent">
 <span className="flex items-center gap-1.5"><TrendingUp className="text-secondary text-sm" />+64 pts in 36 hours (18 → 82)</span>
-<span>Key route: Northside → Central District</span>
+<span>Key route: {communityShort} → Central District</span>
 </div>
 </div>
 </div>
@@ -527,7 +529,7 @@ export default function CommunityHealthView() {
 <span className="font-label-sm text-label-sm px-1.5 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed rounded font-semibold">Moderate</span>
 </div>
 <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-                82% of rides rely on Northside → Central District; feeders need activation.
+                82% of rides rely on {communityShort} → Central District; feeders need activation.
               </p>
 </div>
 </div>
@@ -686,7 +688,7 @@ export default function CommunityHealthView() {
           "A healthy community is more than a large community."
         </h3>
 <p className="font-body-lg text-body-lg text-inverse-primary leading-relaxed">
-          Northside grew because neighbors create rides, return for more, and invite others. FellaRide tracks real activity, not vanity signups.
+          {communityShort} grew because neighbors create rides, return for more, and invite others. FellaRide tracks real activity, not vanity signups.
         </p>
 </div>
 {/*  Strategic loop badge  */}

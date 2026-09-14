@@ -1,8 +1,49 @@
+export type UserRole = 'Find' | 'Offer' | 'Both';
+export type UserPlan = 'Free' | 'Starter' | 'Pro' | 'Enterprise';
+
 export interface Person {
   id: string;
   name: string;
   role: 'Driver' | 'Passenger' | 'Both' | 'Connector';
   avatarUrl?: string;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  plan: UserPlan;
+  communityIds: string[];
+  communities?: string[]; // Backwards-compatible alias for communityIds
+  selectedCommunityId: string;
+  avatarUrl?: string;
+  bio?: string;
+  typicalCorridor?: string;
+  createdAt: string;
+}
+
+// Backwards compatibility alias for components typing currentUser
+export interface CurrentUser extends Person {
+  email?: string;
+  rolePreference?: UserRole;
+  plan?: UserPlan;
+  communityId: string;
+  communityIds?: string[];
+  communities?: string[];
+  selectedCommunityId?: string;
+  typicalCorridor: string;
+}
+
+export interface Route {
+  id: string;
+  communityId: string;
+  name: string;
+  startPoint: string;
+  destination: string;
+  distance?: string;
+  typicalDuration?: string;
+  estimatedMiles?: number;
 }
 
 export interface ConnectorIntelligence {
@@ -49,6 +90,15 @@ export interface CommunityState {
 export interface Community {
   id: string;
   name: string;
+  ownerId?: string;
+  description?: string;
+  location?: string;
+  corridor?: string;
+  category?: 'residential' | 'colleges' | 'enterprise' | 'emerging';
+  status?: string;
+  membersCount?: number;
+  driversCount?: number;
+  passengersCount?: number;
   potentialScore: number; // 0-100
   potentialMembers: number;
   potentialDrivers: number;
@@ -71,6 +121,7 @@ export interface DemandOpportunity {
 export interface Ride {
   id: string;
   communityId: string;
+  routeId?: string;
   driverId: string;
   origin: string;
   destination: string;
@@ -87,9 +138,5 @@ export interface Ride {
   vehicle?: string;
   vehiclePlate?: string;
   matchScore?: number;
-}
-
-export interface CurrentUser extends Person {
-  communityId: string;
-  typicalCorridor: string;
+  createdAt?: string;
 }

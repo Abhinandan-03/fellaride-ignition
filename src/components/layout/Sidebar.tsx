@@ -11,13 +11,12 @@ import {
   Activity,
   Compass,
   Car,
-  RefreshCw,
   User,
   SlidersHorizontal,
 } from 'lucide-react';
 
 export default function Sidebar() {
-  const { currentUser, community } = useApp();
+  const { currentUser, community, selectedCommunity, canOfferRide } = useApp();
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between select-none">
@@ -149,15 +148,13 @@ export default function Sidebar() {
               }`
             }
           >
-            {() => (
+            {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
                   <Radio size={18} className="shrink-0" />
                   Ghost Demand
                 </span>
-                <span className="px-space-xs py-0.5 bg-secondary text-on-secondary font-label-sm text-label-sm rounded-full">
-                  Predicted
-                </span>
+                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
             )}
           </NavLink>
@@ -197,13 +194,13 @@ export default function Sidebar() {
               }`
             }
           >
-            {() => (
+            {({ isActive }) => (
               <>
                 <span className="flex items-center gap-space-sm font-label-lg text-label-lg">
                   <Sparkles size={18} className="shrink-0" />
-                  Butterfly Effect
+                  Cascade Multiplier
                 </span>
-                <Sparkles size={16} className="text-secondary shrink-0" />
+                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
             )}
           </NavLink>
@@ -260,7 +257,9 @@ export default function Sidebar() {
               `flex items-center justify-between px-space-sm py-space-sm rounded-lg transition-all ${
                 isActive
                   ? 'bg-primary text-on-primary font-bold'
-                  : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-lg text-label-lg'
+                  : canOfferRide
+                  ? 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-lg text-label-lg'
+                  : 'text-outline hover:bg-surface-container hover:text-on-surface-variant font-label-lg text-label-lg opacity-70'
               }`
             }
           >
@@ -270,6 +269,11 @@ export default function Sidebar() {
                   <Car size={18} className="shrink-0" />
                   Offer a Ride
                 </span>
+                {!canOfferRide && (
+                  <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-surface-container text-outline">
+                    Find Only
+                  </span>
+                )}
                 {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
               </>
             )}
@@ -280,26 +284,31 @@ export default function Sidebar() {
       {/* Bottom Profile & Pilot Info */}
       <div className="p-space-sm bg-surface-container-low flex flex-col gap-space-xs">
         <div className="flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-lowest">
-          <div className="flex items-center gap-space-sm">
-            <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
-            <span className="font-mono text-mono text-on-surface font-semibold">
-              Demo: {community?.name ? 'Northside Pilot' : 'Northside'}
+          <div className="flex items-center gap-space-sm min-w-0">
+            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse shrink-0"></span>
+            <span className="font-mono text-mono text-on-surface font-semibold truncate">
+              {selectedCommunity?.name || community?.name || 'Northside Pilot'}
             </span>
           </div>
-          <button className="text-on-surface-variant hover:text-on-surface" aria-label="Sync status">
-            <RefreshCw size={15} className="shrink-0" />
-          </button>
+          <span className="text-[9px] font-mono font-bold uppercase text-secondary bg-secondary-container/60 px-1.5 py-0.5 rounded shrink-0">
+            ACTIVE
+          </span>
         </div>
 
-        <div className="flex items-center gap-space-sm p-space-sm rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+        <div
+          onClick={() => window.location.href = '/onboarding/profile'}
+          className="flex items-center gap-space-sm p-space-sm rounded-lg hover:bg-surface-container transition-colors cursor-pointer"
+        >
           <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
             <User size={18} className="text-on-primary shrink-0" />
           </div>
           <div className="flex flex-col min-w-0 flex-1">
             <span className="font-label-md text-label-md text-on-surface truncate">
-              {currentUser?.name || 'Sarah Chen'}
+              {currentUser?.name || 'Account User'}
             </span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Growth Lead</span>
+            <span className="font-body-sm text-body-sm text-on-surface-variant truncate">
+              {currentUser?.role || 'Both'} · {currentUser?.plan ? currentUser.plan.toUpperCase() : 'FREE'}
+            </span>
           </div>
           <SlidersHorizontal size={16} className="text-on-surface-variant shrink-0" />
         </div>

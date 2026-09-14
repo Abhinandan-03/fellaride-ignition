@@ -1,591 +1,445 @@
 import { useState } from 'react';
-import { Armchair, ArrowLeftRight, ArrowRight, BadgeCheck, Car, Check, CheckCircle2, Clock, Flame, GitBranch, Globe, PlusCircle, Radio, RotateCcw, Search, ShieldCheck, Star, Train, User, UserPlus, Users, X, Zap } from 'lucide-react';
+import {
+  ArrowLeftRight,
+  Car,
+  CheckCircle2,
+  GitBranch,
+  Network,
+  Plus,
+  ShieldCheck,
+  UserPlus,
+  X,
+} from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../../store/AppContext';
 
 export default function CommunityView() {
   const navigate = useNavigate();
-  const { community, isActivated, rides, joinRide } = useApp();
-  const [copied, setCopied] = useState(false);
+  const {
+    communities,
+    userCommunities,
+    selectedCommunity,
+    selectCommunity,
+    joinCommunity,
+    createCommunity,
+    communityRoutes,
+    communityRides,
+    joinRide,
+    currentUser,
+    canJoinRide,
+    canOfferRide,
+  } = useApp();
 
-  const handleJoin = (rideId: string) => {
-    joinRide(rideId);
-    navigate('/app/ride-confirmed');
+  const [copied, setCopied] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newCommName, setNewCommName] = useState('');
+  const [newCommCorridor, setNewCommCorridor] = useState('');
+  const [newCommDesc, setNewCommDesc] = useState('');
+
+  const currentComm = selectedCommunity || communities[0];
+
+  const handleJoinRide = (rideId: string) => {
+    if (!canJoinRide) return;
+    const success = joinRide(rideId);
+    if (success) {
+      navigate('/app/ride-confirmed');
+    }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard?.writeText('https://fellaride.io/join/northside?token=am96-ns408');
+  const handleCopyInvite = () => {
+    navigator.clipboard?.writeText(`https://fellaride.io/join/${currentComm.id}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  return (
-    <div className="flex flex-col w-full gap-space-lg">
-{/*  Top Navigation & Meta Bar  */}
-<div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
-<div className="flex flex-col gap-space-xs">
-<div className="flex items-center gap-space-xs font-mono text-mono text-outline uppercase tracking-wider">
-<span>Communities</span>
-<span className="text-outline-variant">/</span>
-<span className="text-secondary font-semibold">Northside</span>
-</div>
-<div className="flex items-baseline gap-space-sm">
-<h1 className="font-headline-lg text-headline-lg text-on-surface">Northside Community</h1>
-<span className="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full bg-surface-container-high text-on-surface-variant uppercase tracking-wider">Node #NS-408</span>
-</div>
-<p className="font-body-md text-body-md text-on-surface-variant">Private ride network for verified Northside members.</p>
-</div>
-{/*  Right Quick Actions & Pill Status  */}
-<div className="flex flex-wrap items-center gap-space-sm">
-<div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md">
-<span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-<span>{isActivated ? 'Active' : 'Cold-Start'}</span>
-</div>
-<div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface font-label-md text-label-md">
-<Users className="text-sm text-secondary" />
-<span>{community.state.activeMembers} members</span>
-</div>
-<button className="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-<UserPlus className="text-base text-secondary" />
-<span>Invite</span>
-</button>
-<Link className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg text-secondary font-label-md text-label-md hover:bg-secondary-container/20 transition-colors" to="/app/community-health">
-<span>Health</span>
-<ArrowRight className="text-base" />
-</Link>
-</div>
-</div>
-{/*  Hero / Community Identity Banner  */}
-<div className="relative overflow-hidden rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
-<div className="absolute -right-20 -top-20 w-80 h-80 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
-<div className="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
-{/*  Community Identifier  */}
-<div className="flex items-start gap-space-md">
-<div className="w-16 h-16 rounded-xl bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shrink-0 shadow-md">
-          NC
-        </div>
-<div className="flex flex-col gap-space-xs">
-<div className="flex flex-wrap items-center gap-space-sm">
-<span className="font-headline-md text-headline-md text-on-surface">Northside Community</span>
-<span className="px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
-<ArrowLeftRight className="text-xs" /> Route 44 · Northside ⇄ Central District
-            </span>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface-variant max-w-xl">
-            Coordinated rides along Route 44. Fills empty seats and offsets fuel costs with zero fee.
-          </p>
-<div className="flex items-center gap-space-sm mt-space-xs">
-<div className="flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface font-label-sm text-label-sm">
-<span className="w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-[10px]">AM</span>
-<span>Activated by <strong>Alex Morgan</strong></span>
-<span className="px-1.5 py-0.2 bg-secondary-container text-on-secondary-container rounded font-mono font-semibold">96 Score</span>
-</div>
-<span className="font-label-sm text-label-sm px-space-xs py-1 rounded-full bg-secondary-container text-on-secondary-container uppercase tracking-wider">Active</span>
-</div>
-</div>
-</div>
-{/*  Community Health Score Ring  */}
-<div className="flex items-center gap-space-lg bg-surface-container-low p-space-md rounded-xl shrink-0">
-<div className="relative w-16 h-16 flex items-center justify-center">
-<svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
-<path className="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3"></path>
-<path className="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${community.state.health.score}, 100`} strokeLinecap="round" strokeWidth="3"></path>
-</svg>
-<div className="absolute flex flex-col items-center justify-center text-center">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold leading-none">{community.state.health.score}</span>
-<span className="font-label-sm text-[8px] text-outline uppercase tracking-wider">/100</span>
-</div>
-</div>
-<div className="flex flex-col">
-<div className="flex items-center gap-space-xs">
-<span className="font-label-md text-label-md text-on-surface font-bold">{community.state.health.score}/100</span>
-<span className="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-[10px]">{isActivated ? 'Healthy & Growing' : 'Cold-Start Phase'}</span>
-</div>
-<span className="font-mono text-mono text-secondary font-semibold mt-0.5">{isActivated ? `18 → ${community.state.health.score} Growth` : `Baseline ${community.state.health.score}`}</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Participation {community.state.health.activeParticipation}% · Supply {community.state.health.driverSupply}%</span>
-</div>
-</div>
-</div>
-{/*  Macro KPI Stat Strip  */}
-<div className="grid grid-cols-2 md:grid-cols-4 gap-space-md pt-space-lg mt-space-lg bg-surface-container-low/50 rounded-lg p-space-md">
-<div className="flex items-center gap-space-sm">
-<div className="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center shrink-0">
-<Car className="text-base" />
-</div>
-<div className="flex flex-col">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.drivers} Drivers</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Verified vehicles</span>
-</div>
-</div>
-<div className="flex items-center gap-space-sm">
-<div className="w-10 h-10 rounded-lg bg-surface-container text-on-surface flex items-center justify-center shrink-0">
-<User className="text-base text-secondary" />
-</div>
-<div className="flex flex-col">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.passengers} Passengers</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Active commuters</span>
-</div>
-</div>
-<div className="flex items-center gap-space-sm">
-<div className="w-10 h-10 rounded-lg bg-surface-container-highest text-on-surface flex items-center justify-center shrink-0">
-<GitBranch className="text-base text-secondary" />
-</div>
-<div className="flex flex-col">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.rides} Rides</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Weekly rides</span>
-</div>
-</div>
-<div className="flex items-center gap-space-sm">
-<div className="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
-<RotateCcw className="text-base" />
-</div>
-<div className="flex flex-col">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold">{community.state.health.repeatUsage}% Retention</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">Repeat usage</span>
-</div>
-</div>
-</div>
-</div>
-{/*  Primary Workspace: 2-Column Responsive Grid  */}
-<div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
-{/*  LEFT COLUMN: Actions & Upcoming Corridor Match Pool (7 of 12)  */}
-<div className="lg:col-span-7 flex flex-col gap-space-lg">
-{/*  Dual Action Banners  */}
-<div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
-{/*  Card A: Passenger Intent  */}
-<div className="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col justify-between gap-space-md group hover:shadow-md transition-all">
-<div className="flex flex-col gap-space-xs">
-<div className="flex items-center justify-between">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold flex items-center gap-space-xs">
-<Train className="text-secondary" /> Find a Ride
-              </span>
-<span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Rider</span>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface-variant">Northside → Central District around 6 PM.</p>
-</div>
-<button className="w-full flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg hover:bg-secondary/90 transition-all shadow-sm" onClick={() => navigate('/app/find-ride')}>
-<Globe className="text-base" />
-<span>Find a Ride</span>
-</button>
-</div>
-{/*  Card B: Driver Intent  */}
-<div className="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col justify-between gap-space-md group hover:shadow-md transition-all">
-<div className="flex flex-col gap-space-xs">
-<div className="flex items-center justify-between">
-<span className="font-headline-sm text-headline-sm text-on-surface font-bold flex items-center gap-space-xs">
-<Car className="text-primary" /> Offer a Ride
-              </span>
-<span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">Driver</span>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface-variant">Share empty seats on Route 44. ₹0 fee.</p>
-</div>
-<button className="w-full flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary/90 transition-all shadow-sm" onClick={() => navigate('/app/offer-ride')}>
-<PlusCircle className="text-base" />
-<span>Offer a Ride</span>
-</button>
-</div>
-</div>
-{/*  Upcoming Rides Section  */}
-<div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
-<div className="flex items-center gap-space-sm">
-<h2 className="font-headline-md text-headline-md text-on-surface">Upcoming Rides</h2>
-<span className="w-2 h-2 rounded-full bg-secondary"></span>
-</div>
-{/*  Filter Tabs  */}
-<div className="flex items-center bg-surface-container-low p-1 rounded-lg">
-<button className="px-space-sm py-1 rounded font-label-sm text-label-sm bg-surface-container-lowest text-on-surface shadow-xs font-semibold">All ({rides.length})</button>
-<button className="px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface">Today ({rides.filter(r => !r.id.includes('priya') && !r.departureTime?.includes('Tomorrow')).length})</button>
-<button className="px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface">Tomorrow ({rides.filter(r => r.id.includes('priya') || r.departureTime?.includes('Tomorrow')).length})</button>
-</div>
-</div>
-{/*  Rides Feed  */}
-<div className="flex flex-col gap-space-md">
-{rides.map((ride) => {
-  const isAlex = ride.id === 'ride-1' || ride.driverName?.includes('Alex');
-  const isPriya = ride.id === 'ride-3' || ride.driverName?.includes('Priya');
-  const initials = (ride.driverName || 'Driver').split(' ').map((n: string) => n[0]).join('').slice(0, 2);
-  const isFull = ride.availableSeats <= 0;
+  const handleCreateCommunitySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newCommName.trim()) return;
+
+    const created = createCommunity({
+      name: newCommName.trim(),
+      corridor: newCommCorridor.trim() || `${newCommName.trim()} · Central Corridor`,
+      description: newCommDesc.trim() || `Community network for ${newCommName.trim()} commuters.`,
+      location: newCommName.trim(),
+    });
+
+    setShowCreateModal(false);
+    setNewCommName('');
+    setNewCommCorridor('');
+    setNewCommDesc('');
+    selectCommunity(created.id);
+  };
 
   return (
-    <div key={ride.id} className={`relative overflow-hidden rounded-lg bg-surface-container-low p-space-md flex flex-col gap-space-sm shadow-xs transition-all hover:bg-surface-container ${isAlex ? 'border-l-4 border-secondary pl-3' : ''}`}>
-      <div className="flex flex-wrap items-center justify-between gap-space-xs">
-        <div className="flex items-center gap-space-xs">
-          <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{ride.origin?.split(' ')[0] || 'Northside'}</span>
-          <ArrowRight className="text-sm text-outline" />
-          <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{ride.destination}</span>
-          <span className="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">
-            {isPriya ? 'Tomorrow · ' : 'Today · '}{ride.departureTime}
-          </span>
-        </div>
-        {isAlex ? (
-          <span className="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
-            <BadgeCheck className="text-xs" /> {ride.matchScore || 96}% Match
-          </span>
-        ) : isPriya ? (
-          <span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm">
-            Morning Commute
-          </span>
-        ) : (
-          <span className="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
-            <Clock className="text-xs" /> In 45m
-          </span>
-        )}
-      </div>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs">
-        <div className="flex items-center gap-space-sm">
-          <div className={`w-9 h-9 rounded-full ${isAlex ? 'bg-secondary text-on-secondary' : 'bg-primary text-on-primary'} flex items-center justify-center font-bold text-xs shadow-xs`}>
-            {initials}
+    <div className="flex flex-col w-full gap-space-lg">
+      {/* Top Navigation & Meta Bar */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+        <div className="flex flex-col gap-space-xs">
+          <div className="flex items-center gap-space-xs font-mono text-mono text-outline uppercase tracking-wider">
+            <span>Communities</span>
+            <span className="text-outline-variant">/</span>
+            <span className="text-secondary font-semibold">{currentComm.name}</span>
           </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-1.5">
-              <span className="font-label-lg text-label-lg text-on-surface font-bold">{ride.driverName}</span>
-              {isAlex && (
-                <span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-secondary-container text-on-secondary-container font-semibold">Connector</span>
-              )}
-              <span className="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface font-semibold">{ride.driverRole || 'Driver'}</span>
-            </div>
-            <div className="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
-              <Star className="text-xs text-secondary fill-current" />
-              <span className="font-semibold text-on-surface">{isAlex ? '5.0' : isPriya ? '4.8' : '4.9'}</span>
-              <span>· {ride.vehicle || 'Toyota RAV4'}</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center gap-space-md">
-          <div className="flex flex-col items-end">
-            <div className="flex items-center gap-1">
-              <span className={`font-mono text-mono font-bold ${isFull ? 'text-outline' : ride.availableSeats === 1 ? 'text-error' : 'text-secondary'}`}>
-                {isFull ? '0 seats open' : `${ride.availableSeats} ${ride.availableSeats === 1 ? 'seat left' : 'seats open'}`}
+          <div className="flex items-baseline gap-space-sm">
+            <h1 className="font-headline-lg text-headline-lg text-on-surface">{currentComm.name}</h1>
+            <span className="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full bg-surface-container-high text-on-surface-variant uppercase tracking-wider">
+              Node #{currentComm.id.slice(0, 8).toUpperCase()}
+            </span>
+            {currentComm.ownerId === currentUser?.id && (
+              <span className="font-label-sm text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold uppercase tracking-wider">
+                Admin / Owner
               </span>
-              <div className="flex gap-0.5">
-                {Array.from({ length: ride.totalSeats || 4 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={`w-2 h-2 rounded-full ${i < ride.availableSeats ? 'bg-secondary' : 'bg-outline-variant'}`}
-                  />
-                ))}
-              </div>
-            </div>
-            <span className="font-mono text-mono text-outline">₹{ride.price || 80}</span>
+            )}
           </div>
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            {currentComm.description || `Autonomous ride-share cluster for ${currentComm.name} members.`}
+          </p>
+        </div>
+
+        {/* Right Quick Actions */}
+        <div className="flex flex-wrap items-center gap-space-sm">
           <button
-            className={`px-space-md py-1.5 rounded-lg ${isFull ? 'bg-surface-container text-outline cursor-not-allowed' : isAlex ? 'bg-secondary text-on-secondary hover:bg-secondary/90 shadow-sm' : 'bg-surface-container-lowest text-on-surface hover:bg-secondary hover:text-on-secondary shadow-xs'} font-label-md text-label-md transition-all flex items-center gap-1`}
-            disabled={isFull}
-            onClick={() => handleJoin(ride.id)}
+            onClick={() => setShowCreateModal(true)}
+            className="flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-navy-900 text-white font-label-md text-xs font-bold shadow-md hover:bg-navy-850 transition-all cursor-pointer"
           >
-            {isAlex && <Armchair className="text-sm" />}
-            <span>{isFull ? 'Full' : 'Join Ride'}</span>
+            <Plus size={16} />
+            <span>Create Community</span>
+          </button>
+          <button
+            onClick={handleCopyInvite}
+            className="flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-xs font-semibold shadow-sm hover:bg-surface-container transition-all cursor-pointer"
+          >
+            <UserPlus className="text-base text-secondary" />
+            <span>{copied ? 'Link Copied!' : 'Invite Link'}</span>
           </button>
         </div>
       </div>
-    </div>
-  );
-})}
-</div>
-{/*  Integrity Guarantee Notice  */}
-<div className="flex items-center gap-space-sm p-space-sm bg-surface-container-low rounded-lg text-on-surface-variant font-body-sm text-body-sm">
-<ShieldCheck className="text-secondary text-base shrink-0" />
-<span>Verified neighbor rides. Direct fuel contribution with ₹0 platform fee.</span>
-</div>
-</div>
-</div>
-{/*  RIGHT COLUMN: Growth Cascade, Members & Live Activity (5 of 12)  */}
-<div className="lg:col-span-5 flex flex-col gap-space-lg">
-{/*  1. Community Growth  */}
-<div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-space-xs">
-<Flame className="text-secondary text-lg" />
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Community Growth</h3>
-</div>
-<span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">{isActivated ? 'Active' : 'Cold-Start'}</span>
-</div>
-{/*  Progression Stepper  */}
-<div className="relative flex items-center justify-between pt-space-sm pb-space-xs">
-<div className="absolute left-4 right-4 top-1/2 -translate-y-1/2 h-0.5 bg-surface-container"></div>
-<div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-surface-container text-outline flex items-center justify-center font-mono text-xs font-semibold">0</div>
-<span className="font-label-sm text-[10px] text-outline uppercase">Start</span>
-</div>
-<div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-mono text-xs font-bold">1</div>
-<span className="font-label-sm text-[10px] text-on-surface-variant uppercase">Connector</span>
-</div>
-<div className="relative z-10 flex flex-col items-center gap-1">
-<div className="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-mono text-xs font-bold">{community.state.drivers || 8}</div>
-<span className="font-label-sm text-[10px] text-on-surface-variant uppercase">Drivers</span>
-</div>
-<div className="relative z-10 flex flex-col items-center gap-1">
-<div className={`w-8 h-8 rounded-full ${isActivated ? 'bg-secondary text-on-secondary ring-4 ring-secondary-container shadow-sm animate-bounce' : 'bg-surface-container text-outline'} flex items-center justify-center font-mono text-xs font-bold`}>{community.state.activeMembers}</div>
-<span className={`font-label-sm text-[10px] ${isActivated ? 'text-secondary font-bold' : 'text-outline'} uppercase`}>Members</span>
-</div>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface-variant">
-          {isActivated ? `Started with 1 connector (Alex Morgan). ${community.state.activeMembers} active members this week.` : 'Community in cold-start phase. Mobilize connectors to start network.'}
-        </p>
-</div>
-{/*  2. Community Members Section  */}
-<div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Members ({community.state.activeMembers})</h3>
-<Search className="text-outline text-base hover:text-on-surface cursor-pointer" />
-</div>
-<div className="flex flex-col gap-space-xs max-h-72 overflow-y-auto pr-1">
-{/*  Member 1: Alex Morgan  */}
-<div className="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-<div className="flex items-center gap-space-sm">
-<div className="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs">AM</div>
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-surface font-bold">Alex Morgan</span>
-<span className="font-body-sm text-body-sm text-outline">Connector · Score 96</span>
-</div>
-</div>
-<span className="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Active</span>
-</div>
-{/*  Member 2: Sam Carter  */}
-<div className="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-<div className="flex items-center gap-space-sm">
-<div className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xs">SC</div>
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-surface">Sam Carter</span>
-<span className="font-body-sm text-body-sm text-outline">Driver · 3 rides</span>
-</div>
-</div>
-<span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Honda Civic</span>
-</div>
-{/*  Member 3: Priya Shah  */}
-<div className="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-<div className="flex items-center gap-space-sm">
-<div className="w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-bold text-xs">PS</div>
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-surface">Priya Shah</span>
-<span className="font-body-sm text-body-sm text-outline">Driver · 5 rides</span>
-</div>
-</div>
-<span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Creta</span>
-</div>
-{/*  Member 4: Kiran Patel  */}
-<div className="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-<div className="flex items-center gap-space-sm">
-<div className="w-8 h-8 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs">KP</div>
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-surface">Kiran Patel</span>
-<span className="font-body-sm text-body-sm text-outline">Passenger · 2 rides</span>
-</div>
-</div>
-<span className="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">Route 44</span>
-</div>
-{/*  Member 5: Meera Thomas  */}
-<div className="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-<div className="flex items-center gap-space-sm">
-<div className="w-8 h-8 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs">MT</div>
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-surface">Meera Thomas</span>
-<span className="font-body-sm text-body-sm text-outline">Passenger · 1 ride</span>
-</div>
-</div>
-<span className="px-space-xs py-0.5 rounded bg-secondary-container/60 text-on-secondary-container font-label-sm text-label-sm">New</span>
-</div>
-{/*  Member 6: Jordan Lee  */}
-<div className="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container-low transition-colors">
-<div className="flex items-center gap-space-sm">
-<div className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xs">JL</div>
-<div className="flex flex-col">
-<span className="font-label-md text-label-md text-on-surface">Jordan Lee</span>
-<span className="font-body-sm text-body-sm text-outline">Driver · 4 rides</span>
-</div>
-</div>
-<span className="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Flexible</span>
-</div>
-</div>
-</div>
-{/*  3. Live Activity Stream  */}
-<div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-space-xs">
-<Radio className="text-secondary text-base" />
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h3>
-</div>
-<span className="font-mono text-[11px] text-outline">Recent</span>
-</div>
-<div className="flex flex-col gap-space-sm">
-<div className="flex items-start gap-space-sm">
-<div className="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 mt-0.5">
-<Zap className="text-xs" />
-</div>
-<div className="flex flex-col">
-<p className="font-body-sm text-body-sm text-on-surface"><strong>Alex</strong> activated Northside network</p>
-<span className="font-mono text-[11px] text-outline">2m ago</span>
-</div>
-</div>
-<div className="flex items-start gap-space-sm">
-<div className="w-6 h-6 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-0.5">
-<Car className="text-xs" />
-</div>
-<div className="flex flex-col">
-<p className="font-body-sm text-body-sm text-on-surface"><strong>Sam</strong> offered a ride (3 seats)</p>
-<span className="font-mono text-[11px] text-outline">8m ago</span>
-</div>
-</div>
-<div className="flex items-start gap-space-sm">
-<div className="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 mt-0.5">
-<Check className="text-xs" />
-</div>
-<div className="flex flex-col">
-<p className="font-body-sm text-body-sm text-on-surface"><strong>Priya</strong> reserved Seat 1</p>
-<span className="font-mono text-[11px] text-outline">12m ago</span>
-</div>
-</div>
-<div className="flex items-start gap-space-sm">
-<div className="w-6 h-6 rounded-full bg-surface-container text-on-surface flex items-center justify-center shrink-0 mt-0.5">
-<UserPlus className="text-xs" />
-</div>
-<div className="flex flex-col">
-<p className="font-body-sm text-body-sm text-on-surface"><strong>Kiran</strong> invited 2 neighbors</p>
-<span className="font-mono text-[11px] text-outline">18m ago</span>
-</div>
-</div>
-</div>
-</div>
-{/*  4. Trust & Safety  */}
-<div className="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-sm">
-<h3 className="font-headline-sm text-headline-sm text-on-surface flex items-center gap-space-xs">
-<ShieldCheck className="text-secondary" /> Trust & Safety
-        </h3>
-<div className="flex flex-col gap-space-xs pt-space-xs">
-<div className="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
-<CheckCircle2 className="text-sm text-secondary" />
-<span>Invite-only private network</span>
-</div>
-<div className="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
-<CheckCircle2 className="text-sm text-secondary" />
-<span>Verified Northside members</span>
-</div>
-<div className="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
-<CheckCircle2 className="text-sm text-secondary" />
-<span>Matching routes & departure times</span>
-</div>
-<div className="flex items-center gap-space-xs text-on-surface font-body-sm text-body-sm">
-<CheckCircle2 className="text-sm text-secondary" />
-<span>₹0 platform markup</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-{/*  Bottom Floating Command Toolbar  */}
-<div className="sticky bottom-4 z-30 flex items-center justify-between bg-surface-container-lowest/95 backdrop-blur-md p-space-md rounded-xl shadow-lg mt-space-md">
-<div className="flex items-center gap-space-sm">
-<span className="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
-<span className="font-mono text-mono text-on-surface font-semibold">Route 44 · Northside ⇄ Central District</span>
-<span className="hidden sm:inline text-outline-variant">•</span>
-<span className="hidden sm:inline font-body-sm text-body-sm text-on-surface-variant">{rides.length} rides available</span>
-</div>
-<div className="flex items-center gap-space-xs">
-<button className="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
-        Invite
-      </button>
-<button className="px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors" onClick={() => navigate('/app/offer-ride')}>
-        Offer a Ride
-      </button>
-<button className="px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md hover:bg-secondary/90 transition-colors" onClick={() => navigate('/app/find-ride')}>
-        Find a Ride
-      </button>
-</div>
-</div>
-{/*  MODAL: Invite Members  */}
-<div className="hidden fixed inset-0 z-50 flex items-center justify-center bg-primary/40 backdrop-blur-sm p-4" id="invite-modal">
-<div className="w-full max-w-md bg-surface-container-lowest rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-space-xs">
-<UserPlus className="text-secondary" />
-<h4 className="font-headline-sm text-headline-sm text-on-surface">Invite to Northside</h4>
-</div>
-<button className="text-outline hover:text-on-surface">
-<X />
-</button>
-</div>
-<p className="font-body-sm text-body-sm text-on-surface-variant">Share this link with verified neighbors.</p>
-<div className="flex items-center gap-space-xs bg-surface-container-low p-2 rounded-lg">
-<input className="bg-transparent text-on-surface font-mono text-body-sm w-full outline-none" id="invite-url" readOnly type="text" value="https://fellaride.io/join/northside?token=am96-ns408" />
-<button className="px-3 py-1 bg-secondary text-on-secondary rounded text-xs font-semibold shrink-0" id="btn-copy" onClick={handleCopy}>{copied ? 'Copied' : 'Copy'}</button>
-</div>
-<div className="flex justify-end gap-space-sm pt-space-xs">
-<button className="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md">Done</button>
-</div>
-</div>
-</div>
-{/*  MODAL: Find a Ride  */}
-<div className="hidden fixed inset-0 z-50 flex items-center justify-center bg-primary/40 backdrop-blur-sm p-4" id="ride-modal">
-<div className="w-full max-w-md bg-surface-container-lowest rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-space-xs">
-<Globe className="text-secondary" />
-<h4 className="font-headline-sm text-headline-sm text-on-surface">Find a Ride</h4>
-</div>
-<button className="text-outline hover:text-on-surface">
-<X />
-</button>
-</div>
-<div className="flex flex-col gap-space-sm">
-<div>
-<label className="font-label-sm text-label-sm text-outline">Pickup</label>
-<input className="w-full mt-1 p-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm" type="text" defaultValue="Northside Community" />
-</div>
-<div>
-<label className="font-label-sm text-label-sm text-outline">Destination</label>
-<input className="w-full mt-1 p-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm" type="text" defaultValue="Central District" />
-</div>
-<div>
-<label className="font-label-sm text-label-sm text-outline">Schedule</label>
-<input className="w-full mt-1 p-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm" type="text" defaultValue="Today around 6:00 PM" />
-</div>
-</div>
-<div className="flex justify-end gap-space-sm pt-space-xs">
-<button className="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md">Cancel</button>
-<button className="px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md">Search</button>
-</div>
-</div>
-</div>
-{/*  MODAL: Offer a Ride  */}
-<div className="hidden fixed inset-0 z-50 flex items-center justify-center bg-primary/40 backdrop-blur-sm p-4" id="offer-modal">
-<div className="w-full max-w-md bg-surface-container-lowest rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-space-xs">
-<Car className="text-primary" />
-<h4 className="font-headline-sm text-headline-sm text-on-surface">Offer a Ride</h4>
-</div>
-<button className="text-outline hover:text-on-surface">
-<X />
-</button>
-</div>
-<div className="flex flex-col gap-space-sm">
-<div>
-<label className="font-label-sm text-label-sm text-outline">Origin</label>
-<input className="w-full mt-1 p-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm" type="text" defaultValue="Northside Community" />
-</div>
-<div>
-<label className="font-label-sm text-label-sm text-outline">Destination</label>
-<input className="w-full mt-1 p-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm" type="text" defaultValue="Central District" />
-</div>
-<div className="grid grid-cols-2 gap-space-sm">
-<div>
-<label className="font-label-sm text-label-sm text-outline">Seats</label>
-<input className="w-full mt-1 p-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm" max="6" min="1" type="number" defaultValue="3" />
-</div>
-<div>
-<label className="font-label-sm text-label-sm text-outline">Share (₹)</label>
-<input className="w-full mt-1 p-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm" type="number" defaultValue="80" />
-</div>
-</div>
-</div>
-<div className="flex justify-end gap-space-sm pt-space-xs">
-<button className="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md">Cancel</button>
-<button className="px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md">Publish Ride</button>
-</div>
-</div>
-</div>
+
+      {/* Community Selector / Directory Bar */}
+      <div className="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm border border-surface-container">
+        <div className="flex items-center justify-between pb-3 mb-3 border-b border-surface-container">
+          <div className="flex items-center gap-2">
+            <Network className="text-secondary" size={18} />
+            <span className="font-headline-sm text-sm font-bold text-on-surface">Community Switcher & Directory</span>
+          </div>
+          <span className="text-xs text-outline font-mono">
+            {userCommunities.length} Joined · {communities.length} Total
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+          {communities.map((c) => {
+            const isSelected = c.id === currentComm.id;
+            const isMember = currentUser?.communityIds?.includes(c.id);
+
+            return (
+              <div
+                key={c.id}
+                onClick={() => selectCommunity(c.id)}
+                className={`p-3 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
+                  isSelected
+                    ? 'border-2 border-emerald-500 bg-[#f8fcfa] shadow-xs'
+                    : 'border-slate-200 bg-white hover:border-slate-300'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-bold text-xs text-navy-900 truncate">{c.name}</span>
+                  {isSelected && (
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                  )}
+                </div>
+                <div className="text-[11px] text-slate-500 truncate mb-2">{c.corridor || 'Active corridor'}</div>
+                <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {c.state?.drivers || 4} drivers
+                  </span>
+                  {isSelected ? (
+                    <span className="text-[10px] font-bold text-emerald-700">SELECTED</span>
+                  ) : isMember ? (
+                    <span className="text-[10px] font-bold text-blue-700 hover:underline">SWITCH</span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        joinCommunity(c.id);
+                        selectCommunity(c.id);
+                      }}
+                      className="text-[10px] font-bold text-emerald-600 hover:underline cursor-pointer"
+                    >
+                      JOIN & SWITCH
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Hero / Selected Community Identity Banner */}
+      <div className="relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm border border-surface-container">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+          <div className="flex items-start gap-space-md">
+            <div className="w-16 h-16 rounded-2xl bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md shrink-0 shadow-md">
+              {currentComm.name.slice(0, 2).toUpperCase()}
+            </div>
+            <div className="flex flex-col gap-space-xs">
+              <div className="flex flex-wrap items-center gap-space-sm">
+                <span className="font-headline-md text-headline-md text-on-surface font-extrabold">{currentComm.name}</span>
+                <span className="px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+                  <ArrowLeftRight className="text-xs" /> {currentComm.corridor || 'Corridor Connected'}
+                </span>
+              </div>
+              <p className="font-body-sm text-body-sm text-on-surface-variant max-w-xl">
+                {currentComm.description || `Verified peer transit for ${currentComm.name}. ₹0 platform fee.`}
+              </p>
+              <div className="flex items-center gap-space-sm mt-space-xs flex-wrap">
+                <span className="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container uppercase tracking-wider font-bold">
+                  {currentComm.status?.toUpperCase() || 'ACTIVE'} CLUSTER
+                </span>
+                <span className="text-xs text-outline font-mono">
+                  {currentComm.state?.activeMembers || 24} Active Members · {currentComm.state?.drivers || 6} Drivers
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Health Score Ring */}
+          <div className="flex items-center gap-space-lg bg-surface-container-low p-space-md rounded-2xl shrink-0">
+            <div className="relative w-16 h-16 flex items-center justify-center">
+              <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                <path className="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3"></path>
+                <path className="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${currentComm.state?.health?.score || 88}, 100`} strokeLinecap="round" strokeWidth="3"></path>
+              </svg>
+              <div className="absolute flex flex-col items-center justify-center text-center">
+                <span className="font-headline-sm text-headline-sm text-on-surface font-bold leading-none">{currentComm.state?.health?.score || 88}</span>
+                <span className="font-label-sm text-[8px] text-outline uppercase tracking-wider">/100</span>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-label-md text-label-md font-bold text-on-surface">Community Health</span>
+              <span className="font-body-sm text-xs text-secondary font-semibold">Self-Sustaining Cluster</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Two-Column Section: Routes & Rides */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+        {/* LEFT COLUMN: Community Routes & Available Rides */}
+        <div className="lg:col-span-7 flex flex-col gap-space-lg">
+          {/* Active Routes Card */}
+          <div className="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm border border-surface-container">
+            <div className="flex items-center justify-between mb-space-md">
+              <div className="flex items-center gap-2">
+                <GitBranch className="text-secondary" size={18} />
+                <h3 className="font-headline-sm text-headline-sm text-on-surface">
+                  Routes from {currentComm.name} ({communityRoutes.length})
+                </h3>
+              </div>
+              {canOfferRide && (
+                <button
+                  onClick={() => navigate('/app/offer-ride')}
+                  className="text-xs font-bold text-secondary hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <Plus size={14} /> Offer on a Route
+                </button>
+              )}
+            </div>
+
+            <div className="space-y-2.5">
+              {communityRoutes.map((route) => (
+                <div
+                  key={route.id}
+                  className="p-3 rounded-xl bg-surface-container-low flex items-center justify-between hover:bg-surface-container transition-colors"
+                >
+                  <div className="min-w-0 pr-2">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-xs text-on-surface">{route.startPoint} ➔ {route.destination}</span>
+                    </div>
+                    <span className="text-[11px] text-outline font-mono">{route.name || 'Direct Route'} · {route.distance || '14 km'}</span>
+                  </div>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-secondary-container text-on-secondary-container shrink-0">
+                    ACTIVE
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Active Rides in Community Card */}
+          <div className="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm border border-surface-container">
+            <div className="flex items-center justify-between mb-space-md">
+              <div className="flex items-center gap-2">
+                <Car className="text-secondary" size={18} />
+                <h3 className="font-headline-sm text-headline-sm text-on-surface">
+                  Rides in {currentComm.name} ({communityRides.length})
+                </h3>
+              </div>
+              <Link to="/app/find-ride" className="text-xs text-secondary font-bold hover:underline">
+                View in Find Ride →
+              </Link>
+            </div>
+
+            {communityRides.length === 0 ? (
+              <div className="p-8 text-center bg-surface-container-low rounded-xl">
+                <p className="text-xs text-on-surface-variant mb-3">No rides scheduled in this community yet.</p>
+                {canOfferRide && (
+                  <button
+                    onClick={() => navigate('/app/offer-ride')}
+                    className="px-4 py-2 rounded-xl bg-secondary text-on-secondary text-xs font-bold shadow-xs cursor-pointer"
+                  >
+                    Be the first to offer a ride
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {communityRides.map((ride) => (
+                  <div
+                    key={ride.id}
+                    className="p-3.5 rounded-xl bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-xs text-on-surface">{ride.origin} ➔ {ride.destination}</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-surface-container font-mono text-outline">
+                          {ride.departureTime}
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-on-surface-variant mt-0.5">
+                        Driver: <strong>{ride.driverName}</strong> · ₹{ride.price || ride.pricePerSeat || 80}/seat
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 justify-between sm:justify-end">
+                      <span className="text-xs font-mono font-bold text-secondary">
+                        {ride.availableSeats} seats open
+                      </span>
+                      <button
+                        onClick={() => handleJoinRide(ride.id)}
+                        disabled={ride.availableSeats <= 0 || !canJoinRide}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          ride.availableSeats <= 0 || !canJoinRide
+                            ? 'bg-surface-container text-outline cursor-not-allowed'
+                            : 'bg-secondary text-on-secondary hover:bg-secondary/90 shadow-xs'
+                        }`}
+                      >
+                        {ride.availableSeats <= 0 ? 'Full' : !canJoinRide ? 'Offer-Only' : 'Join Ride'}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: Community Info & Trust */}
+        <div className="lg:col-span-5 flex flex-col gap-space-lg">
+          <div className="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm border border-surface-container">
+            <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold mb-3 flex items-center gap-2">
+              <ShieldCheck className="text-secondary" size={18} /> Community Trust Principles
+            </h3>
+            <div className="space-y-2.5 text-xs text-on-surface">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-secondary shrink-0" />
+                <span>Rides are scoped strictly within {currentComm.name}.</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-secondary shrink-0" />
+                <span>Cost sharing is strictly non-commercial fuel offset.</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-secondary shrink-0" />
+                <span>₹0 platform markup fees on peer carpools.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* MODAL: Create Community */}
+      {showCreateModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/40 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative">
+            <button
+              onClick={() => setShowCreateModal(false)}
+              className="absolute right-5 top-5 p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+            >
+              <X size={20} />
+            </button>
+            <div className="mb-5">
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
+                Community Builder
+              </span>
+              <h3 className="text-2xl font-bold text-navy-900 mt-2">Create a New Community</h3>
+              <p className="text-xs text-slate-500 mt-1">
+                Start a local carpool cluster for your neighborhood, office park, or college campus.
+              </p>
+            </div>
+
+            <form onSubmit={handleCreateCommunitySubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  Community Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Westside Innovation Hub"
+                  value={newCommName}
+                  onChange={(e) => setNewCommName(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  Primary Transit Corridor
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Westside Hub ➔ Central District"
+                  value={newCommCorridor}
+                  onChange={(e) => setNewCommCorridor(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  Description
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder="Brief description of the community commute group..."
+                  value={newCommDesc}
+                  onChange={(e) => setNewCommDesc(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 font-medium resize-none"
+                />
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowCreateModal(false)}
+                  className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-850 text-white text-xs font-bold shadow-md transition-colors cursor-pointer"
+                >
+                  Create & Switch Now
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

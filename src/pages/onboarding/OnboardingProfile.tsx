@@ -5,14 +5,17 @@ import { Share2, ArrowLeft, Users, Car, ArrowLeftRight, Clock, Lock, ArrowRight 
 
 export default function OnboardingProfile() {
   const navigate = useNavigate();
-  const { login } = useApp();
-  const [mode, setMode] = useState<'passenger' | 'driver' | 'both'>('both');
+  const { currentUser, selectedCommunity, updateRidePreference } = useApp();
+  const [mode, setMode] = useState<'passenger' | 'driver' | 'both'>(
+    currentUser?.role === 'Find' ? 'passenger' : currentUser?.role === 'Offer' ? 'driver' : 'both'
+  );
   const [hub, setHub] = useState('Central District (Financial & Tech Hub)');
   const [morningWindow, setMorningWindow] = useState(true);
   const [eveningWindow, setEveningWindow] = useState(true);
 
   const handleEnterApp = () => {
-    login();
+    const role = mode === 'passenger' ? 'Find' : mode === 'driver' ? 'Offer' : 'Both';
+    updateRidePreference(role);
     navigate('/app');
   };
 
@@ -105,7 +108,7 @@ export default function OnboardingProfile() {
               </div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200/70 self-start sm:self-auto">
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Joining: <strong className="text-navy-900 font-bold">Northside Community</strong> • Northside → Central District</span>
+                <span>Joining: <strong className="text-navy-900 font-bold">{selectedCommunity?.name || 'Northside Community'}</strong> • {selectedCommunity?.corridor || 'Northside → Central District'}</span>
               </div>
             </div>
 

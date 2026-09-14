@@ -20,17 +20,27 @@ import {
 export default function TopBar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { community } = useApp();
+  const {
+    community,
+    currentUser,
+    userCommunities,
+    selectedCommunity,
+    selectCommunity,
+    logout,
+    updateRidePreference,
+  } = useApp();
 
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(3);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isCommunityMenuOpen, setIsCommunityMenuOpen] = useState(false);
   const [exportToast, setExportToast] = useState<string | null>(null);
 
   const exportRef = useRef<HTMLDivElement>(null);
   const notificationsRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+  const communityMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -43,6 +53,9 @@ export default function TopBar() {
       }
       if (profileRef.current && !profileRef.current.contains(target)) {
         setIsProfileOpen(false);
+      }
+      if (communityMenuRef.current && !communityMenuRef.current.contains(target)) {
+        setIsCommunityMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -181,7 +194,7 @@ export default function TopBar() {
     }
     return (
       <span className="font-mono text-mono text-on-surface">
-        <strong className="font-semibold">Northside Community:</strong> {community.state.activeMembers} Active Members
+        <strong className="font-semibold">{selectedCommunity?.name || 'Active Community'}:</strong> {selectedCommunity?.state?.activeMembers || community?.state?.activeMembers || 32} Active Members
       </span>
     );
   };
@@ -196,15 +209,60 @@ export default function TopBar() {
           src="/fellaride-logo.png"
         />
 
-        <button
-          onClick={() => navigate('/app/communities')}
-          className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors cursor-pointer"
-        >
-          <MapPin size={16} className="text-secondary shrink-0" />
-          <span className="font-semibold">Pilot Community:</span>
-          <span className="text-on-surface-variant">{community?.name ? 'Northside Hub' : 'Northside'}</span>
-          <ChevronDown size={16} className="ml-space-xs shrink-0" />
-        </button>
+        <div className="relative" ref={communityMenuRef}>
+          <button
+            onClick={() => setIsCommunityMenuOpen(!isCommunityMenuOpen)}
+            className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors cursor-pointer"
+          >
+            <MapPin size={16} className="text-secondary shrink-0" />
+            <span className="font-semibold">Community:</span>
+            <span className="text-on-surface font-bold truncate max-w-[140px]">{selectedCommunity?.name || 'Select'}</span>
+            <ChevronDown size={14} className={`shrink-0 transition-transform ${isCommunityMenuOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          {isCommunityMenuOpen && (
+            <div className="absolute left-0 top-full mt-2 w-72 rounded-xl bg-surface-container-lowest shadow-2xl border border-surface-container-high p-2 z-50 animate-in fade-in">
+              <div className="px-2.5 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-outline">
+                YOUR COMMUNITIES ({userCommunities.length})
+              </div>
+              <div className="flex flex-col gap-1 max-h-56 overflow-y-auto">
+                {userCommunities.map((c) => {
+                  const isActive = c.id === selectedCommunity?.id;
+                  return (
+                    <button
+                      key={c.id}
+                      onClick={() => {
+                        selectCommunity(c.id);
+                        setIsCommunityMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between p-2 rounded-lg text-left transition-colors cursor-pointer ${
+                        isActive
+                          ? 'bg-secondary/15 text-on-surface font-bold'
+                          : 'hover:bg-surface-container text-on-surface-variant hover:text-on-surface'
+                      }`}
+                    >
+                      <div className="min-w-0 pr-2">
+                        <div className="text-xs truncate font-semibold">{c.name}</div>
+                        <div className="text-[10px] text-outline truncate">{c.corridor || 'Active Corridor'}</div>
+                      </div>
+                      {isActive && <Check size={14} className="text-secondary shrink-0" />}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="h-px bg-surface-container my-1.5" />
+              <button
+                onClick={() => {
+                  navigate('/app/communities');
+                  setIsCommunityMenuOpen(false);
+                }}
+                className="w-full flex items-center gap-2 p-2 rounded-lg text-xs font-semibold text-secondary hover:bg-secondary/10 transition-colors cursor-pointer"
+              >
+                <span>Browse & Join Communities →</span>
+              </button>
+            </div>
+          )}
+        </div>
 
         <div className="relative flex items-center">
           <Search size={16} className="absolute left-3 text-outline shrink-0" />
@@ -366,15 +424,47 @@ export default function TopBar() {
           </div>
 
           {isProfileOpen && (
-            <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-surface-container-lowest shadow-2xl border border-surface-container-high p-2 z-50">
+            <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-surface-container-lowest shadow-2xl border border-surface-container-high p-2 z-50 animate-in fade-in">
               <div className="p-2.5 rounded-lg bg-surface-container-low mb-2">
-                <div className="font-label-md text-label-md font-bold text-on-surface">Alex Rivera</div>
-                <div className="text-xs text-on-surface-variant font-mono truncate">alex.rivera@fellaride.io</div>
-                <div className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container text-xs font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Community Lead
+                <div className="font-label-md text-label-md font-bold text-on-surface">
+                  {currentUser?.name || 'Account'}
+                </div>
+                <div className="text-xs text-on-surface-variant font-mono truncate">
+                  {currentUser?.email || 'user@fellaride.io'}
+                </div>
+                <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                  <span className="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container text-[10px] font-extrabold uppercase tracking-wide">
+                    {currentUser?.role || 'Both'} Mode
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant text-[10px] font-semibold uppercase tracking-wide">
+                    {currentUser?.plan ? currentUser.plan.toUpperCase() : 'FREE'} PLAN
+                  </span>
                 </div>
               </div>
+
+              {/* Instant Preference Switcher */}
+              <div className="px-2 py-1.5 mb-1 bg-surface-container/50 rounded-lg">
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-outline mb-1">
+                  Ride Preference
+                </span>
+                <div className="grid grid-cols-3 gap-1">
+                  {(['Find', 'Offer', 'Both'] as const).map((r) => (
+                    <button
+                      key={r}
+                      type="button"
+                      onClick={() => updateRidePreference(r)}
+                      className={`py-1 text-[11px] font-bold rounded transition-all cursor-pointer ${
+                        currentUser?.role === r
+                          ? 'bg-secondary text-on-secondary shadow-xs'
+                          : 'bg-surface-container-low hover:bg-surface-container text-on-surface-variant'
+                      }`}
+                    >
+                      {r}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <button
                 onClick={() => {
                   navigate('/onboarding/profile');
@@ -383,31 +473,22 @@ export default function TopBar() {
                 className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left text-on-surface hover:bg-surface-container font-label-md text-label-md transition-colors cursor-pointer"
               >
                 <User size={16} className="text-outline shrink-0" />
-                <span>Profile & Identity</span>
+                <span>Ride Settings & Profile</span>
               </button>
               <button
                 onClick={() => {
-                  navigate('/app/community');
+                  navigate('/app/communities');
                   setIsProfileOpen(false);
                 }}
                 className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left text-on-surface hover:bg-surface-container font-label-md text-label-md transition-colors cursor-pointer"
               >
                 <MapPin size={16} className="text-secondary shrink-0" />
-                <span>Community Workspace</span>
-              </button>
-              <button
-                onClick={() => {
-                  navigate('/app/command-center');
-                  setIsProfileOpen(false);
-                }}
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left text-on-surface hover:bg-surface-container font-label-md text-label-md transition-colors cursor-pointer"
-              >
-                <Radar size={16} className="text-secondary shrink-0" />
-                <span>Command Center</span>
+                <span>Switch / Join Communities</span>
               </button>
               <div className="h-px bg-surface-container my-1" />
               <button
                 onClick={() => {
+                  logout();
                   navigate('/login');
                   setIsProfileOpen(false);
                 }}

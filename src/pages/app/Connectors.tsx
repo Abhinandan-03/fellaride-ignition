@@ -817,7 +817,7 @@ export default function Connectors() {
                     </button>
                     <button className="w-full py-2.5 px-space-md rounded-lg bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs hover:bg-surface-container-high transition-all" onClick={() => navigate('/app/communities')}>
                       <Building className="text-base" />
-                      <span>View Northside</span>
+                      <span>View {selectedCandidate.community.replace(/ Community.*$/i, '') || 'Community'}</span>
                     </button>
                   </div>
                   <div className="text-[11px] text-outline text-center pt-1 font-mono">

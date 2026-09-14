@@ -1,176 +1,523 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
-import type { Community, CurrentUser, Ride, DemandOpportunity } from '../models/types';
-import { CANONICAL_USER, CANONICAL_COMMUNITY, POST_ACTIVATION_STATE, INITIAL_RIDES, CANONICAL_DEMAND } from './mockData';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import type { Community, DemandOpportunity, Ride, Route, User, UserPlan, UserRole } from '../models/types';
+import { auth, type AuthResult } from '../services/auth';
+import { storage } from '../services/storage';
+import { CANONICAL_DEMAND, POST_ACTIVATION_STATE } from './mockData';
 
-interface AppState {
-  currentUser: CurrentUser | null;
-  community: Community;
-  rides: Ride[];
-  demand: DemandOpportunity;
-  isActivated: boolean;
-  growthStage: number; // 0: 1 person, 1: 3, 2: 8, 3: 17, 4: 32
-  confirmedRide: Ride | null;
+interface CreateCommunityData {
+  name: string;
+  description: string;
+  location: string;
+  corridor: string;
+  category?: 'residential' | 'colleges' | 'enterprise' | 'emerging';
 }
 
-interface AppContextType extends AppState {
-  login: () => void;
+interface AppContextType {
+  // User & Auth
+  currentUser: User | null;
+  signUp: (name: string, email: string, role?: UserRole) => AuthResult;
+  login: (email?: string) => AuthResult;
+  loginAsUser: (userId: string) => AuthResult;
   logout: () => void;
+  updateRidePreference: (role: UserRole) => void;
+  updateUserPlan: (plan: UserPlan) => void;
+
+  // Capabilities & Permissions
+  canOfferRide: boolean;
+  canJoinRide: boolean;
+  canCreateCommunity: boolean;
+
+  // Communities
+  communities: Community[];
+  userCommunities: Community[];
+  selectedCommunity: Community;
+  community: Community; // alias for backwards compatibility
+  switchCommunity: (communityId: string) => void;
+  selectCommunity: (communityId: string) => void;
+  joinCommunity: (communityId: string, autoSwitch?: boolean) => void;
+  leaveCommunity: (communityId: string) => void;
+  createCommunity: (data: CreateCommunityData) => Community;
+
+  // Routes
+  communityRoutes: Route[];
+  createRoute: (startPoint: string, destination: string, name?: string) => Route;
+
+  // Rides
+  rides: Ride[]; // all rides
+  communityRides: Ride[]; // rides in selected community
+  confirmedRide: Ride | null;
+  offerRide: (rideData: Omit<Ride, 'id' | 'status' | 'passengerIds' | 'driverId' | 'communityId'> & { communityId?: string }) => Ride | null;
+  joinRide: (rideId: string) => boolean;
+  confirmRide: (rideId: string) => void;
+
+  // Growth & Simulation
+  demand: DemandOpportunity;
+  isActivated: boolean;
+  growthStage: number;
   activateCommunity: () => void;
   replayGrowth: (stage?: number) => void;
-  offerRide: (ride: Omit<Ride, 'id' | 'status' | 'passengerIds' | 'driverId'>) => void;
-  joinRide: (rideId: string) => void;
-  confirmRide: (rideId: string) => void;
   improveCommunityHealth: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(CANONICAL_USER);
-  const [community, setCommunity] = useState<Community>(CANONICAL_COMMUNITY);
-  const [rides, setRides] = useState<Ride[]>(INITIAL_RIDES);
-  const [demand] = useState<DemandOpportunity>(CANONICAL_DEMAND);
-  const [isActivated, setIsActivated] = useState(false);
-  const [growthStage, setGrowthStage] = useState(4);
-  const [confirmedRide, setConfirmedRide] = useState<Ride | null>(null);
+  // Auth state initialized from persistent session
+  const [currentUser, setCurrentUser] = useState<User | null>(() => auth.getCurrentUser());
 
-  const login = () => {
-    setCurrentUser(CANONICAL_USER);
+  // Data collections from persistent storage
+  const [communities, setCommunities] = useState<Community[]>(() => storage.getCommunities());
+  const [routes, setRoutes] = useState<Route[]>(() => storage.getRoutes());
+  const [rides, setRides] = useState<Ride[]>(() => storage.getRides());
+
+  // UI state
+  const [confirmedRide, setConfirmedRide] = useState<Ride | null>(null);
+  const [growthStage, setGrowthStage] = useState(4);
+  const [demand] = useState<DemandOpportunity>(CANONICAL_DEMAND);
+
+  // Sync session on mount
+  useEffect(() => {
+    const user = auth.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
+
+  // Compute active user's communities
+  const userCommunities = communities.filter((c) =>
+    currentUser ? currentUser.communityIds.includes(c.id) : false
+  );
+
+  // Compute currently selected community
+  const selectedCommunity =
+    (currentUser && communities.find((c) => c.id === currentUser.selectedCommunityId)) ||
+    userCommunities[0] ||
+    communities[0] || {
+      id: 'community-fallback',
+      name: 'Local Hub',
+      potentialScore: 80,
+      potentialMembers: 1000,
+      potentialDrivers: 10,
+      potentialPassengers: 40,
+      potentialConnectors: 2,
+      isActivated: false,
+      state: {
+        activeMembers: 0,
+        drivers: 0,
+        passengers: 0,
+        rides: 0,
+        health: {
+          score: 50,
+          activeParticipation: 0,
+          driverSupply: 0,
+          rideActivity: 0,
+          repeatUsage: 0,
+          trend: 'stable',
+          previousScore: 50,
+        },
+      },
+    };
+
+  // Compute strictly scoped community rides & routes
+  const communityRides = rides.filter((r) => r.communityId === selectedCommunity.id);
+  const communityRoutes = routes.filter((r) => r.communityId === selectedCommunity.id);
+
+  // Dynamic activation state
+  const isActivated = selectedCommunity.isActivated;
+
+  // Permissions / Capabilities
+  const canOfferRide = currentUser ? currentUser.role === 'Offer' || currentUser.role === 'Both' : false;
+  const canJoinRide = currentUser ? currentUser.role === 'Find' || currentUser.role === 'Both' : false;
+  const canCreateCommunity = Boolean(currentUser);
+
+  // Auth Handlers
+  const signUp = (name: string, email: string, role: UserRole = 'Both'): AuthResult => {
+    const res = auth.signUp(name, email, role);
+    if (res.success && res.user) {
+      setCurrentUser(res.user);
+    }
+    return res;
+  };
+
+  const login = (email?: string): AuthResult => {
+    if (!email) {
+      // Default demo login to first demo user
+      const users = storage.getUsers();
+      const demoUser = users[0];
+      if (demoUser) {
+        return loginAsUser(demoUser.id);
+      }
+      return { success: false, error: 'No user accounts available.' };
+    }
+
+    const res = auth.login(email);
+    if (res.success && res.user) {
+      setCurrentUser(res.user);
+    }
+    return res;
+  };
+
+  const loginAsUser = (userId: string): AuthResult => {
+    const res = auth.loginAsUser(userId);
+    if (res.success && res.user) {
+      setCurrentUser(res.user);
+    }
+    return res;
   };
 
   const logout = () => {
+    auth.logout();
     setCurrentUser(null);
-    // Reset state on logout for repeatable demo replay
-    setCommunity(CANONICAL_COMMUNITY);
-    setIsActivated(false);
-    setGrowthStage(0);
-    setRides(INITIAL_RIDES);
     setConfirmedRide(null);
   };
 
+  const updateRidePreference = (role: UserRole) => {
+    if (!currentUser) return;
+    const updatedUser: User = {
+      ...currentUser,
+      role,
+    };
+    storage.saveUser(updatedUser);
+    setCurrentUser(updatedUser);
+  };
+
+  const updateUserPlan = (plan: UserPlan) => {
+    if (!currentUser) return;
+    const updatedUser: User = {
+      ...currentUser,
+      plan,
+    };
+    storage.saveUser(updatedUser);
+    setCurrentUser(updatedUser);
+  };
+
+  // Community Management
+  const switchCommunity = (communityId: string) => {
+    if (!currentUser) return;
+    const target = communities.find((c) => c.id === communityId);
+    if (!target) return;
+
+    // Auto-join if not already a member
+    const newCommunityIds = currentUser.communityIds.includes(communityId)
+      ? currentUser.communityIds
+      : [...currentUser.communityIds, communityId];
+
+    const updatedUser: User = {
+      ...currentUser,
+      communityIds: newCommunityIds,
+      selectedCommunityId: communityId,
+    };
+
+    storage.saveUser(updatedUser);
+    setCurrentUser(updatedUser);
+  };
+
+  const joinCommunity = (communityId: string, autoSwitch = true) => {
+    if (!currentUser) return;
+    if (!currentUser.communityIds.includes(communityId)) {
+      const updatedUser: User = {
+        ...currentUser,
+        communityIds: [...currentUser.communityIds, communityId],
+        selectedCommunityId: autoSwitch ? communityId : currentUser.selectedCommunityId,
+      };
+      storage.saveUser(updatedUser);
+      setCurrentUser(updatedUser);
+    } else if (autoSwitch) {
+      switchCommunity(communityId);
+    }
+  };
+
+  const leaveCommunity = (communityId: string) => {
+    if (!currentUser) return;
+    if (currentUser.communityIds.length <= 1) return; // Keep at least one
+
+    const newCommunityIds = currentUser.communityIds.filter((id) => id !== communityId);
+    const newSelectedId =
+      currentUser.selectedCommunityId === communityId
+        ? newCommunityIds[0]
+        : currentUser.selectedCommunityId;
+
+    const updatedUser: User = {
+      ...currentUser,
+      communityIds: newCommunityIds,
+      selectedCommunityId: newSelectedId,
+    };
+
+    storage.saveUser(updatedUser);
+    setCurrentUser(updatedUser);
+  };
+
+  const createCommunity = (data: CreateCommunityData): Community => {
+    const newId = `community-${Date.now()}`;
+    const newCommunity: Community = {
+      id: newId,
+      name: data.name.trim(),
+      ownerId: currentUser?.id || 'system',
+      description: data.description.trim() || 'A new localized community ride network.',
+      location: data.location.trim() || 'Metro District',
+      corridor: data.corridor.trim() || `${data.name} · Central District`,
+      category: data.category || 'residential',
+      potentialScore: 75,
+      potentialMembers: 250,
+      potentialDrivers: 5,
+      potentialPassengers: 20,
+      potentialConnectors: 2,
+      isActivated: false,
+      state: {
+        activeMembers: 1,
+        drivers: 0,
+        passengers: 0,
+        rides: 0,
+        health: {
+          score: 30,
+          activeParticipation: 20,
+          driverSupply: 0,
+          rideActivity: 0,
+          repeatUsage: 0,
+          trend: 'stable',
+          previousScore: 30,
+        },
+      },
+    };
+
+    storage.saveCommunity(newCommunity);
+    setCommunities(storage.getCommunities());
+
+    // Join and switch current user to this newly created community
+    if (currentUser) {
+      const updatedUser: User = {
+        ...currentUser,
+        communityIds: [...currentUser.communityIds, newId],
+        selectedCommunityId: newId,
+      };
+      storage.saveUser(updatedUser);
+      setCurrentUser(updatedUser);
+    }
+
+    return newCommunity;
+  };
+
+  // Route Management (Supporting multiple routes from same start point!)
+  const createRoute = (startPoint: string, destination: string, name?: string): Route => {
+    const routeName = name || `${startPoint} → ${destination}`;
+    const newRoute: Route = {
+      id: `route-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      communityId: selectedCommunity.id,
+      name: routeName,
+      startPoint: startPoint.trim(),
+      destination: destination.trim(),
+      typicalDuration: '25 mins',
+      estimatedMiles: 10,
+    };
+
+    storage.saveRoute(newRoute);
+    setRoutes(storage.getRoutes());
+    return newRoute;
+  };
+
+  // Ride Management
+  const offerRide = (
+    rideData: Omit<Ride, 'id' | 'status' | 'passengerIds' | 'driverId' | 'communityId'> & { communityId?: string }
+  ): Ride | null => {
+    if (!currentUser || !canOfferRide) return null;
+
+    const targetCommunityId = rideData.communityId || selectedCommunity.id;
+
+    // Check if route exists or register it
+    let routeId = rideData.routeId;
+    if (!routeId) {
+      const existingRoute = routes.find(
+        (r) =>
+          r.communityId === targetCommunityId &&
+          r.startPoint.toLowerCase() === rideData.origin.toLowerCase() &&
+          r.destination.toLowerCase() === rideData.destination.toLowerCase()
+      );
+      if (existingRoute) {
+        routeId = existingRoute.id;
+      } else {
+        const createdRoute = createRoute(rideData.origin, rideData.destination);
+        routeId = createdRoute.id;
+      }
+    }
+
+    const newRide: Ride = {
+      ...rideData,
+      id: `ride-${Date.now()}`,
+      communityId: targetCommunityId,
+      routeId,
+      driverId: currentUser.id,
+      driverName: currentUser.name,
+      driverRole: currentUser.role,
+      vehicle: rideData.vehicle || 'Standard Commuter Vehicle',
+      vehiclePlate: rideData.vehiclePlate || 'Verified Community Ride',
+      status: 'available',
+      passengerIds: [],
+      matchScore: rideData.matchScore || 95,
+      createdAt: new Date().toISOString(),
+    };
+
+    storage.saveRide(newRide);
+    setRides(storage.getRides());
+
+    // Update community stats logically
+    const targetCommunity = communities.find((c) => c.id === targetCommunityId);
+    if (targetCommunity) {
+      const isAlreadyDriver = rides.some(
+        (r) => r.communityId === targetCommunityId && r.driverId === currentUser.id
+      );
+      const updatedCommunity: Community = {
+        ...targetCommunity,
+        state: {
+          ...targetCommunity.state,
+          drivers: isAlreadyDriver ? targetCommunity.state.drivers : targetCommunity.state.drivers + 1,
+          rides: targetCommunity.state.rides + 1,
+        },
+      };
+      storage.saveCommunity(updatedCommunity);
+      setCommunities(storage.getCommunities());
+    }
+
+    return newRide;
+  };
+
+  const joinRide = (rideId: string): boolean => {
+    if (!currentUser || !canJoinRide) return false;
+
+    const rideToJoin = rides.find((r) => r.id === rideId);
+    if (!rideToJoin) return false;
+
+    // Enforce community scoping rule: ride must belong to selected community!
+    if (rideToJoin.communityId !== selectedCommunity.id) {
+      return false;
+    }
+
+    // Check capacity and duplicate join
+    if (rideToJoin.availableSeats <= 0) {
+      setConfirmedRide(rideToJoin);
+      return false;
+    }
+
+    if (rideToJoin.passengerIds.includes(currentUser.id)) {
+      setConfirmedRide(rideToJoin);
+      return true;
+    }
+
+    const updated: Ride = {
+      ...rideToJoin,
+      availableSeats: Math.max(0, rideToJoin.availableSeats - 1),
+      passengerIds: [...rideToJoin.passengerIds, currentUser.id],
+    };
+
+    storage.updateRide(updated);
+    setRides(storage.getRides());
+    setConfirmedRide(updated);
+
+    // Update community passenger stats if user is new passenger in community
+    const isAlreadyPassenger = rides.some(
+      (r) => r.communityId === selectedCommunity.id && r.passengerIds.includes(currentUser.id)
+    );
+    if (!isAlreadyPassenger) {
+      const updatedCommunity: Community = {
+        ...selectedCommunity,
+        state: {
+          ...selectedCommunity.state,
+          passengers: selectedCommunity.state.passengers + 1,
+        },
+      };
+      storage.saveCommunity(updatedCommunity);
+      setCommunities(storage.getCommunities());
+    }
+
+    return true;
+  };
+
+  const confirmRide = (rideId: string) => {
+    const ride = rides.find((r) => r.id === rideId);
+    if (ride) {
+      const updated: Ride = {
+        ...ride,
+        status: 'confirmed',
+      };
+      storage.updateRide(updated);
+      setRides(storage.getRides());
+      setConfirmedRide(updated);
+    }
+  };
+
+  // Community Health & Growth
   const activateCommunity = () => {
-    setIsActivated(true);
-    setCommunity(prev => ({
-      ...prev,
+    const updated: Community = {
+      ...selectedCommunity,
       isActivated: true,
-      state: POST_ACTIVATION_STATE
-    }));
-    setGrowthStage(4); // canonical 32-node activated state
+      state: POST_ACTIVATION_STATE,
+    };
+    storage.saveCommunity(updated);
+    setCommunities(storage.getCommunities());
+    setGrowthStage(4);
   };
 
   const replayGrowth = (stage?: number) => {
     if (stage !== undefined) {
       setGrowthStage(Math.max(0, Math.min(4, stage)));
     } else {
-      setGrowthStage(prev => (prev >= 4 ? 0 : prev + 1));
+      setGrowthStage((prev) => (prev >= 4 ? 0 : prev + 1));
     }
-  };
-
-  const offerRide = (rideData: Omit<Ride, 'id' | 'status' | 'passengerIds' | 'driverId'>) => {
-    if (!currentUser) return;
-
-    // Check if user is already registered as a driver in existing rides
-    const alreadyDriver = rides.some(r => r.driverId === currentUser.id);
-
-    const newRide: Ride = {
-      ...rideData,
-      id: `ride-${Date.now()}`,
-      driverId: currentUser.id,
-      driverName: currentUser.name,
-      driverRole: currentUser.role,
-      vehicle: rideData.vehicle || 'Personal Commuter Vehicle',
-      vehiclePlate: rideData.vehiclePlate || 'Route 44 Verified',
-      status: 'available',
-      passengerIds: [],
-      matchScore: rideData.matchScore || 94
-    };
-
-    setRides(prev => [newRide, ...prev]);
-
-    // Update community stats logically: only increment driver count if newly acting as driver
-    setCommunity(prev => ({
-      ...prev,
-      state: {
-        ...prev.state,
-        drivers: alreadyDriver ? prev.state.drivers : prev.state.drivers + 1,
-        rides: prev.state.rides + 1
-      }
-    }));
-  };
-
-  const joinRide = (rideId: string) => {
-    if (!currentUser) return;
-
-    const rideToJoin = rides.find(r => r.id === rideId);
-    if (!rideToJoin || rideToJoin.availableSeats <= 0) {
-      if (rideToJoin) {
-        setConfirmedRide(rideToJoin);
-      }
-      return;
-    }
-
-    // Avoid duplicate join if user already joined
-    if (rideToJoin.passengerIds.includes(currentUser.id)) {
-      setConfirmedRide(rideToJoin);
-      return;
-    }
-
-    const updated: Ride = {
-      ...rideToJoin,
-      availableSeats: Math.max(0, rideToJoin.availableSeats - 1),
-      passengerIds: [...rideToJoin.passengerIds, currentUser.id]
-    };
-
-    setRides(prev => prev.map(ride => ride.id === rideId ? updated : ride));
-    setConfirmedRide(updated);
-  };
-
-  const confirmRide = (rideId: string) => {
-    setRides(prev => prev.map(ride => {
-      if (ride.id === rideId) {
-        const updated: Ride = {
-          ...ride,
-          status: 'confirmed'
-        };
-        setConfirmedRide(updated);
-        return updated;
-      }
-      return ride;
-    }));
   };
 
   const improveCommunityHealth = () => {
-    setCommunity(prev => ({
-      ...prev,
+    const updated: Community = {
+      ...selectedCommunity,
       state: {
-        ...prev.state,
+        ...selectedCommunity.state,
         health: {
-          ...prev.state.health,
-          score: Math.min(100, Math.max(0, prev.state.health.score + 5)),
-          trend: 'up'
-        }
-      }
-    }));
+          ...selectedCommunity.state.health,
+          score: Math.min(100, Math.max(0, selectedCommunity.state.health.score + 5)),
+          trend: 'up',
+        },
+      },
+    };
+    storage.saveCommunity(updated);
+    setCommunities(storage.getCommunities());
   };
 
   return (
-    <AppContext.Provider value={{
-      currentUser,
-      community,
-      rides,
-      demand,
-      isActivated,
-      growthStage,
-      confirmedRide,
-      login,
-      logout,
-      activateCommunity,
-      replayGrowth,
-      offerRide,
-      joinRide,
-      confirmRide,
-      improveCommunityHealth
-    }}>
+    <AppContext.Provider
+      value={{
+        currentUser,
+        signUp,
+        login,
+        loginAsUser,
+        logout,
+        updateRidePreference,
+        updateUserPlan,
+        canOfferRide,
+        canJoinRide,
+        canCreateCommunity,
+        communities,
+        userCommunities,
+        selectedCommunity,
+        community: selectedCommunity,
+        switchCommunity,
+        selectCommunity: switchCommunity,
+        joinCommunity,
+        leaveCommunity,
+        createCommunity,
+        communityRoutes,
+        createRoute,
+        rides,
+        communityRides,
+        confirmedRide,
+        offerRide,
+        joinRide,
+        confirmRide,
+        demand,
+        isActivated,
+        growthStage,
+        activateCommunity,
+        replayGrowth,
+        improveCommunityHealth,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

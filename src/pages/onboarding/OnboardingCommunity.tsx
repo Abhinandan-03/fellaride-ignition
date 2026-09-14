@@ -18,75 +18,47 @@ interface CommunityOption {
   category: 'all' | 'colleges' | 'residential' | 'emerging';
 }
 
-const COMMUNITIES: CommunityOption[] = [
-  {
-    id: 'northside',
-    name: 'Northside Community',
-    avatar: 'N',
-    avatarBg: 'bg-emerald-600',
-    statusBadge: { text: 'ACTIVE', bg: 'bg-emerald-50 text-emerald-800 border-emerald-200', color: 'text-emerald-800' },
-    isDemo: true,
-    corridor: 'Northside · Central District',
-    description: 'An active community ride network with recurring Northside — Central District travel.',
-    members: 23,
-    drivers: 8,
-    passengers: 15,
-    rides: 14,
-    category: 'residential',
-  },
-  {
-    id: 'eastview',
-    name: 'Eastview Community',
-    avatar: 'E',
-    avatarBg: 'bg-slate-800',
-    statusBadge: { text: 'GROWING', bg: 'bg-blue-50 text-blue-700 border-blue-100', color: 'text-blue-700' },
-    corridor: 'Eastview · Central District',
-    description: 'A growing community with recurring commuter activity.',
-    members: 17,
-    drivers: 6,
-    passengers: 11,
-    category: 'colleges',
-  },
-  {
-    id: 'lakeside',
-    name: 'Lakeside Community',
-    avatar: 'L',
-    avatarBg: 'bg-slate-700',
-    statusBadge: { text: 'EMERGING', bg: 'bg-slate-100 text-slate-700 border-slate-200', color: 'text-slate-700' },
-    corridor: 'Lakeside · Central District',
-    description: 'An emerging community with early ride activity.',
-    members: 11,
-    drivers: 4,
-    passengers: 7,
-    category: 'emerging',
-  },
-  {
-    id: 'westend',
-    name: 'West End Community',
-    avatar: 'W',
-    avatarBg: 'bg-slate-700',
-    statusBadge: { text: 'EMERGING', bg: 'bg-slate-100 text-slate-700 border-slate-200', color: 'text-slate-700' },
-    corridor: 'West End · Central District',
-    description: 'A localized neighborhood network establishing morning commute corridors.',
-    members: 8,
-    drivers: 3,
-    passengers: 5,
-    category: 'residential',
-  },
-];
+import { useApp } from '../../store/AppContext';
 
 export default function OnboardingCommunity() {
   const navigate = useNavigate();
-  const [selectedId, setSelectedId] = useState('northside');
+  const { communities, selectedCommunity: currentSelected, selectCommunity, joinCommunity, createCommunity } = useApp();
+  const [selectedId, setSelectedId] = useState(currentSelected?.id || 'northside');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<'all' | 'colleges' | 'residential' | 'emerging'>('all');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newCommName, setNewCommName] = useState('');
   const [newCommCorridor, setNewCommCorridor] = useState('');
 
-  const selectedCommunity = COMMUNITIES.find((c) => c.id === selectedId) || COMMUNITIES[0];
+  const communityOptions: CommunityOption[] = communities.map((c) => {
+    const avatar = c.name.charAt(0).toUpperCase();
+    const avatarBg = c.id === 'northside' ? 'bg-emerald-600' : c.id === 'eastview' ? 'bg-slate-800' : 'bg-slate-700';
+    const statusBadge = (c.status === 'active' || c.id === 'northside')
+      ? { text: 'ACTIVE', bg: 'bg-emerald-50 text-emerald-800 border-emerald-200', color: 'text-emerald-800' }
+      : c.status === 'growing'
+      ? { text: 'GROWING', bg: 'bg-blue-50 text-blue-700 border-blue-100', color: 'text-blue-700' }
+      : { text: 'EMERGING', bg: 'bg-slate-100 text-slate-700 border-slate-200', color: 'text-slate-700' };
 
-  const filteredCommunities = COMMUNITIES.filter((c) => {
+    return {
+      id: c.id,
+      name: c.name,
+      avatar,
+      avatarBg,
+      statusBadge,
+      isDemo: c.id === 'northside',
+      corridor: c.corridor || `${c.name} · Central District`,
+      description: c.description || `An active community network for ${c.name}.`,
+      members: c.membersCount || c.state?.activeMembers || 12,
+      drivers: c.driversCount || c.state?.drivers || 4,
+      passengers: c.passengersCount || c.state?.passengers || 8,
+      rides: c.state?.rides || 6,
+      category: (c.id === 'eastview' ? 'colleges' : c.status === 'emerging' ? 'emerging' : 'residential') as 'all' | 'colleges' | 'residential' | 'emerging',
+    };
+  });
+
+  const selectedCommunity = communityOptions.find((c) => c.id === selectedId) || communityOptions[0];
+
+  const filteredCommunities = communityOptions.filter((c) => {
     const matchesSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           c.corridor.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesFilter = activeFilter === 'all' || c.category === activeFilter;
@@ -94,6 +66,10 @@ export default function OnboardingCommunity() {
   });
 
   const handleContinue = () => {
+    if (selectedId) {
+      joinCommunity(selectedId);
+      selectCommunity(selectedId);
+    }
     navigate('/onboarding/profile');
   };
 
@@ -433,8 +409,17 @@ export default function OnboardingCommunity() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                if (!newCommName.trim()) return;
+                const newComm = createCommunity({
+                  name: newCommName.trim(),
+                  corridor: newCommCorridor.trim() || `${newCommName.trim()} · Central Corridor`,
+                  description: `A community cluster for ${newCommName.trim()} commuters.`,
+                  location: newCommName.trim(),
+                });
+                setSelectedId(newComm.id);
                 setShowCreateModal(false);
-                setSelectedId('northside');
+                setNewCommName('');
+                setNewCommCorridor('');
               }}
               className="space-y-4"
             >
