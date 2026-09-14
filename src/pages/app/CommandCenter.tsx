@@ -1,53 +1,180 @@
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AlertTriangle, ArrowLeftRight, ArrowRight, Building2, Bus, CalendarDays, CircleDollarSign, Dumbbell, FileText, Flame, MapPin, Network, Radar, Route, Search, Send, SlidersHorizontal, TrendingUp, Wand2, Zap } from 'lucide-react';
+import { AlertTriangle, ArrowLeftRight, ArrowRight, Building2, Bus, CalendarDays, Check, CircleDollarSign, Dumbbell, FileText, Flame, MapPin, Network, Radar, Route, Search, Send, SlidersHorizontal, TrendingUp, Wand2, X, Zap } from 'lucide-react';
 import { useApp } from '../../store/AppContext';
 
 export default function CommandCenter() {
   const navigate = useNavigate();
   const { isActivated, community } = useApp();
 
-  return (
-    <div className="flex flex-col w-full gap-space-lg">
-            {/* TOP HEADER & CONTROLS */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-space-sm">
-                  <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Command Center</h1>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-mono text-label-sm">
-                    <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-                    Updated 2m ago
-                  </span>
-                </div>
-                <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl">
-                  Find where the next community can start.
-                </p>
-              </div>
-              <div className="flex items-center flex-wrap gap-space-sm">
-                <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <SlidersHorizontal className="text-[18px] text-on-surface-variant" />
-                  Filter
-                </button>
-                <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <FileText className="text-[18px] text-on-surface-variant" />
-                  Export
-                </button>
-                <button className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-surface-container-highest hover:text-on-surface transition-all" onClick={() => navigate('/app/ghost-demand')}>
-                  <Radar className="text-[18px] text-secondary-fixed" />
-                  Scan Demand
-                </button>
-              </div>
-            </div>
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'high_score' | 'ready'>('all');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-            {/* 4-METRIC TOP SUMMARY */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
-              {/* KPI 1 */}
-              <div className="flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
-                <div className="flex items-start justify-between">
-                  <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Communities</span>
-                  <span className="flex items-center text-secondary font-mono text-label-sm bg-secondary-container/40 px-2 py-0.5 rounded-full">
-                    +3 this wk
-                  </span>
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleExport = () => {
+    const csvData =
+      'Community,Category,Potential Score,Status,Weekly Growth,Coverage\n' +
+      'Northside Hub,Athletic Club,91,High Potential,+14%,100% Metro\n' +
+      'Bellevue Tech Corridor,Enterprise,88,Activation Ready,+18%,Eastside Hub\n' +
+      'Redmond Commuter Ring,Residential,79,High Potential,+9%,42 Routes\n' +
+      'Kirkland Waterfront,Civic,64,Evaluating,+6%,North Suburbs\n';
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `command-center-communities-${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    setToastMessage('Command Center summary exported as CSV.');
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  return (
+    <div className="flex flex-col w-full gap-space-lg relative">
+      {toastMessage && (
+        <div className="fixed top-20 right-8 z-50 px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-sm shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+          <Check size={16} className="text-secondary-fixed shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* TOP HEADER & CONTROLS */}
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-space-sm">
+            <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Command Center</h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-mono text-label-sm">
+              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+              Updated 2m ago
+            </span>
+          </div>
+          <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+            Find where the next community can start.
+          </p>
+        </div>
+        <div className="flex items-center flex-wrap gap-space-sm">
+          {/* Filter Dropdown */}
+          <div className="relative" ref={filterRef}>
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all font-label-md text-label-md shadow-sm cursor-pointer ${
+                activeFilter !== 'all'
+                  ? 'bg-surface-container-high ring-1 ring-secondary text-secondary font-bold'
+                  : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container'
+              }`}
+            >
+              <SlidersHorizontal className="text-[18px] text-on-surface-variant" />
+              <span>{activeFilter === 'all' ? 'Filter' : 'Filtered'}</span>
+            </button>
+
+            {isFilterOpen && (
+              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl bg-surface-container-lowest shadow-2xl border border-surface-container-high p-2 z-50 animate-in fade-in zoom-in-95">
+                <div className="flex items-center justify-between px-2 py-1.5 border-b border-surface-container mb-1">
+                  <span className="font-label-md text-label-md font-bold text-on-surface">Filter View</span>
+                  {activeFilter !== 'all' && (
+                    <button
+                      onClick={() => {
+                        setActiveFilter('all');
+                        setIsFilterOpen(false);
+                      }}
+                      className="text-xs text-secondary font-semibold hover:underline cursor-pointer flex items-center gap-1"
+                    >
+                      <X size={12} /> Reset
+                    </button>
+                  )}
                 </div>
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => {
+                      setActiveFilter('all');
+                      setIsFilterOpen(false);
+                      setToastMessage('Showing all 24 communities.');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'all' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>All Communities</span>
+                    <span className="font-mono text-xs opacity-75">24</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('high_score');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by High Potential (Score ≥ 75).');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'high_score' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>Score ≥ 75</span>
+                    <span className="font-mono text-xs text-secondary font-semibold">7</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('ready');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by Ready This Week.');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'ready' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>Ready This Week</span>
+                    <span className="font-mono text-xs opacity-75">3</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Export button */}
+          <button
+            onClick={handleExport}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all cursor-pointer"
+          >
+            <FileText className="text-[18px] text-on-surface-variant" />
+            Export
+          </button>
+
+          {/* Scan Demand button */}
+          <button
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-surface-container-highest hover:text-on-surface transition-all cursor-pointer"
+            onClick={() => navigate('/app/ghost-demand')}
+          >
+            <Radar className="text-[18px] text-secondary-fixed" />
+            Scan Demand
+          </button>
+        </div>
+      </div>
+
+      {/* 4-METRIC TOP SUMMARY */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+        {/* KPI 1 */}
+        <div className="flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
+          <div className="flex items-start justify-between">
+            <span className="font-label-sm text-label-sm uppercase tracking-wider text-outline">Communities</span>
+            <span className="flex items-center text-secondary font-mono text-label-sm bg-secondary-container/40 px-2 py-0.5 rounded-full">
+              +3 this wk
+            </span>
+          </div>
                 <div className="flex items-baseline gap-2 my-2">
                   <span className="font-headline-lg text-display-hero text-on-surface tracking-tight">24</span>
                   <span className="font-label-md text-label-md text-on-surface-variant">communities</span>

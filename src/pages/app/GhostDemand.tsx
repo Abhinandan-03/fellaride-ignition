@@ -1,44 +1,205 @@
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AlertTriangle, Armchair, BadgeCheck, Brain, Clock, FileUser, GitBranch, Grid2x2, Network, RefreshCw, SlidersHorizontal, TrendingUp, Users, Zap } from 'lucide-react';
+import { AlertTriangle, Armchair, BadgeCheck, Brain, Check, Clock, FileUser, GitBranch, Grid2x2, Network, RefreshCw, SlidersHorizontal, TrendingUp, Users, X, Zap } from 'lucide-react';
+
+interface DemandCorridor {
+  id: string;
+  name: string;
+  timing: string;
+  riders: number;
+  seats: string;
+  isDeficit: boolean;
+  confidence: number;
+  isWeekend: boolean;
+}
+
+const ALL_CORRIDORS: DemandCorridor[] = [
+  { id: 'c1', name: 'Northside Athletic', timing: 'Saturday · 37 riders', riders: 37, seats: '-25 seats', isDeficit: true, confidence: 87, isWeekend: true },
+  { id: 'c2', name: 'Eastview Civic', timing: 'Sunday · 22 riders', riders: 22, seats: '-12 seats', isDeficit: true, confidence: 79, isWeekend: true },
+  { id: 'c3', name: 'Lakeside Marina', timing: 'Monday · 18 riders', riders: 18, seats: '-8 seats', isDeficit: true, confidence: 81, isWeekend: false },
+  { id: 'c4', name: 'West End Arena', timing: 'Tuesday · 14 riders', riders: 14, seats: 'Balanced', isDeficit: false, confidence: 92, isWeekend: false },
+];
 
 export default function GhostDemand() {
   const navigate = useNavigate();
 
-  return (
-    <div className="flex flex-col w-full gap-space-lg">
-      {/* Top Operational Header */}
-            <section className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md">
-              <div className="flex flex-col gap-space-xs">
-                <div className="flex items-center gap-space-sm">
-                  <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Ghost Demand</h1>
-                  <span className="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold tracking-wide uppercase">
-                    <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
-                    Simulated Engine
-                  </span>
-                </div>
-                <p className="font-body-md text-body-md text-on-surface-variant">
-                  See demand before it appears.
-                </p>
-              </div>
-              <div className="flex items-center gap-space-sm self-stretch lg:self-auto">
-                <button className="flex-1 lg:flex-none flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md">
-                  <SlidersHorizontal className="text-base" />
-                  <span>Filter</span>
-                </button>
-                <button className="flex-1 lg:flex-none flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-all font-label-md text-label-md shadow-sm">
-                  <RefreshCw className="text-base text-secondary-fixed" />
-                  <span>Refresh</span>
-                </button>
-              </div>
-            </section>
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState('Simulated Engine');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'shortage' | 'confidence' | 'weekend'>('all');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-            {/* KPI Cards (4 Cards) */}
-            <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
-              <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
-                <div className="flex items-center justify-between text-on-surface-variant mb-space-sm">
-                  <span className="font-label-md text-label-md uppercase tracking-wider text-outline">Opportunities</span>
-                  <Zap className="text-secondary text-lg" />
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const triggerRefresh = (msg?: string) => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setLastUpdated('Updated just now');
+      setToastMessage(msg || 'Demand signals refreshed across all 4 corridors.');
+      setTimeout(() => setToastMessage(null), 3000);
+    }, 650);
+  };
+
+  useEffect(() => {
+    const handleScanDemand = () => {
+      triggerRefresh('Deep signal scan completed: 4 corridors re-analyzed.');
+    };
+    window.addEventListener('fellaride:scan-demand', handleScanDemand);
+    return () => window.removeEventListener('fellaride:scan-demand', handleScanDemand);
+  }, []);
+
+  const filteredCorridors = ALL_CORRIDORS.filter((item) => {
+    if (activeFilter === 'shortage') return item.isDeficit;
+    if (activeFilter === 'confidence') return item.confidence >= 80;
+    if (activeFilter === 'weekend') return item.isWeekend;
+    return true;
+  });
+
+  return (
+    <div className="flex flex-col w-full gap-space-lg relative">
+      {/* Toast Feedback */}
+      {toastMessage && (
+        <div className="fixed top-20 right-8 z-50 px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-sm shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+          <Check size={16} className="text-secondary-fixed shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Top Operational Header */}
+      <section className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md">
+        <div className="flex flex-col gap-space-xs">
+          <div className="flex items-center gap-space-sm">
+            <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Ghost Demand</h1>
+            <span className="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold tracking-wide uppercase">
+              <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+              {lastUpdated}
+            </span>
+          </div>
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            See demand before it appears.
+          </p>
+        </div>
+        <div className="flex items-center gap-space-sm self-stretch lg:self-auto">
+          {/* Filter with interactive dropdown */}
+          <div className="relative flex-1 lg:flex-none" ref={filterRef}>
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className={`w-full flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg transition-all font-label-md text-label-md cursor-pointer ${
+                activeFilter !== 'all'
+                  ? 'bg-surface-container-high ring-1 ring-secondary text-secondary font-bold'
+                  : 'bg-surface-container text-on-surface hover:bg-surface-container-high'
+              }`}
+            >
+              <SlidersHorizontal className="text-base" />
+              <span>{activeFilter === 'all' ? 'Filter' : `Filter (${filteredCorridors.length})`}</span>
+            </button>
+
+            {isFilterOpen && (
+              <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-surface-container-lowest shadow-2xl border border-surface-container-high p-2 z-50 animate-in fade-in zoom-in-95">
+                <div className="flex items-center justify-between px-2 py-1.5 border-b border-surface-container mb-1">
+                  <span className="font-label-md text-label-md font-bold text-on-surface">Filter Corridors</span>
+                  {activeFilter !== 'all' && (
+                    <button
+                      onClick={() => {
+                        setActiveFilter('all');
+                        setIsFilterOpen(false);
+                      }}
+                      className="text-xs text-secondary font-semibold hover:underline cursor-pointer flex items-center gap-1"
+                    >
+                      <X size={12} /> Reset
+                    </button>
+                  )}
                 </div>
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => {
+                      setActiveFilter('all');
+                      setIsFilterOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'all' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>All Corridors</span>
+                    <span className="font-mono text-xs opacity-75">4</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('shortage');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by Deficit Corridors');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'shortage' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>Seat Shortages Only</span>
+                    <span className="font-mono text-xs text-error font-semibold">-25 to -8</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('confidence');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by High Confidence (≥80%)');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'confidence' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>High Confidence (≥80%)</span>
+                    <span className="font-mono text-xs opacity-75">3</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('weekend');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by Weekend Events');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'weekend' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>Weekend Peaks</span>
+                    <span className="font-mono text-xs opacity-75">2</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Refresh button with interactive spin and toast */}
+          <button
+            onClick={() => triggerRefresh()}
+            disabled={isRefreshing}
+            className="flex-1 lg:flex-none flex items-center justify-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-all font-label-md text-label-md shadow-sm cursor-pointer disabled:opacity-75"
+          >
+            <RefreshCw className={`text-base text-secondary-fixed ${isRefreshing ? 'animate-spin' : ''}`} />
+            <span>{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
+          </button>
+        </div>
+      </section>
+
+      {/* KPI Cards (4 Cards) */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+        <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between text-on-surface-variant mb-space-sm">
+            <span className="font-label-md text-label-md uppercase tracking-wider text-outline">Opportunities</span>
+            <Zap className="text-secondary text-lg" />
+          </div>
                 <div className="flex items-baseline gap-space-sm">
                   <span className="font-headline-lg text-headline-lg font-bold text-on-surface">12</span>
                   <span className="inline-flex items-center text-secondary font-label-sm text-label-sm font-semibold">
@@ -401,30 +562,33 @@ export default function GhostDemand() {
                 <div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
                   <div className="flex items-center justify-between">
                     <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">Upcoming Demand</h3>
-                    <span className="font-label-sm text-label-sm font-bold text-outline uppercase">3 Routes</span>
+                    <span className="font-label-sm text-label-sm font-bold text-outline uppercase">
+                      {filteredCorridors.length} {filteredCorridors.length === 1 ? 'Route' : 'Routes'}
+                    </span>
                   </div>
                   <div className="flex flex-col gap-space-sm">
-                    <div className="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <span className="font-label-md text-label-md font-semibold text-on-surface">Eastview Civic</span>
-                        <span className="font-body-sm text-body-sm text-on-surface-variant">Sunday · 22 riders</span>
+                    {filteredCorridors.map((corridor) => (
+                      <div key={corridor.id} className="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between hover:bg-surface-container transition-colors">
+                        <div className="flex flex-col">
+                          <span className="font-label-md text-label-md font-semibold text-on-surface">{corridor.name}</span>
+                          <span className="font-body-sm text-body-sm text-on-surface-variant">{corridor.timing}</span>
+                        </div>
+                        <span
+                          className={`px-2 py-0.5 rounded font-mono text-label-sm font-semibold ${
+                            corridor.isDeficit
+                              ? 'bg-error-container text-on-error-container'
+                              : 'bg-secondary-container text-on-secondary-container'
+                          }`}
+                        >
+                          {corridor.seats}
+                        </span>
                       </div>
-                      <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono text-label-sm">-12 seats</span>
-                    </div>
-                    <div className="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <span className="font-label-md text-label-md font-semibold text-on-surface">Lakeside Marina</span>
-                        <span className="font-body-sm text-body-sm text-on-surface-variant">Monday · 18 riders</span>
+                    ))}
+                    {filteredCorridors.length === 0 && (
+                      <div className="p-4 text-center text-sm text-on-surface-variant font-body-sm bg-surface-container-low rounded-lg">
+                        No corridors match the selected filter.
                       </div>
-                      <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono text-label-sm">-8 seats</span>
-                    </div>
-                    <div className="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <span className="font-label-md text-label-md font-semibold text-on-surface">West End Arena</span>
-                        <span className="font-body-sm text-body-sm text-on-surface-variant">Tuesday · 14 riders</span>
-                      </div>
-                      <span className="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-mono text-label-sm">Balanced</span>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>

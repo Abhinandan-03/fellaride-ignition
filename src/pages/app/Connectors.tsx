@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ArrowRight, BadgeCheck, Brain, Building, CheckCircle2, Crown, Flame, MapPin, Network, RefreshCw, Search, Send, SlidersHorizontal, UserPlus, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { CANONICAL_CONNECTOR } from '../../store/mockData';
@@ -152,39 +152,140 @@ export default function Connectors() {
   const [selectedId, setSelectedId] = useState('alex');
   const [contacted, setContacted] = useState<string | null>(null);
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'high_reach' | 'high_trust'>('all');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const triggerRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setToastMessage('Connector rankings refreshed: 38 active catalysts.');
+      setTimeout(() => setToastMessage(null), 3000);
+    }, 600);
+  };
+
   const selectedCandidate = CANDIDATES.find(c => c.id === selectedId) || CANDIDATES[0];
 
   return (
-    <div className="flex flex-col w-full gap-space-lg">
+    <div className="flex flex-col w-full gap-space-lg relative">
+      {toastMessage && (
+        <div className="fixed top-20 right-8 z-50 px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-sm shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+          <CheckCircle2 size={16} className="text-secondary shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
       {/* TOP HEADER SECTION */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-space-sm">
-                  <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wider">Top Candidates</span>
-                  <span className="font-mono text-mono text-on-surface-variant flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                    Updated just now
-                  </span>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-space-sm">
+            <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wider">Top Candidates</span>
+            <span className="font-mono text-mono text-on-surface-variant flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              {isRefreshing ? 'Refreshing...' : 'Updated just now'}
+            </span>
+          </div>
+          <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Connector Intelligence</h1>
+          <p className="font-body-md text-body-md text-on-surface-variant">Find the people who can start the network.</p>
+        </div>
+        <div className="flex items-center gap-space-sm self-start md:self-auto">
+          <button
+            onClick={triggerRefresh}
+            disabled={isRefreshing}
+            className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all cursor-pointer disabled:opacity-75"
+          >
+            <RefreshCw className={`text-base text-secondary ${isRefreshing ? 'animate-spin' : ''}`} />
+            <span>{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
+          </button>
+
+          {/* Filter with dropdown */}
+          <div className="relative" ref={filterRef}>
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className={`flex items-center gap-space-xs px-space-md py-2 rounded-lg font-label-md text-label-md shadow-sm transition-all cursor-pointer ${
+                activeFilter !== 'all'
+                  ? 'bg-surface-container-high ring-1 ring-secondary text-secondary font-bold'
+                  : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container'
+              }`}
+            >
+              <SlidersHorizontal className="text-base text-outline" />
+              <span>{activeFilter === 'all' ? 'Filter' : 'Filtered'}</span>
+            </button>
+
+            {isFilterOpen && (
+              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl bg-surface-container-lowest shadow-2xl border border-surface-container-high p-2 z-50 animate-in fade-in zoom-in-95">
+                <div className="flex items-center justify-between px-2 py-1.5 border-b border-surface-container mb-1">
+                  <span className="font-label-md text-label-md font-bold text-on-surface">Filter Connectors</span>
                 </div>
-                <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Connector Intelligence</h1>
-                <p className="font-body-md text-body-md text-on-surface-variant">Find the people who can start the network.</p>
-              </div>
-              <div className="flex items-center gap-space-sm self-start md:self-auto">
-                <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <RefreshCw className="text-base text-secondary" />
-                  <span>Refresh</span>
-                </button>
-                <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <SlidersHorizontal className="text-base text-outline" />
-                  <span>Filter</span>
-                </button>
-                <div className="hidden sm:flex items-center px-space-sm py-2 rounded-lg bg-surface-container-high text-on-surface-variant font-mono text-mono">
-                  <span className="text-secondary font-semibold">38</span>
-                  <span className="mx-1">/</span>
-                  <span>540 Scanned</span>
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => {
+                      setActiveFilter('all');
+                      setIsFilterOpen(false);
+                      setToastMessage('Showing all candidate connectors.');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'all' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>All Candidates</span>
+                    <span className="font-mono text-xs opacity-75">3</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('high_reach');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by High Reach (Score ≥ 90).');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'high_reach' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>High Reach (≥90)</span>
+                    <span className="font-mono text-xs text-secondary font-semibold">2</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('high_trust');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by Verified Trust Champions.');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'high_trust' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>Trust Champions</span>
+                    <span className="font-mono text-xs opacity-75">1</span>
+                  </button>
                 </div>
               </div>
-            </div>
+            )}
+          </div>
+
+          <div className="hidden sm:flex items-center px-space-sm py-2 rounded-lg bg-surface-container-high text-on-surface-variant font-mono text-mono">
+            <span className="text-secondary font-semibold">38</span>
+            <span className="mx-1">/</span>
+            <span>540 Scanned</span>
+          </div>
+        </div>
+      </div>
 
             {/* TOP KPI CARDS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">

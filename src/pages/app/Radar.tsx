@@ -1,38 +1,173 @@
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, ChevronRight, Clock, ListFilter, LocateFixed, MapPin, Minus, Network, Plus, RefreshCw, Search, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, Check, CheckCircle2, ChevronRight, Clock, ListFilter, LocateFixed, MapPin, Minus, Network, Plus, RefreshCw, Search, ShieldCheck, X, Zap } from 'lucide-react';
 
 export default function Radar() {
   const navigate = useNavigate();
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'prime' | 'developing'>('all');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const triggerRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setToastMessage('Radar intelligence updated across 24 zones.');
+      setTimeout(() => setToastMessage(null), 3000);
+    }, 600);
+  };
+
+  const handleExport = () => {
+    const csvData =
+      'Zone,Community,Readiness Score,Active Corridors,Status\n' +
+      'Northside Athletic Hub,Northside,91,6 Corridors,Prime Target\n' +
+      'Bellevue Downtown Hub,Bellevue,88,8 Corridors,Prime Target\n' +
+      'Redmond Innovation Center,Redmond,79,5 Corridors,Developing\n' +
+      'Kirkland Civic Center,Kirkland,64,3 Corridors,Developing\n';
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `radar-intelligence-zones-${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    setToastMessage('Radar intelligence exported as CSV.');
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
   return (
-    <div className="flex flex-col w-full gap-space-lg">
-            {/* TOP HEADER & CONTROLS */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
-              <div className="flex flex-col">
-                <div className="flex items-center gap-space-xs text-on-surface-variant font-label-sm uppercase tracking-wider mb-1">
-                  <span>Discover</span>
-                  <ChevronRight className="text-xs" />
-                  <span className="text-secondary font-bold">Community Radar</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary ml-1 animate-pulse"></span>
+    <div className="flex flex-col w-full gap-space-lg relative">
+      {toastMessage && (
+        <div className="fixed top-20 right-8 z-50 px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-sm shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+          <Check size={16} className="text-secondary-fixed shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* TOP HEADER & CONTROLS */}
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+        <div className="flex flex-col">
+          <div className="flex items-center gap-space-xs text-on-surface-variant font-label-sm uppercase tracking-wider mb-1">
+            <span>Discover</span>
+            <ChevronRight className="text-xs" />
+            <span className="text-secondary font-bold">Community Radar</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-secondary ml-1 animate-pulse"></span>
+          </div>
+          <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Community Radar</h1>
+          <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">Find communities ready to start ride networks.</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-space-sm">
+          <div className="hidden sm:flex items-center gap-space-xs px-3 py-1.5 bg-surface-container rounded-lg text-on-surface-variant font-mono text-mono">
+            <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+            <span className="text-on-surface font-semibold">{isRefreshing ? 'Scanning...' : 'Updated just now'}</span>
+          </div>
+
+          {/* Filter Dropdown */}
+          <div className="relative" ref={filterRef}>
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              aria-label="Filter Map Intel"
+              className={`flex items-center gap-space-xs px-space-md py-2 rounded-lg font-label-md text-label-md shadow-sm transition-all cursor-pointer ${
+                activeFilter !== 'all'
+                  ? 'bg-surface-container-high ring-1 ring-secondary text-secondary font-bold'
+                  : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container'
+              }`}
+            >
+              <ListFilter className="text-base text-secondary" />
+              <span>{activeFilter === 'all' ? 'Filter' : 'Filtered'}</span>
+            </button>
+
+            {isFilterOpen && (
+              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl bg-surface-container-lowest shadow-2xl border border-surface-container-high p-2 z-50 animate-in fade-in zoom-in-95">
+                <div className="flex items-center justify-between px-2 py-1.5 border-b border-surface-container mb-1">
+                  <span className="font-label-md text-label-md font-bold text-on-surface">Radar Filter</span>
+                  {activeFilter !== 'all' && (
+                    <button
+                      onClick={() => {
+                        setActiveFilter('all');
+                        setIsFilterOpen(false);
+                      }}
+                      className="text-xs text-secondary font-semibold hover:underline cursor-pointer flex items-center gap-1"
+                    >
+                      <X size={12} /> Reset
+                    </button>
+                  )}
                 </div>
-                <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Community Radar</h1>
-                <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">Find communities ready to start ride networks.</p>
-              </div>
-              <div className="flex flex-wrap items-center gap-space-sm">
-                <div className="hidden sm:flex items-center gap-space-xs px-3 py-1.5 bg-surface-container rounded-lg text-on-surface-variant font-mono text-mono">
-                  <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
-                  <span className="text-on-surface font-semibold">Updated just now</span>
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => {
+                      setActiveFilter('all');
+                      setIsFilterOpen(false);
+                      setToastMessage('Showing all 24 radar communities.');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'all' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>All Communities</span>
+                    <span className="font-mono text-xs opacity-75">24</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('prime');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by Prime Target (Score ≥ 85).');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'prime' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>Prime Target</span>
+                    <span className="font-mono text-xs text-secondary font-semibold">7</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter('developing');
+                      setIsFilterOpen(false);
+                      setToastMessage('Filtered by Developing Zones.');
+                      setTimeout(() => setToastMessage(null), 2500);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm cursor-pointer transition-colors ${
+                      activeFilter === 'developing' ? 'bg-secondary-container text-on-secondary-container font-bold' : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>Developing Zones</span>
+                    <span className="font-mono text-xs opacity-75">17</span>
+                  </button>
                 </div>
-                <button aria-label="Filter Map Intel" className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all">
-                  <ListFilter className="text-base text-secondary" />
-                  <span>Filter</span>
-                </button>
-                <button className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-inverse-surface transition-all">
-                  <RefreshCw className="text-base" />
-                  <span>Refresh</span>
-                </button>
               </div>
-            </div>
+            )}
+          </div>
+
+          {/* Refresh Button */}
+          <button
+            onClick={triggerRefresh}
+            disabled={isRefreshing}
+            className="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-inverse-surface transition-all cursor-pointer disabled:opacity-75"
+          >
+            <RefreshCw className={`text-base ${isRefreshing ? 'animate-spin' : ''}`} />
+            <span>{isRefreshing ? 'Scanning...' : 'Refresh'}</span>
+          </button>
+        </div>
+      </div>
 
             {/* 4 COMPACT KPI CARDS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
@@ -400,10 +535,19 @@ export default function Radar() {
                       <ArrowRight className="text-base" />
                     </button>
                     <div className="grid grid-cols-2 gap-2">
-                      <button className="py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all text-center cursor-pointer">
+                      <button
+                        onClick={() => {
+                          setToastMessage('Comparing Northside Hub with 3 adjacent zones.');
+                          setTimeout(() => setToastMessage(null), 2500);
+                        }}
+                        className="py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all text-center cursor-pointer"
+                      >
                         Compare
                       </button>
-                      <button className="py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all text-center cursor-pointer">
+                      <button
+                        onClick={handleExport}
+                        className="py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all text-center cursor-pointer"
+                      >
                         Export
                       </button>
                     </div>
